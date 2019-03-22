@@ -22,3 +22,7 @@ app.get("*", (req, res) => {
 app.listen(PORT, () => {
   console.log(`🌎 ==> API server now on port ${PORT}!`);
 });
+
+process.argv.forEach((val, index) => {
+  console.log(`${index}: ${val}`);
+});
