@@ -33,3 +33,9 @@ db.sequelize.sync().then( () => {
   });
 });
 
+<<<<<<< HEAD
+=======
+process.argv.forEach((val, index) => {
+  console.log(`${index}: ${val}`);
+});
+>>>>>>> cd1957352de87375fdc2692dc334cc4474dd9114
