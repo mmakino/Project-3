@@ -2,7 +2,7 @@ const session = require("express-session");
 const passport = require("passport");
 const LocalStrategy = require("passport-local").Strategy;
 const bcrypt = require("bcryptjs");
-const db = require("../models");
+const db = require("../db/models");
 
 //
 // Setup for user authentication and session
@@ -79,7 +79,7 @@ class UserAuth {
       },
       (email, password, done) => {
         // Search the email address in the database
-        db.User.findOne({
+        db.UserTable.findOne({
             where: {
               email: email
             }
@@ -113,7 +113,7 @@ class UserAuth {
 
     // De-serialize the user session
     passport.deserializeUser(function (id, done) {
-      db.User.findByPk(id)
+      db.UserTable.findByPk(id)
         .then(user => {
           console.log(`User ${user.name} [ID: ${user.id}] logged in`);
           done(null, user);

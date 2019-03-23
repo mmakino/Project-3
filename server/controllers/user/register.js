@@ -3,7 +3,7 @@
 //
 
 // Bring in express
-const db = require("../../models");
+const db = require("../../db/models");
 const bcrypt = require("bcryptjs");
 
 module.exports = {
@@ -12,7 +12,7 @@ module.exports = {
 
     if (validatePassword(req, errors)) {
       // Check if the email address is already registered
-      db.User.findOne({
+      db.UserTable.findOne({
           where: {
             email: req.body.email
           }
@@ -32,7 +32,7 @@ module.exports = {
                 if (err) throw err;
     
                 newUser.password = hash;
-                db.User.create(newUser)
+                db.UserTable.create(newUser)
                   .then(user => {
                     // auto-login
                     req.login(user, err => {

@@ -18,6 +18,7 @@ router.get("/login", (req, res) => {
 // POST: User Login
 router.post("/login", (req, res, next) => {
 	user.authenticate(req, res, next);
+	// res.send({"msg": "User login successful"});
 });
 
 // GET: User Logout

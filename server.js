@@ -2,6 +2,15 @@ const express = require("express");
 const path = require("path");
 const PORT = process.env.PORT || 3001;
 const app = express();
+const db = require("./server/db/models");
+const httpServer = require("http").Server(app);
+const bodyParser = require("body-parser");
+
+//For BodyParser
+app.use(bodyParser.urlencoded({
+  extended: true
+}));
+app.use(bodyParser.json());
 
 const apiUser = require("./server/routes/api/user/login");
 const apiUserReg = require("./server/routes/api/user/register");
@@ -29,6 +38,6 @@ app.get("*", (req, res) => {
   res.sendFile(path.join(__dirname, "./client/build/index.html"));
 });
 
-app.listen(PORT, () => {
-  console.log(`🌎 ==> API server now on port ${PORT}!`);
+db.sequelize.sync().then(() => {
+  httpServer.listen(PORT, console.log(`Server listening on PORT ${PORT}`));
 });
