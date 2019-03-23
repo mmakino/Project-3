@@ -1,8 +1,26 @@
 {
-  "name": "mern",
+  "name": "project-3",
   "version": "1.0.0",
-  "description": "Mern Demo",
+  "description": "Bar inventory app",
   "main": "server.js",
+  "dependencies": {
+    "bcryptjs": "^2.4.3",
+    "dotenv": "^7.0.0",
+    "express": "^4.16.3",
+    "express-session": "^1.15.6",
+    "if-env": "^1.0.4",
+    "mysql2": "^1.6.5",
+    "passport": "^0.4.0",
+    "passport-local": "^1.0.0",
+    "sequelize": "^5.1.0",
+    "axios": "^0.18.0",
+    "body-parser": "^1.18.3",
+    "react-bootstrap": "^1.0.0-beta.6"
+  },
+  "devDependencies": {
+    "concurrently": "^4.1.0",
+    "nodemon": "^1.18.7"
+  },
   "scripts": {
     "start": "if-env NODE_ENV=production && npm run start:prod || npm run start:dev",
     "start:prod": "node server.js",
@@ -12,21 +30,14 @@
     "build": "cd client && npm run build",
     "heroku-postbuild": "npm run build"
   },
-  "author": "",
-  "license": "ISC",
-  "devDependencies": {
-    "concurrently": "^4.1.0",
-    "nodemon": "^1.18.7"
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/jenaym/Project-3.git"
   },
-  "dependencies": {
-    "axios": "^0.18.0",
-    "body-parser": "^1.18.3",
-    "dotenv": "^7.0.0",
-    "express": "^4.16.3",
-    "if-env": "^1.0.4",
-    "mysql": "^2.16.0",
-    "mysql2": "^1.6.5",
-    "react-bootstrap": "^1.0.0-beta.6",
-    "sequelize": "^5.1.0"
-  }
+  "author": "birds of fright",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/jenaym/Project-3/issues"
+  },
+  "homepage": "https://github.com/jenaym/Project-3#readme"
 }
