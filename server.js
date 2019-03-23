@@ -31,3 +31,5 @@ app.get("*", (req, res) => {
 db.sequelize.sync().then(() => {
   httpServer.listen(PORT, console.log(`Server listening on PORT ${PORT}`));
 });
+
+
