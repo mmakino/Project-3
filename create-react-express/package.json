@@ -24,5 +24,6 @@
     "if-env": "^1.0.4",
     "mongoose": "^5.4.19",
     "react-bootstrap": "^1.0.0-beta.6"
-  }
+  },
+  "keywords": []
 }
