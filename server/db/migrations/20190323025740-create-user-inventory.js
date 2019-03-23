@@ -17,6 +17,10 @@ module.exports = {
       brandStyle: {
         type: Sequelize.STRING
       },
+      costPerBottle: {
+        type: Sequelize.DECIMAL(10,2),
+        allowNull: false,
+      },
       sizeML: {
         type: Sequelize.DECIMAL(10,2),
         allowNull: false,
