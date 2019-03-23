@@ -3,8 +3,8 @@ module.exports = (sequelize, DataTypes) => {
   const Alcohol = sequelize.define('Alcohol', {
     type: DataTypes.STRING,
     brandStyle: DataTypes.STRING,
-    bottleSize: DataTypes.INTEGER,
-    gramsPerBottle: DataTypes.INTEGER,
+    sizeML: DataTypes.DECIMAL(10,2),
+    sizeOZ: DataTypes.DECIMAL(10,2),
     emptyBottleWeight: DataTypes.INTEGER,
     gramsPerOunce: DataTypes.INTEGER
   }, {});

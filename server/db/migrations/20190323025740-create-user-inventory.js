@@ -1,7 +1,7 @@
 'use strict';
 module.exports = {
   up: (queryInterface, Sequelize) => {
-    return queryInterface.createTable('UserInventories', {
+    return queryInterface.createTable('UserInventory', {
       id: {
         allowNull: false,
         autoIncrement: true,
@@ -17,21 +17,25 @@ module.exports = {
       brandStyle: {
         type: Sequelize.STRING
       },
-      size: {
-        type: Sequelize.INTEGER,
+      sizeML: {
+        type: Sequelize.DECIMAL(10,2),
+        allowNull: false,
+      },
+      sizeOZ: {
+        type: Sequelize.DECIMAL(10,2),
         allowNull: false,
       },
       percentBottleRemaining: {
+        type: Sequelize.DECIMAL(10,2),
+      },
+      currentValueOfBottle: {
+        type: Sequelize.DECIMAL(10,2),
+      },
+      totalFullBottles: {
         type: Sequelize.INTEGER
       },
-      currentBottleValue: {
-        type: Sequelize.INTEGER
-      },
-      fullBottleCount: {
-        type: Sequelize.INTEGER
-      },
-      totalCost: {
-        type: Sequelize.INTEGER
+      totalInventoryValue: {
+        type: Sequelize.DECIMAL(10,2),
       },
       createdAt: {
         allowNull: false,
@@ -46,6 +50,6 @@ module.exports = {
     });
   },
   down: (queryInterface, Sequelize) => {
-    return queryInterface.dropTable('UserInventories');
+    return queryInterface.dropTable('UserInventory');
   }
 };
