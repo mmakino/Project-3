@@ -16,18 +16,19 @@ module.exports = {
         type: Sequelize.STRING,
         allowNull: false,
       },
-      bottleSize: {
-        type: Sequelize.STRING,
+      sizeML: {
+        type: Sequelize.DECIMAL(10,2),
         allowNull: false,
       },
-      gramsPerBottle: {
-        type: Sequelize.INTEGER
+      sizeOZ: {
+        type: Sequelize.DECIMAL(10,2),
+        allowNull: false,
       },
       emptyBottleWeight: {
         type: Sequelize.INTEGER
       },
       gramsPerOunce: {
-        type: Sequelize.INTEGER
+        type: Sequelize.DECIMAL(10,2),
       },
       createdAt: {
         allowNull: false,

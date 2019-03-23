@@ -4,11 +4,12 @@ module.exports = (sequelize, DataTypes) => {
     userId: DataTypes.INTEGER,
     type: DataTypes.STRING,
     brandStyle: DataTypes.STRING,
-    size: DataTypes.INTEGER,
-    percentBottleRemaining: DataTypes.INTEGER,
-    currentBottleValue: DataTypes.INTEGER,
-    fullBottleCount: DataTypes.INTEGER,
-    totalCost: DataTypes.INTEGER,
+    sizeML: DataTypes.DECIMAL(10,2),
+    sizeOZ: DataTypes.DECIMAL(10,2),
+    percentBottleRemaining: DataTypes.DECIMAL(10,2),
+    currentValueOfBottle: DataTypes.DECIMAL(10,2),
+    totalFullBottles: DataTypes.INTEGER,
+    totalInventoryValue: DataTypes.DECIMAL(10,2),
     createdAt: DataTypes.DATE
   }, {});
   UserInventory.associate = function(models) {
