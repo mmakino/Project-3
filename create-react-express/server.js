@@ -2,6 +2,14 @@ const express = require("express");
 const path = require("path");
 const PORT = process.env.PORT || 3001;
 const app = express();
+const db = require("./client/models");
+const bodyParser = require("body-parser");
+
+//For BodyParser
+app.use(bodyParser.urlencoded({
+  extended: true
+}));
+app.use(bodyParser.json());
 
 // Define middleware here
 app.use(express.urlencoded({ extended: true }));
@@ -19,10 +27,9 @@ app.get("*", (req, res) => {
   res.sendFile(path.join(__dirname, "./client/build/index.html"));
 });
 
-app.listen(PORT, () => {
-  console.log(`🌎 ==> API server now on port ${PORT}!`);
+db.sequelize.sync().then( () => {
+  app.listen(PORT, () => {
+    console.log(`🌎 ==> API server now on port ${PORT}!`);
+  });
 });
 
-process.argv.forEach((val, index) => {
-  console.log(`${index}: ${val}`);
-});
