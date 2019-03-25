@@ -1,9 +1,8 @@
-import React, { Component } from "react";
-import "./App.css";
-import FormComponent from "./FormComponent/FormComponent";
-import './FormComponent/FormComponent.css';
-import LoginComponent from "./LoginComponent/LoginComponent"
-
+import React, { Component, Fragment } from "react";
+import './App.css';
+import LiquidAssets from './LiquidAssets'
+import NavbarComponent from './NavbarComponent'
+import { Grid } from '@material-ui/core';
 
 class App extends Component {
   state = {
@@ -21,7 +20,11 @@ class App extends Component {
 
     return (
       <div className="App">
-        <FormComponent />
+
+        <NavbarComponent />
+
+        <LiquidAssets />
+
       </div>
     );
   }

@@ -4,7 +4,9 @@
   "description": "Bar inventory app",
   "main": "server.js",
   "dependencies": {
+    "axios": "^0.18.0",
     "bcryptjs": "^2.4.3",
+    "body-parser": "^1.18.3",
     "dotenv": "^7.0.0",
     "express": "^4.16.3",
     "express-session": "^1.15.6",
@@ -12,10 +14,8 @@
     "mysql2": "^1.6.5",
     "passport": "^0.4.0",
     "passport-local": "^1.0.0",
-    "sequelize": "^5.1.0",
-    "axios": "^0.18.0",
-    "body-parser": "^1.18.3",
-    "react-bootstrap": "^1.0.0-beta.6"
+    "react-bootstrap": "^1.0.0-beta.6",
+    "sequelize": "^5.1.0"
   },
   "devDependencies": {
     "concurrently": "^4.1.0",
