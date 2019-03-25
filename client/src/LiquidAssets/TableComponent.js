@@ -169,17 +169,17 @@ MuiVirtualizedTable.defaultProps = {
 const WrappedVirtualizedTable = withStyles(styles)(MuiVirtualizedTable);
 
 const data = [
-    ['Frozen yoghurt', 159, 6.0, 24, 4.0],
-    ['Ice cream sandwich', 237, 9.0, 37, 4.3],
-    ['Eclair', 262, 16.0, 24, 6.0],
-    ['Cupcake', 305, 3.7, 67, 4.3],
-    ['Gingerbread', 356, 16.0, 49, 3.9],
+    ['Scotch', 'Glenlivet 18yr', 750, 25.36, 77.84, 15.36, 0.605, 3.07, 47.15, 2.605, 202.77],
+    ['Scotch', 'Glenlivet 18yr', 750, 25.36, 77.84, 15.36, 0.605, 3.07, 47.15, 2.605, 202.77],
+    ['Scotch', 'Glenlivet 18yr', 750, 25.36, 77.84, 15.36, 0.605, 3.07, 47.15, 2.605, 202.77],
+    ['Scotch', 'Glenlivet 18yr', 750, 25.36, 77.84, 15.36, 0.605, 3.07, 47.15, 2.605, 202.77],
+    ['Scotch', 'Glenlivet 18yr', 750, 25.36, 77.84, 15.36, 0.605, 3.07, 47.15, 2.605, 202.77],
 ];
 
 let id = 0;
-function createData(dessert, calories, fat, carbs, protein) {
+function createData(type, brandStyle, bottleSizeML, bottleSizeOZ, bottleCost, ozLeft, percentLeft, costPerOZ, openBottleValue, totalBottlesPerBrandStyle, totalValuePerBrandStyle) {
     id += 1;
-    return { id, dessert, calories, fat, carbs, protein };
+    return { id, type, brandStyle, bottleSizeML, bottleSizeOZ, bottleCost, ozLeft, percentLeft, costPerOZ, openBottleValue, totalBottlesPerBrandStyle, totalValuePerBrandStyle };
 }
 
 const rows = [];
@@ -202,28 +202,58 @@ function ReactVirtualizedTable() {
                             {
                                 width: 200,
                                 flexGrow: 1.0,
-                                label: 'Dessert',
-                                dataKey: 'dessert',
+                                label: 'Alcohol Type',
+                                dataKey: 'type',
                             },
                             {
                                 width: 120,
-                                label: 'Calories (g)',
-                                dataKey: 'calories',
+                                label: 'Brand/Style',
+                                dataKey: 'brandStyle',
                                 numeric: true,
                             },
                             {
                                 width: 120,
-                                label: 'Fat (g)',
-                                dataKey: 'fat',
+                                label: 'Size mL',
+                                dataKey: 'bottleSizeML',
                                 numeric: true,
                             },
                             {
                                 width: 120,
-                                label: 'Carbs (g)',
-                                dataKey: 'carbs',
+                                label: 'Oz Per Bottle',
+                                dataKey: 'bottleSizeOZ',
                                 numeric: true,
                             },
                             {
+                                width: 120,
+                                label: 'Protein (g)',
+                                dataKey: 'protein',
+                                numeric: true,
+                            },
+                                width: 120,
+                                label: 'Protein (g)',
+                                dataKey: 'protein',
+                                numeric: true,
+                            },
+                                width: 120,
+                                label: 'Protein (g)',
+                                dataKey: 'protein',
+                                numeric: true,
+                            },
+                                width: 120,
+                                label: 'Protein (g)',
+                                dataKey: 'protein',
+                                numeric: true,
+                            },
+                                width: 120,
+                                label: 'Protein (g)',
+                                dataKey: 'protein',
+                                numeric: true,
+                            },
+                                width: 120,
+                                label: 'Protein (g)',
+                                dataKey: 'protein',
+                                numeric: true,
+                            },
                                 width: 120,
                                 label: 'Protein (g)',
                                 dataKey: 'protein',
