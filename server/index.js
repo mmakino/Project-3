@@ -44,3 +44,5 @@ app.use("/api/inventory", apiInventory);
 db.sequelize.sync().then(() => {
   httpServer.listen(PORT, console.log(`Server listening on PORT ${PORT}`));
 });
+
+
