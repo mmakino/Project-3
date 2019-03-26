@@ -31,14 +31,14 @@ const styles = theme => ({
 });
 
 const nateStyles = {
+
     gridContainer: {
         marginTop: 30,
-        marginLeft: 30,
         marginRight:20,
         padding:40,
     },
     paper: {
-        height: 535,
+        height: 800,
         marginRight: 30
     }
 }
@@ -169,17 +169,17 @@ MuiVirtualizedTable.defaultProps = {
 const WrappedVirtualizedTable = withStyles(styles)(MuiVirtualizedTable);
 
 const data = [
-    ['Frozen yoghurt', 159, 6.0, 24, 4.0],
-    ['Ice cream sandwich', 237, 9.0, 37, 4.3],
-    ['Eclair', 262, 16.0, 24, 6.0],
-    ['Cupcake', 305, 3.7, 67, 4.3],
-    ['Gingerbread', 356, 16.0, 49, 3.9],
+    ['Scotch', 'Glenlivet 18yr', 750, 25.36, 77.84, 15.36, 0.605, 3.07, 47.15, 2.605, 202.77],
+    // ['Scotch', 'Glenlivet 18yr', 750, 25.36, 77.84, 15.36, 0.605, 3.07, 47.15, 2.605, 202.77],
+    // ['Scotch', 'Glenlivet 18yr', 750, 25.36, 77.84, 15.36, 0.605, 3.07, 47.15, 2.605, 202.77],
+    // ['Scotch', 'Glenlivet 18yr', 750, 25.36, 77.84, 15.36, 0.605, 3.07, 47.15, 2.605, 202.77],
+    // ['Scotch', 'Glenlivet 18yr', 750, 25.36, 77.84, 15.36, 0.605, 3.07, 47.15, 2.605, 202.77],
 ];
 
 let id = 0;
-function createData(dessert, calories, fat, carbs, protein) {
+function createData(type, brandStyle, bottleSizeML, bottleSizeOZ, bottleCost, ozLeft, percentLeft, costPerOZ, openBottleValue, totalBottlesPerBrandStyle, totalValuePerBrandStyle) {
     id += 1;
-    return { id, dessert, calories, fat, carbs, protein };
+    return { id, type, brandStyle, bottleSizeML, bottleSizeOZ, bottleCost, ozLeft, percentLeft, costPerOZ, openBottleValue, totalBottlesPerBrandStyle, totalValuePerBrandStyle };
 }
 
 const rows = [];
@@ -189,7 +189,7 @@ for (let i = 0; i < 200; i += 1) {
     rows.push(createData(...randomSelection));
 }
 
-function ReactVirtualizedTable() {
+function ReactVirtualizedTable (props) {
     return (
         <Grid container style={nateStyles.gridContainer}>
             <Grid item xs>
@@ -202,33 +202,58 @@ function ReactVirtualizedTable() {
                             {
                                 width: 200,
                                 flexGrow: 1.0,
-                                label: 'Dessert',
-                                dataKey: 'dessert',
-                            },
-                            {
+                                label: 'Alcohol Type',
+                                dataKey: 'type',
+                            },{
+                                width: 200,
+                                label: 'Brand/Style',
+                                dataKey: 'brandStyle',
+                            },{
                                 width: 120,
-                                label: 'Calories (g)',
-                                dataKey: 'calories',
+                                label: 'Size mL',
+                                dataKey: 'bottleSizeML',
                                 numeric: true,
-                            },
-                            {
+                            },{
                                 width: 120,
-                                label: 'Fat (g)',
-                                dataKey: 'fat',
+                                label: 'Oz Per Bottle',
+                                dataKey: 'bottleSizeOZ',
                                 numeric: true,
-                            },
-                            {
+                            },{
                                 width: 120,
-                                label: 'Carbs (g)',
-                                dataKey: 'carbs',
+                                label: 'Cost Per Bottle',
+                                dataKey: 'bottleCost',
                                 numeric: true,
-                            },
-                            {
+                            },{
                                 width: 120,
-                                label: 'Protein (g)',
-                                dataKey: 'protein',
+                                label: 'Oz Left In Open Bottle',
+                                dataKey: 'ozLeft',
                                 numeric: true,
-                            },
+                            },{
+                                width: 120,
+                                label: 'Percent Left In Open Bottle',
+                                dataKey: 'percentLeft',
+                                numeric: true,
+                            },{
+                                width: 120,
+                                label: 'Cost Per Oz',
+                                dataKey: 'costPerOZ',
+                                numeric: true,
+                            },{
+                                width: 120,
+                                label: 'Open Bottle Value',
+                                dataKey: 'openBottleValue',
+                                numeric: true,
+                            },{
+                                width: 120,
+                                label: 'Total Bottles In Inventory',
+                                dataKey: 'totalBottlesPerBrandStyle',
+                                numeric: true,
+                            },{
+                                width: 120,
+                                label: 'Total Value In Stock',
+                                dataKey: 'totalValuePerBrandStyle',
+                                numeric: true,
+                            }
                         ]}
                     />
                 </Paper>
