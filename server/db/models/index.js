@@ -20,7 +20,8 @@ let sequelize = null;
 // THEN make sure to create the database before proceeding
 if (env === "development") {
 	sequelize = new Sequelize("", config.username, process.env.DB_PASSWORD, {
-		dialect: "mysql"
+		dialect: "mysql",
+		logging: false
 	});
 	sequelize.query(`CREATE DATABASE IF NOT EXISTS ${config.database}`);
 }

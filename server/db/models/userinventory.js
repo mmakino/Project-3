@@ -11,7 +11,8 @@ module.exports = (sequelize, DataTypes) => {
     currentValueOfBottle: DataTypes.DECIMAL(10,2),
     totalFullBottles: DataTypes.INTEGER,
     totalInventoryValue: DataTypes.DECIMAL(10,2),
-    createdAt: DataTypes.DATE
+    // http://docs.sequelizejs.com/manual/models-definition.html#timestamps
+    // createdAt: DataTypes.DATE // should come from migration or default
   }, {});
   UserInventory.associate = function(models) {
     // associations can be defined here
