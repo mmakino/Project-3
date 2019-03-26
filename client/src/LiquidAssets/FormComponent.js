@@ -2,6 +2,7 @@ import React, { Fragment } from 'react';
 import PropTypes from 'prop-types';
 import { withStyles, TextField, Grid, Paper } from '@material-ui/core';
 
+
 const styles = theme => ({
     container: {
         display: 'flex',
@@ -22,11 +23,12 @@ const styles = theme => ({
 const nateStyles = {
         paper: {
         padding: 40,
-        marginTop: 30
+        marginTop: 30,
+        marginRight:62
     },
         gridContainer: {
         marginTop: 20,
-        marginLeft: 30,
+        marginLeft: 40,
         padding:20,
     }
 
