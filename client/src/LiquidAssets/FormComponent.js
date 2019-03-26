@@ -60,15 +60,19 @@ class FormComponent extends Component {
         }
     }
 
-    // TODO: this needs to go inside of a handler function
-    //     axios.post(`this is the route where the data will be posted`)
-    //     .then(res => {
-    //       console.log(res.data);
-    //       this.setState({runners:res.data})
-    //     }).catch((error) =>{
-    //       alert(error);
-    //     })
-    // }
+    // TODO: this needs to go inside of a onClick handler function that can be passed into the button.  This will post the state of the form to the route that I choose the post route to be.  Might have to make a variable and put the states into a variable
+
+    // axios.post('/api/user', {
+    //     brandStyle: this.state.brandStyle,
+    //     bottleSize: this.state.bottleSize
+    //   })
+    //   .then(function (response) {
+    //     console.log(response);
+    //   })
+    //   .catch(function (error) {
+    //     console.log(error);
+    //   });
+
     check = () => {
         console.log(this.state)
     }
@@ -91,7 +95,7 @@ class FormComponent extends Component {
                                 margin="normal"
                                 variant="outlined"
                                 value={this.state.brandStyle}
-                                // FIXME: need to be able to have this update on the dom on the fly
+                                // FIXME: need to be able to have this update on the dom on the fly I want to see this happening in a console.log
                                 onChange={event => this.setState({ brandStyle: event.target.value })}
 
                                 InputLabelProps={{
@@ -157,9 +161,18 @@ class FormComponent extends Component {
                                 }}
                             />
 
-                            <Button variant="contained" className='button' onClick={this.check}>
-                                Default
-                            </Button>
+                            <Grid item 
+                            align='right'
+                            style={{ marginTop: 20 }}>
+                                <Button
+                                    variant="contained"
+                                    className='button'
+                                    onClick={this.check}>
+
+                                    Send To Inventory
+                                </Button>
+                            </Grid>
+
                         </form>
                     </Paper>
                 </Grid>

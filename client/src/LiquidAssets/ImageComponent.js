@@ -1,20 +1,15 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { withStyles } from '@material-ui/core/styles';
-import Card from '@material-ui/core/Card';
-import CardActionArea from '@material-ui/core/CardActionArea';
-import CardActions from '@material-ui/core/CardActions';
-import CardContent from '@material-ui/core/CardContent';
-import CardMedia from '@material-ui/core/CardMedia';
-import Button from '@material-ui/core/Button';
-import Typography from '@material-ui/core/Typography';
+import { withStyles, Card, CardActionArea, CardActions, CardContent, CardMedia, Button, Typography, Grid } from '@material-ui/core';
 
 const styles = {
     card: {
         maxWidth: 345,
+        marginTop: 50,
+        marginLeft: 170,
     },
     media: {
-        height: 140,
+        height: 525,
     },
 };
 
@@ -27,17 +22,24 @@ function MediaCard(props) {
 
                 <CardMedia
                     className={classes.media}
-                    image="../images/pappy15.jpg"
+                    image={require("../images/pappy15.jpg")}
                 />
 
                 <CardContent>
 
-                    <Typography gutterBottom variant="h5" component="h2">
-                        I want to render my pictures dammit!
+                    <Typography gutterBottom 
+                        variant="h5" 
+                        component="h2" 
+                        align="center"
+                    >
+                            Pappy Van Winkle 15 yr
                     </Typography>
 
-                    <Typography component="p">
-                        I will do it so help me god!
+                    <Typography 
+                        component="p" 
+                        align="center"
+                    >
+                        damn that shit is smooth!
                     </Typography>
 
                 </CardContent>
@@ -45,13 +47,24 @@ function MediaCard(props) {
             </CardActionArea>
 
             <CardActions>
+                <Grid item xs 
+                    align='left'
+                    style={{marginLeft: 40}}
+                >
+                    <Button size="small" color="primary">
+                        Add To Orders
+                    </Button>
+                </Grid>
 
-                <Button size="small" color="primary">
-                    Share
-                </Button>
-                <Button size="small" color="primary">
-                    Learn More
-                </Button>
+                <Grid item xs 
+                    align='right'
+                    style={{marginRight: 50}}
+                >
+                    <Button size="small" color="primary" align="right">
+                            Track
+                    </Button>
+                </Grid>
+
 
             </CardActions>
 

@@ -34,7 +34,6 @@ const nateStyles = {
 
     gridContainer: {
         marginTop: 30,
-        marginLeft: 30,
         marginRight:20,
         padding:40,
     },
