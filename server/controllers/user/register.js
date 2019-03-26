@@ -2,7 +2,7 @@
 // Controller for user registration
 //
 
-// Bring in express
+// Load database models
 const db = require("../../db/models");
 const bcrypt = require("bcryptjs");
 

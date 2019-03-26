@@ -2,7 +2,7 @@ const express = require("express");
 const path = require("path");
 const PORT = process.env.PORT || 3001;
 const app = express();
-const db = require("./server/db/models");
+const db = require("./db/models");
 const httpServer = require("http").Server(app);
 const bodyParser = require("body-parser");
 
@@ -12,9 +12,10 @@ app.use(bodyParser.urlencoded({
 }));
 app.use(bodyParser.json());
 
-const apiUser = require("./server/routes/api/user/login");
-const apiUserReg = require("./server/routes/api/user/register");
-const userAuth = require('./server/user/auth');
+const apiUser = require("./routes/api/user/login");
+const apiUserReg = require("./routes/api/user/register");
+const userAuth = require("./user/auth");
+const apiInventory = require("./routes/api/inventory");
 
 
 // Define middleware here
@@ -31,12 +32,14 @@ userAuth.start(app);
 // Define API routes here
 app.use("/api/user", apiUser);
 app.use("/api/user/register", apiUserReg);
+app.use("/api/inventory", apiInventory);
 
 // Send every other request to the React app
 // Define any API routes before this runs
-app.get("*", (req, res) => {
-  res.sendFile(path.join(__dirname, "./client/build/index.html"));
-});
+// *** UNCOMMENT THIS ROUTE ONLY WHEN PRODUCTION DISPLOYMENT ***
+// app.get("*", (req, res) => {
+//   res.sendFile(path.join(__dirname, "./client/build/index.html"));
+// });
 
 db.sequelize.sync().then(() => {
   httpServer.listen(PORT, console.log(`Server listening on PORT ${PORT}`));
