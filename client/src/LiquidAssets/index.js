@@ -1,6 +1,7 @@
 import React, { Fragment } from "react"
 import FormComponent from "./FormComponent"
 import TableComponent from "./TableComponent"
+import ImageComponent from "./ImageComponent"
 import { Grid } from '@material-ui/core'
 
 export default props => {
@@ -13,7 +14,7 @@ export default props => {
                 </Grid>
 
                 <Grid item xs>
-                    <FormComponent />
+                    <ImageComponent />
                 </Grid>
 
             </Grid>
