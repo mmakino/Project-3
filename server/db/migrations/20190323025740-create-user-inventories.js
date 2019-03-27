@@ -35,8 +35,8 @@ module.exports = {
       currentValueOfBottle: {
         type: Sequelize.DECIMAL(10,2),
       },
-      totalFullBottles: {
-        type: Sequelize.INTEGER
+      totalBottles: {
+        type: Sequelize.DECIMAL(10,2),
       },
       totalInventoryValue: {
         type: Sequelize.DECIMAL(10,2),

@@ -9,7 +9,7 @@ module.exports = (sequelize, DataTypes) => {
     sizeOZ: DataTypes.DECIMAL(10,2),
     percentBottleRemaining: DataTypes.DECIMAL(10,2),
     currentValueOfBottle: DataTypes.DECIMAL(10,2),
-    totalFullBottles: DataTypes.INTEGER,
+    totalBottles: DataTypes.DECIMAL(10,2),
     totalInventoryValue: DataTypes.DECIMAL(10,2),
     // http://docs.sequelizejs.com/manual/models-definition.html#timestamps
     // createdAt: DataTypes.DATE // should come from migration or default
