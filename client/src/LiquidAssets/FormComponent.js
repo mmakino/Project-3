@@ -3,17 +3,6 @@ import PropTypes from 'prop-types';
 import { withStyles, TextField, Grid, Paper, Button } from '@material-ui/core';
 import axios from 'axios';
 
-// TODO: this needs to go inside of a handler function
-//     axios.get(`http://web-01.dockerhearts.online:5000/api/v1/users`)
-//     .then(res => {
-//       console.log(res.data);
-//       this.setState({runners:res.data})
-//     }).catch((error) =>{
-//       alert(error);
-//     })
-// }
-
-
 const styles = theme => ({
     container: {
         display: 'flex',
@@ -45,16 +34,15 @@ const nateStyles = {
 
 }
 
-
 class FormComponent extends Component {
     constructor(props) {
         super(props);
         this.state = {
             brandStyle: ``,
             bottleSize: ``,
-            numberOfUnopenedBottles: ``,
-            costPerBottle: ``,
-            currentBottleWeight: ``,
+            unopenedBottles: ``,
+            bottleCost: ``,
+            bottleWeight: ``,
             percentageLeft: ``,
             totalBrandStyleValue: ``
         }
@@ -62,16 +50,24 @@ class FormComponent extends Component {
 
     // TODO: this needs to go inside of a onClick handler function that can be passed into the button.  This will post the state of the form to the route that I choose the post route to be.  Might have to make a variable and put the states into a variable
 
-    // axios.post('/api/user', {
-    //     brandStyle: this.state.brandStyle,
-    //     bottleSize: this.state.bottleSize
-    //   })
-    //   .then(function (response) {
-    //     console.log(response);
-    //   })
-    //   .catch(function (error) {
-    //     console.log(error);
-    //   });
+    postToInventory = () => {
+        return axios.post('/api/updateInventory', {
+            brandStyle: this.state.brandStyle
+        })
+            .then((response) => {
+                console.log(response)
+            })
+    }
+
+    getUserInventory = () => {
+        return axios.get('/api/inventory')
+            .then((response) => {
+                console.log(response);
+            })
+            .catch((error) => {
+                console.log(error);
+            });
+    }
 
     check = () => {
         console.log(this.state)
@@ -96,7 +92,7 @@ class FormComponent extends Component {
                                 variant="outlined"
                                 value={this.state.brandStyle}
                                 // FIXME: need to be able to have this update on the dom on the fly I want to see this happening in a console.log
-                                onChange={event => this.setState({ brandStyle: event.target.value })}
+                                onChange={ event => this.setState({ brandStyle: event.target.value })}
 
                                 InputLabelProps={{
                                     shrink: true,
@@ -112,6 +108,8 @@ class FormComponent extends Component {
                                 fullWidth
                                 margin="normal"
                                 variant="outlined"
+                                value={this.state.bottleSize}
+                                onChange={ event => this.setState({ bottleSize: event.target.value })}
                                 InputLabelProps={{
                                     shrink: true,
                                 }}
@@ -126,6 +124,8 @@ class FormComponent extends Component {
                                 fullWidth
                                 margin="normal"
                                 variant="outlined"
+                                value={this.state.unopenedBottles}
+                                onChange={ event => this.setState({ unopenedBottles: event.target.value })}
                                 InputLabelProps={{
                                     shrink: true,
                                 }}
@@ -140,6 +140,8 @@ class FormComponent extends Component {
                                 fullWidth
                                 margin="normal"
                                 variant="outlined"
+                                value={this.state.bottleCost}
+                                onChange={ event => this.setState({ bottleCost: event.target.value })}
                                 InputLabelProps={{
                                     shrink: true,
                                 }}
@@ -156,14 +158,16 @@ class FormComponent extends Component {
                                 fullWidth
                                 margin="normal"
                                 variant="outlined"
+                                value={this.state.bottleWeight}
+                                onChange={ event => this.setState({ bottleWeight: event.target.value })}
                                 InputLabelProps={{
                                     shrink: true,
                                 }}
                             />
 
-                            <Grid item 
-                            align='right'
-                            style={{ marginTop: 20 }}>
+                            <Grid item
+                                align='right'
+                                style={{ marginTop: 20 }}>
                                 <Button
                                     variant="contained"
                                     className='button'
