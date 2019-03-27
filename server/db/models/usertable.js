@@ -10,8 +10,11 @@ module.exports = (sequelize, DataTypes) => {
     // if you don't want that, set the following
     freezeTableName: true,
   });
-  UserTable.associate = function (models) {
-    // associations can be defined here
+
+  UserTable.associate = function (db) {
+    // Add userId to the UserInventory table
+    this.hasMany(db.UserInventory);
   };
+
   return UserTable;
 };

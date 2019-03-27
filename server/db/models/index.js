@@ -49,7 +49,6 @@ fs.readdirSync(__dirname)
 		db[model.name] = model;
 	});
 
-// UserProfile makes use of "associate" now
 Object.keys(db).forEach(function (modelName) {
 	if (db[modelName].associate) {
 		db[modelName].associate(db);
