@@ -13,7 +13,7 @@ module.exports = (sequelize, DataTypes) => {
 
   UserTable.associate = function (db) {
     // Add userId to the UserInventory table
-    this.hasMany(db.UserInventory);
+    // this.hasMany(db.UserInventory);
   };
 
   return UserTable;
