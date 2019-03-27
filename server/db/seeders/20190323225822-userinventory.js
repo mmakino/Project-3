@@ -11,7 +11,7 @@ module.exports = {
         sizeOZ: 25.36 , 
         percentBottleRemaining: .35, 
         currentValueOfBottle: 15.75,
-        totalFullBottles: 5,
+        totalBottles: 5.36,
         totalInventoryValue: 65.00
       },
       { 
@@ -22,7 +22,7 @@ module.exports = {
         sizeOZ: 33.81 , 
         percentBottleRemaining: .35, 
         currentValueOfBottle: 18.50,
-        totalFullBottles: 9,
+        totalBottles: 9,
         totalInventoryValue: 90.00
       },
               
