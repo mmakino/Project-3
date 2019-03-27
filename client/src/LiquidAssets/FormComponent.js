@@ -51,7 +51,7 @@ class FormComponent extends Component {
     // TODO: this needs to go inside of a onClick handler function that can be passed into the button.  This will post the state of the form to the route that I choose the post route to be.  Might have to make a variable and put the states into a variable
 
     postToInventory = () => {
-        return axios.post('/api/updateInventory', {
+        return axios.post('/api/inventory', {
             brandStyle: this.state.brandStyle
         })
             .then((response) => {
@@ -171,7 +171,7 @@ class FormComponent extends Component {
                                 <Button
                                     variant="contained"
                                     className='button'
-                                    onClick={this.check}>
+                                    onClick={this.getUserInventory}>
 
                                     Send To Inventory
                                 </Button>
