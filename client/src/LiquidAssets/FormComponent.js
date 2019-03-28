@@ -1,4 +1,4 @@
-import React, { Component, Fragment } from 'react';
+import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { withStyles, TextField, Grid, Paper, Button } from '@material-ui/core';
 import axios from 'axios';
@@ -55,10 +55,10 @@ class FormComponent extends Component {
             brandStyle: this.state.brandStyle
         })
             .then((response) => {
-                console.log(response)
+                console.log(response.data)
             })
     }
-
+    // using state dynamically update the get route based on the value of the brandStyle input
     getUserInventory = () => {
         return axios.get('/api/inventory')
             .then((response) => {
@@ -72,6 +72,29 @@ class FormComponent extends Component {
     check = () => {
         console.log(this.state)
     }
+
+    checkFormStateAndGetUserInventory = () => {
+
+        const check = () => {
+            console.log(this.state)
+        };
+
+        const getUserInventory = () => {
+            return axios.get('/api/inventory')
+                .then((response) => {
+                    console.log(response);
+                })
+                .catch((error) => {
+                    console.log(error);
+                });
+        };
+
+        check();
+        getUserInventory();
+
+
+    }
+    // 
     render() {
 
         return (
@@ -171,7 +194,7 @@ class FormComponent extends Component {
                                 <Button
                                     variant="contained"
                                     className='button'
-                                    onClick={this.getUserInventory}>
+                                    onClick={ this.checkFormStateAndGetUserInventory/*.then() this.postToInventory*/}>
 
                                     Send To Inventory
                                 </Button>

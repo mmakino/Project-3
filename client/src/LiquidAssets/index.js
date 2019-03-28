@@ -22,7 +22,7 @@ export default props => {
             <Grid container>
 
                 <Grid item xs>
-                    <TableComponent />
+                    <TableComponent header />
                 </Grid>
 
             </Grid>

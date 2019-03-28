@@ -2,7 +2,7 @@
 // API Routes for inventory data
 //
 
-// Bring in express
+// Bring in expresss
 const express = require("express");
 const router = express.Router();
 
@@ -19,7 +19,7 @@ router.route("/")
 	// POST: /api/inventory 
 	// TO-DO: 
 	.post(inventory.create)
-;
+	;
 
 //
 // Preliminary/Tentative routes
@@ -28,7 +28,7 @@ router.route("/")
 router.route("/:id")
 	// GET: /api/inventory/:id
 	// Return all rows from UserInventory for id
-  .get(inventory.findByInvId)
+	.get(inventory.findByInvId)
 
 	// PUT: /api/inventory/:id
 	// Return all rows from UserInventory for id
@@ -37,7 +37,7 @@ router.route("/:id")
 	// DELETE: /api/inventory/:id
 	// Remove an inventory entry for id
 	.delete(inventory.deleteByInvID)
-;
+	;
 
 //
 // Export the router
