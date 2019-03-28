@@ -11,8 +11,11 @@ const NavbarComponent = (props) => {
                             LIQUID ASSETS
                         </Typography>
                     </Grid>
+
                     <Grid item xs align='right'>
-                        <Button color="inherit">Log Out</Button>
+                        <Button color="inherit" href="/login">
+                            Log In
+                        </Button>
                     </Grid>
                 </Grid>
             </Toolbar>

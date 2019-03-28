@@ -34,6 +34,9 @@ app.use("/api/user", apiUser);
 app.use("/api/user/register", apiUserReg);
 app.use("/api/inventory", apiInventory);
 
+// * * * TEST AUTHENTICATION * * *
+require("./routes/api/test/auth")(app);
+
 // Send every other request to the React app
 // Define any API routes before this runs
 // *** UNCOMMENT THIS ROUTE ONLY WHEN PRODUCTION DISPLOYMENT ***

@@ -1,7 +1,10 @@
 import React, { Component, Fragment } from "react";
+import { BrowserRouter as Router, Route } from 'react-router-dom';
 import './App.css';
 import LiquidAssets from './LiquidAssets'
 import NavbarComponent from './NavbarComponent'
+import Signup from './components/user/register';
+import Login from './components/user/login';
 
 class App extends Component {
   
@@ -10,13 +13,20 @@ class App extends Component {
     const { classes } = this.props;
 
     return (
-      <div className="App">
+      <Router>
+        <div className="App">
 
-        <NavbarComponent />
+          <NavbarComponent />
 
-        <LiquidAssets />
+          <Route exact path="/" component={LiquidAssets} />
 
-      </div>
+          <div className="container">
+            <Route exact path="/signup" component={Signup} />
+            <Route exact path="/login" component={Login} />
+          </div>
+
+        </div>
+      </Router>
     );
   }
 }
