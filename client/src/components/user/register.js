@@ -3,6 +3,7 @@
 //
 import React, { Component } from 'react'
 import PropTypes from 'prop-types';
+import { withRouter } from 'react-router-dom';
 import Avatar from '@material-ui/core/Avatar';
 import Button from '@material-ui/core/Button';
 import CssBaseline from '@material-ui/core/CssBaseline';
@@ -17,6 +18,8 @@ import Typography from '@material-ui/core/Typography';
 import withStyles from '@material-ui/core/styles/withStyles';
 import axios from 'axios';
 import classnames from 'classnames';
+import { connect } from 'react-redux';
+import { registerUser } from '../../actions/authActions';
 
 //
 // Styles for the Sign Up box
@@ -72,6 +75,20 @@ class SignUp extends Component {
     this.onSubmit = this.onSubmit.bind(this);
   }
 
+  componentWillReceiveProps(nextProps) {
+    if (nextProps.errors) {
+      this.setState({
+        errors: nextProps.errors
+      });
+    }
+  }
+
+  componentDidMount() {
+    if (this.props.auth.isAuthenticated) {
+      this.props.history.push('/');
+    }
+  }
+
   //
   // On Change event handler
   //
@@ -92,9 +109,7 @@ class SignUp extends Component {
       password2: this.state.password2
     };
 
-    axios.post("/api/user/register", newUser)
-      .then(res => console.log(res.data))
-      .catch(err => this.setState({ errors: err.response.data }));
+    this.props.registerUser(newUser, this.props.history);
   }
 
   //
@@ -102,9 +117,11 @@ class SignUp extends Component {
   //
   render() {
     const { errors } = this.state;
+    // const { user } = this.props.auth;
 
     return (
       <main className={this.classes.main}>
+        {/* {user ? user.name : null} */}
         <CssBaseline />
         <Paper className={this.classes.paper}>
           <Avatar className={this.classes.avatar}>
@@ -193,8 +210,15 @@ class SignUp extends Component {
 
 SignUp.propTypes = {
   classes: PropTypes.object.isRequired,
+  registerUser: PropTypes.func.isRequired,
+  auth: PropTypes.object.isRequired,
+  errors: PropTypes.object.isRequired,
 };
 
+const mapStateToProps = (state) => ({
+  auth: state.auth,
+  errors: state.errors
+});
 
-
-export default withStyles(styles)(SignUp);
+// export default withStyles(styles)(SignUp);
+export default (connect(mapStateToProps, { registerUser }))(withRouter((withStyles(styles)(SignUp))));
