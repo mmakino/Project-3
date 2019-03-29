@@ -7,6 +7,7 @@
 
 // Load database models
 const db = require("../../db/models");
+const calc = require("./calc");
 
 //
 // UserInventory Controller
@@ -34,6 +35,8 @@ class UserInventoryController {
   // Insert a new model data 
   //
   // Math calculation required to push percentBottleRemaining, currentValueOfBottle, totalBottles, totalInventoryValue data in to UserInventories Table
+
+  
   create(req, res) {
     db.UserInventory.create(req.body)
       .then(data => res.json(data))
