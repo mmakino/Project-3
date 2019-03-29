@@ -138,7 +138,7 @@ const FormComponent = (props) => {
                             <Button
                                 variant="contained"
                                 className='button'
-                                onClick={props.getUserInventory}>
+                                onClick={props.postToInventory}>
 
                                 Send To Inventory
                                 </Button>
