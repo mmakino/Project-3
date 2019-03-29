@@ -10,36 +10,63 @@ import axios from 'axios';
 
 
 class App extends Component {
-        state = {
-          formInputs:{
-            brandStyle: ``,
-            bottleSize: ``,
-            unopenedBottles: ``,
-            bottleCost: ``,
-            bottleWeight: ``,
-          }            
-        };
-
-
-    // TODO: this needs to go inside of a onClick handler function that can be passed into the button.  This will post the state of the form to the route that I choose the post route to be.  Might have to make a variable and put the states into a variable
-
-    componentDidMount() {
-      this.getAlcohol();
+  state = {
+    formInputs: {
+      brandStyle: ``,
+      bottleSize: ``,
+      unopenedBottles: ``,
+      bottleCost: ``,
+      bottleWeight: ``,
+    },
+    autosuggest: {
+      suggestions: []
     }
+  };
 
-    getAlcohol = () => {
-      return axios.get('/api/alcohol')
-          .then((response) => {
-              console.log(response);
-              this.setState({
-                brandStyle: response.brandStyle,
-                bottleSize: response.bottleSize,
-              })
-          })
-          .catch((error) => {
-              console.log(error);
-          });
+
+  // TODO: this needs to go inside of a onClick handler function that can be passed into the button.  This will post the state of the form to the route that I choose the post route to be.  Might have to make a variable and put the states into a variable
+
+  componentDidMount() {
+    this.getAlcohol();
+    this.getBoozeSuggestions();
   }
+
+  getAlcohol = () => {
+    return axios.get('/api/alcohol')
+      .then((response) => {
+
+        // console.log(response.data);
+
+        this.setState.formInputs({
+          brandStyle: response.brandStyle,
+          bottleSize: response.bottleSize,
+        })
+      })
+
+
+      .catch((error) => {
+        console.log(error);
+      });
+  }
+
+  getBoozeSuggestions = () => {
+    return axios.get('/api/alcohol')
+      .then((response) => {
+        let gottenAlcohol = response.data
+        console.log(gottenAlcohol)
+        return gottenAlcohol
+        // this.setState({
+        //   suggestions: response.brandStyle
+        // })
+      })
+      .catch((error) => {
+        console.log(error);
+      });
+  }
+
+  
+
+
 
   handleInputChange = event => {
     const { name, value } = event.target;
@@ -47,23 +74,23 @@ class App extends Component {
       formInputs: {
         ...state.formInputs,
         [name]: value,
-      }            
+      }
     }));
   };
 
-    postToInventory = () => {
-        return axios.post('/api/inventory', {
-            brandStyle: this.state.brandStyle
-        })
-            .then((response) => {
-                console.log(response)
-            })
-    }
+  postToInventory = () => {
+    return axios.post('/api/inventory', {
+      brandStyle: this.formInputs.brandStyle
+    })
+      .then((response) => {
+        console.log(response)
+      })
+  }
 
-    check = () => {
-        console.log(this.state)
-    }
-  
+  check = () => {
+    console.log(this.state)
+  }
+
   render() {
 
     return (
@@ -73,14 +100,10 @@ class App extends Component {
 
         <LiquidAssets
           formInputs={this.state.formInputs}
-          handleInputChange={this.handleInputChange} 
+          handleInputChange={this.handleInputChange}
+          getBoozeSuggestions={this.getBoozeSuggestions}
         />
-        {/* <FormComponent 
-        handleInputChange={this.handleInputChange}
 
-        />
-        <ImageComponent />
-        <TableComponent /> */}
 
       </div>
     );
