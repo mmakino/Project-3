@@ -16,6 +16,7 @@ const apiUser = require("./routes/api/user/login");
 const apiUserReg = require("./routes/api/user/register");
 const userAuth = require("./user/auth");
 const apiInventory = require("./routes/api/inventory");
+const apiAlcohol = require("./routes/api/alcohol");
 
 
 // Define middleware here
@@ -23,7 +24,7 @@ app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
 // Serve up static assets (usually on heroku)
 if (process.env.NODE_ENV === "production") {
-  app.use(express.static("client/build"));
+app.use(express.static(__dirname + '/public'));
 }
 
 // Get ready for user authentication and session
@@ -33,6 +34,7 @@ userAuth.start(app);
 app.use("/api/user", apiUser);
 app.use("/api/user/register", apiUserReg);
 app.use("/api/inventory", apiInventory);
+app.use("/api/alcohol", apiAlcohol);
 
 // Send every other request to the React app
 // Define any API routes before this runs
