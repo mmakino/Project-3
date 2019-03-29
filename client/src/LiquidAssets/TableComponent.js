@@ -201,7 +201,7 @@ for (let i = 0; i < 200; i += 1) {
     rows.push(createData(...randomSelection));
 }
 
-function ReactVirtualizedTable (props) {
+function ReactVirtualizedTable (data, header) {
     return (
         <Grid container style={nateStyles.gridContainer}>
             <Grid item xs>

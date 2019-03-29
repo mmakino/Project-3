@@ -18,7 +18,7 @@ const NavbarComponent = (props) => {
                 onClick={onLogoutClick}>
                 Logout
                 <img
-                    className="rounded-circle"
+                    className="rounded-circle ml-1"
                     src={user.avatar} alt={user.name}
                     style={{ width: '25px', marginRight: '3px' }}
                     title="You need to have a Gravatar connected to your email to display an image" />

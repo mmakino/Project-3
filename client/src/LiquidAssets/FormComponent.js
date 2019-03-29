@@ -1,4 +1,4 @@
-import React, { Component, Fragment } from 'react';
+import React from 'react';
 import PropTypes from 'prop-types';
 import { withStyles, TextField, Grid, Paper, Button } from '@material-ui/core';
 
@@ -34,7 +34,7 @@ const nateStyles = {
 
 }
 
-function FormComponent(props) {
+const FormComponent = (props) => {
 
     return (
         <Grid container style={nateStyles.gridContainer}>
@@ -53,7 +53,7 @@ function FormComponent(props) {
                             margin="normal"
                             variant="outlined"
                             name="brandStyle"
-                            value={props.brandStyle}
+                            // value={props.formInputs.brandStyle}
                             // FIXME: need to be able to have this update on the dom on the fly I want to see this happening in a console.log
                             onChange={props.handleInputChange}
 
@@ -71,7 +71,7 @@ function FormComponent(props) {
                             fullWidth
                             margin="normal"
                             variant="outlined"
-                            value={props.bottleSize}
+                            // value={props.formInputs.bottleSize}
                             name="bottleSize"
                             onChange={props.handleInputChange}
                             InputLabelProps={{
@@ -89,7 +89,7 @@ function FormComponent(props) {
                             margin="normal"
                             variant="outlined"
                             name="unopenedBottles"
-                            value={props.unopenedBottles}
+                            // value={props.formInputs.unopenedBottles}
                             onChange={props.handleInputChange}
                             InputLabelProps={{
                                 shrink: true,
@@ -106,7 +106,7 @@ function FormComponent(props) {
                             margin="normal"
                             variant="outlined"
                             name="bottleCost"
-                            value={props.bottleCost}
+                            // value={props.formInputs.bottleCost}
                             onChange={props.handleInputChange}
                             InputLabelProps={{
                                 shrink: true,
@@ -125,7 +125,7 @@ function FormComponent(props) {
                             margin="normal"
                             variant="outlined"
                             name="bottleWeight"
-                            value={props.bottleWeight}
+                            // value={props.formInputs.bottleWeight}
                             onChange={props.handleInputChange}
                             InputLabelProps={{
                                 shrink: true,
@@ -138,7 +138,7 @@ function FormComponent(props) {
                             <Button
                                 variant="contained"
                                 className='button'
-                                onClick={props.getUserInventory}>
+                                onClick={props.postToInventory}>
 
                                 Send To Inventory
                                 </Button>

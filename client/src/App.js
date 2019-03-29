@@ -39,57 +39,78 @@ if (localStorage.jwtToken) {
 
 
 class App extends Component {
-        state = {
-            brandStyle: ``,
-            bottleSize: ``,
-            unopenedBottles: ``,
-            bottleCost: ``,
-            bottleWeight: ``,
-            percentageLeft: ``,
-            totalBrandStyleValue: ``
-        };
-
-
-    // TODO: this needs to go inside of a onClick handler function that can be passed into the button.  This will post the state of the form to the route that I choose the post route to be.  Might have to make a variable and put the states into a variable
-
-    componentDidMount() {
-      this.getAlcohol();
+  state = {
+    formInputs: {
+      brandStyle: ``,
+      bottleSize: ``,
+      unopenedBottles: ``,
+      bottleCost: ``,
+      bottleWeight: ``,
     }
+  };
 
-    getAlcohol = () => {
-      return axios.get('/api/alcohol')
-          .then((response) => {
-              console.log(response);
-              this.setState({
-                brandStyle: response.brandStyle,
-                bottleSize: response.bottleSize,
-              })
-          })
-          .catch((error) => {
-              console.log(error);
-          });
+
+  // TODO: this needs to go inside of a onClick handler function that can be passed into the button.  This will post the state of the form to the route that I choose the post route to be.  Might have to make a variable and put the states into a variable
+
+  componentDidMount() {
+    this.getAlcohol();
+  }
+
+  getAlcohol = () => {
+    return axios.get('/api/alcohol')
+      .then((response) => {
+        console.log(response);
+        this.setState({
+          brandStyle: response.brandStyle,
+          bottleSize: response.bottleSize,
+        })
+      })
+      .catch((error) => {
+        console.log(error);
+      });
   }
 
   handleInputChange = event => {
     const { name, value } = event.target;
-    this.setState({
-      [name]: value
-    });
+    this.setState((state) => ({
+      formInputs: {
+        ...state.formInputs,
+        [name]: value,
+      }
+    }));
   };
 
-    postToInventory = () => {
-        return axios.post('/api/inventory', {
-            brandStyle: this.state.brandStyle
-        })
-            .then((response) => {
-                console.log(response)
-            })
-    }
+  postToInventory = () => {
+    console.log("Posting Inventory");
+    return axios.post('/api/inventory', {
+      brandStyle: this.state.formInputs.brandStyle,
+      sizeML: this.state.formInputs.bottleSize,
+      costPerBottle: this.state.formInputs.bottleCost,
+      totalBottles: this.state.formInputs.unopenedBottles,
+      measuredWeight: this.state.formInputs.bottleWeight
+    })
+      .then((response) => {
+        console.log(response)
+      })
+  }
 
-    check = () => {
-        console.log(this.state)
-    }
-  
+  check = () => {
+    console.log(this.state)
+  }
+
+  //
+  // LiquidAssets Main Component to be loaded at Route "/"
+  //
+  liquidAssets() {
+    return (
+      <LiquidAssets
+        formInputs={this.state.formInputs}
+        handleInputChange={this.handleInputChange}
+        postToInventory={this.postToInventory}
+      />
+    );
+  }
+
   render() {
 
     return (
@@ -99,25 +120,20 @@ class App extends Component {
 
             <NavbarComponent />
 
-            <Route exact path="/" component={LiquidAssets} />
-
-{/* <<<<<<< HEAD */}
             <div className="container">
-              <Route exact path="/signup" component={Signup} />
-              <Route exact path="/login" component={Login} />
               <Switch>
-                <PrivateRoute exact path="/" component={Login} />
+                <Route exact path="/signup" component={Signup} />
+                <Route exact path="/login" component={Login} />
+                {/* <PrivateRoute exact path="/" component={this.liquidAssets} /> */}
+                <Route exact path="/" component={this.liquidAssets.bind(this)} />
               </Switch>
             </div>
-{/* =======
-        <LiquidAssets />
-        <FormComponent 
-        handleInputChange={this.handleInputChange}
 
-        />
-        <ImageComponent />
-        <TableComponent />
->>>>>>> 495ff6361d14d5583c9f3eb23747966d4b48cc0d */}
+            {/* <FormComponent 
+            handleInputChange={this.handleInputChange}
+            />
+            <ImageComponent />
+            <TableComponent /> */}
 
           </div>
         </Router>

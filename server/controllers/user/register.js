@@ -29,7 +29,8 @@ module.exports = {
         } else {
           const avatarUrl = gravatar.url(req.body.email, {
             size: '200',
-            rating: 'pg'
+            rating: 'pg',
+            default: 'mp'
           });
 
           const newUser = {
