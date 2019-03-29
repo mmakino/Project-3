@@ -98,19 +98,6 @@ class App extends Component {
     console.log(this.state)
   }
 
-  //
-  // LiquidAssets Main Component to be loaded at Route "/"
-  //
-  liquidAssets() {
-    return (
-      <LiquidAssets
-        formInputs={this.state.formInputs}
-        handleInputChange={this.handleInputChange}
-        postToInventory={this.postToInventory}
-      />
-    );
-  }
-
   render() {
 
     return (
@@ -124,8 +111,17 @@ class App extends Component {
               <Switch>
                 <Route exact path="/signup" component={Signup} />
                 <Route exact path="/login" component={Login} />
-                {/* <PrivateRoute exact path="/" component={this.liquidAssets} /> */}
-                <Route exact path="/" component={this.liquidAssets.bind(this)} />
+                <Route
+                  exact path="/"
+                  render={(props) => 
+                    <LiquidAssets
+                      {...props}
+                      formInputs={this.state.formInputs}
+                      handleInputChange={this.handleInputChange}
+                      postToInventory={this.postToInventory}
+                    />
+                  }
+                />
               </Switch>
             </div>
 

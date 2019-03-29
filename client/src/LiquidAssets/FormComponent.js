@@ -53,7 +53,7 @@ const FormComponent = (props) => {
                             margin="normal"
                             variant="outlined"
                             name="brandStyle"
-                            // value={props.formInputs.brandStyle}
+                            value={props.formInputs.brandStyle}
                             // FIXME: need to be able to have this update on the dom on the fly I want to see this happening in a console.log
                             onChange={props.handleInputChange}
 
@@ -71,7 +71,7 @@ const FormComponent = (props) => {
                             fullWidth
                             margin="normal"
                             variant="outlined"
-                            // value={props.formInputs.bottleSize}
+                            value={props.formInputs.bottleSize}
                             name="bottleSize"
                             onChange={props.handleInputChange}
                             InputLabelProps={{
@@ -89,7 +89,7 @@ const FormComponent = (props) => {
                             margin="normal"
                             variant="outlined"
                             name="unopenedBottles"
-                            // value={props.formInputs.unopenedBottles}
+                            value={props.formInputs.unopenedBottles}
                             onChange={props.handleInputChange}
                             InputLabelProps={{
                                 shrink: true,
@@ -106,7 +106,7 @@ const FormComponent = (props) => {
                             margin="normal"
                             variant="outlined"
                             name="bottleCost"
-                            // value={props.formInputs.bottleCost}
+                            value={props.formInputs.bottleCost}
                             onChange={props.handleInputChange}
                             InputLabelProps={{
                                 shrink: true,
@@ -125,7 +125,7 @@ const FormComponent = (props) => {
                             margin="normal"
                             variant="outlined"
                             name="bottleWeight"
-                            // value={props.formInputs.bottleWeight}
+                            value={props.formInputs.bottleWeight}
                             onChange={props.handleInputChange}
                             InputLabelProps={{
                                 shrink: true,
