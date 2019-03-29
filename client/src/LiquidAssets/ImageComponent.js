@@ -13,7 +13,7 @@ const styles = {
     },
 };
 
-function MediaCard(props) {
+const MediaCard = (props) => {
     const { classes } = props;
     return (
         <Card className={classes.card}>

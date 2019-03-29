@@ -10,7 +10,10 @@ export default props => {
             <Grid container>
 
                 <Grid item xs>
-                    <FormComponent />
+                    <FormComponent 
+                        formInputs={props.formInputs} 
+                        handleInputChange={props.handleInputChange}
+                    />
                 </Grid>
 
                 <Grid item xs>
@@ -22,7 +25,7 @@ export default props => {
             <Grid container>
 
                 <Grid item xs>
-                    <TableComponent />
+                    <TableComponent header />
                 </Grid>
 
             </Grid>
