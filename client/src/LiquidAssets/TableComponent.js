@@ -3,6 +3,7 @@ import PropTypes from 'prop-types';
 import classNames from 'classnames';
 import { withStyles, TableCell, TableSortLabel, Paper, Grid } from '@material-ui/core';
 import { AutoSizer, Column, SortDirection, Table } from 'react-virtualized';
+import axios from 'axios';
 
 const styles = theme => ({
     table: {
@@ -97,6 +98,17 @@ class MuiVirtualizedTable extends React.PureComponent {
             </TableCell>
         );
     };
+
+
+    getUserInventory = () => {
+        return axios.get('/api/inventory')
+            .then((response) => {
+                console.log(response);
+            })
+            .catch((error) => {
+                console.log(error);
+            });
+    }
 
     render() {
         const { classes, columns, ...tableProps } = this.props;

@@ -10,7 +10,8 @@ export default props => {
             <Grid container>
 
                 <Grid item xs>
-                    <FormComponent />
+                    <FormComponent 
+                    />
                 </Grid>
 
                 <Grid item xs>
