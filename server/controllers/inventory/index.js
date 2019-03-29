@@ -7,7 +7,7 @@
 
 // Load database models
 const db = require("../../db/models");
-const calc = require("./calc");
+const userInputs = require("./calc");
 
 //
 // UserInventory Controller
@@ -38,7 +38,9 @@ class UserInventoryController {
 
   
   create(req, res) {
-    db.UserInventory.create(req.body)
+
+    const userInventory = userInputs(req.body);
+    db.UserInventory.create(userInventory)
       .then(data => res.json(data))
       .catch(err => res.status(422).json(err));
   }
