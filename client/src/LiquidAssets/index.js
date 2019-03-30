@@ -35,6 +35,7 @@ export default props => {
 
             <IntegrationAutosuggest 
                 getBoozeSuggestions={props.getBoozeSuggestions}
+                autosuggest={props.autosuggest}
             />
         </Fragment>
 

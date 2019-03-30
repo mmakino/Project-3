@@ -9,43 +9,43 @@ import Paper from '@material-ui/core/Paper';
 import MenuItem from '@material-ui/core/MenuItem';
 import Popper from '@material-ui/core/Popper';
 import { withStyles } from '@material-ui/core/styles';
-// import axios from 'axios'
+import axios from 'axios'
 
-const suggestions = [
-        { label: 'Afghanistan' },
-        { label: 'Aland Islands' },
-        { label: 'Albania' },
-        { label: 'Algeria' },
-        { label: 'American Samoa' },
-        { label: 'Andorra' },
-        { label: 'Angola' },
-        { label: 'Anguilla' },
-        { label: 'Antarctica' },
-        { label: 'Antigua and Barbuda' },
-        { label: 'Argentina' },
-        { label: 'Armenia' },
-        { label: 'Aruba' },
-        { label: 'Australia' },
-        { label: 'Austria' },
-        { label: 'Azerbaijan' },
-        { label: 'Bahamas' },
-        { label: 'Bahrain' },
-        { label: 'Bangladesh' },
-        { label: 'Barbados' },
-        { label: 'Belarus' },
-        { label: 'Belgium' },
-        { label: 'Belize' },
-        { label: 'Benin' },
-        { label: 'Bermuda' },
-        { label: 'Bhutan' },
-        { label: 'Bolivia, Plurinational State of' },
-        { label: 'Bonaire, Sint Eustatius and Saba' },
-        { label: 'Bosnia and Herzegovina' },
-        { label: 'Botswana' },
-        { label: 'Bouvet Island' },
-        { label: 'Brazil' },
-        { label: 'British Indian Ocean Territory' },
-        { label: 'Brunei Darussalam' },
+let suggestions = [
+    { label: 'Afghanistan' },
+    { label: 'Aland Islands' },
+    { label: 'Albania' },
+    { label: 'Algeria' },
+    { label: 'American Samoa' },
+    { label: 'Andorra' },
+    { label: 'Angola' },
+    { label: 'Anguilla' },
+    { label: 'Antarctica' },
+    { label: 'Antigua and Barbuda' },
+    { label: 'Argentina' },
+    { label: 'Armenia' },
+    { label: 'Aruba' },
+    { label: 'Australia' },
+    { label: 'Austria' },
+    { label: 'Azerbaijan' },
+    { label: 'Bahamas' },
+    { label: 'Bahrain' },
+    { label: 'Bangladesh' },
+    { label: 'Barbados' },
+    { label: 'Belarus' },
+    { label: 'Belgium' },
+    { label: 'Belize' },
+    { label: 'Benin' },
+    { label: 'Bermuda' },
+    { label: 'Bhutan' },
+    { label: 'Bolivia, Plurinational State of' },
+    { label: 'Bonaire, Sint Eustatius and Saba' },
+    { label: 'Bosnia and Herzegovina' },
+    { label: 'Botswana' },
+    { label: 'Bouvet Island' },
+    { label: 'Brazil' },
+    { label: 'British Indian Ocean Territory' },
+    { label: 'Brunei Darussalam' },
 ];
 
 function renderInputComponent(inputProps) {
@@ -91,24 +91,24 @@ function renderSuggestion(suggestion, { query, isHighlighted }) {
     );
 }
 
-function getSuggestions(value) {
-    const inputValue = deburr(value.trim()).toLowerCase();
-    const inputLength = inputValue.length;
-    let count = 0;
+// function getSuggestions(value) {
+//     const inputValue = deburr(value.trim()).toLowerCase();
+//     const inputLength = inputValue.length;
+//     let count = 0;
 
-    return inputLength === 0
-        ? []
-        : suggestions.filter(suggestion => {
-            const keep =
-                count < 5 && suggestion.label.slice(0, inputLength).toLowerCase() === inputValue;
+//     return inputLength === 0
+//         ? []
+//         : suggestions.filter(suggestion => {
+//             const keep =
+//                 count < 5 && suggestion.label.slice(0, inputLength).toLowerCase() === inputValue;
 
-            if (keep) {
-                count += 1;
-            }
+//             if (keep) {
+//                 count += 1;
+//             }
 
-            return keep;
-        });
-}
+//             return keep;
+//         });
+// }
 
 function getSuggestionValue(suggestion) {
     return suggestion.label;
@@ -145,38 +145,74 @@ const styles = theme => ({
 class IntegrationAutosuggest extends React.Component {
     constructor(props) {
         super(props);
+        // suggestions = props.autosuggest.suggestions;
         this.state = {
             single: '',
             popper: '',
-            suggestions: [],
+            // suggestions: this.autosuggest.suggestions
+            autosuggest: {
+                suggestions: []
+            }
+
         };
     }
 
-    state = {
-                single: '',
-                popper: '',
-                suggestions: [],
-            };        
+    componentDidMount() {
+        // this.getAlcohol();
+        this.getBoozeSuggestions().then((gottenAlcohol) => {
+            this.setState({
+                autosuggest: {
+                    suggestions: gottenAlcohol
+                }
+            });
+        })
+    }
 
-    // componentDidMount() {
-    //     getBoozeSuggestions = () => {
-    //         return axios.get('/api/alcohol')
-    //             .then((response) => {
-    //                 console.log(response.data);
-    //                 this.setState({
-    //                     suggestions: response.brandStyle
-    //                 })
-    //             })
-    //             .catch((error) => {
-    //                 console.log(error);
-    //             });
-    //     }
-    // }
 
+    getBoozeSuggestions = () => {
+
+        return new Promise((resolve, reject) => {
+            axios.get('/api/alcohol')
+                .then((response) => {
+                    let gottenAlcohol = response.data.map((alcohol) => {
+                        return { label: alcohol.brandstyle }
+                    })
+                    console.log(gottenAlcohol)
+
+                    resolve(gottenAlcohol)
+                    // this.setState({
+                    //   suggestions: response.brandStyle
+                    // })
+                })
+                .catch((error) => {
+                    console.log(error);
+                });
+        })
+
+    }
+
+    getSuggestions(value) {
+        const inputValue = deburr(value.trim()).toLowerCase();
+        const inputLength = inputValue.length;
+        let count = 0;
+
+        return inputLength === 0
+            ? []
+            : this.state.autosuggest.suggestions.filter(suggestion => {
+                const keep =
+                    count < 5 && suggestion.label.slice(0, inputLength).toLowerCase() === inputValue;
+
+                if (keep) {
+                    count += 1;
+                }
+
+                return keep;
+            });
+    }
 
     handleSuggestionsFetchRequested = ({ value }) => {
         this.setState({
-            suggestions: getSuggestions(value),
+            suggestions: this.getSuggestions(value),
         });
     };
 
@@ -197,7 +233,7 @@ class IntegrationAutosuggest extends React.Component {
 
         const autosuggestProps = {
             renderInputComponent,
-            suggestions: this.state.suggestions,
+            suggestions: this.state.autosuggest.suggestions,
             onSuggestionsFetchRequested: this.handleSuggestionsFetchRequested,
             onSuggestionsClearRequested: this.handleSuggestionsClearRequested,
             getSuggestionValue,
