@@ -84,84 +84,98 @@ class App extends Component {
 
   postToInventory = () => {
     console.log("Posting Inventory");
-    return axios.post('/api/inventory', {
-      brandStyle: this.state.formInputs.brandStyle,
-      sizeML: this.state.formInputs.bottleSize,
-      costPerBottle: this.state.formInputs.bottleCost,
-      totalBottles: this.state.formInputs.unopenedBottles,
-      measuredWeight: this.state.formInputs.bottleWeight,
-      userId: this.state.user.user.id
-    })
-      .then((response) => {
-        console.log(response)
+    return new Promise((resolve, reject) => {
+      axios.post('/api/inventory', {
+        brandStyle: this.state.formInputs.brandStyle,
+        sizeML: this.state.formInputs.bottleSize,
+        costPerBottle: this.state.formInputs.bottleCost,
+        totalBottles: this.state.formInputs.unopenedBottles,
+        measuredWeight: this.state.formInputs.bottleWeight,
+        userId: this.state.user.user.id
       })
+        .then((response) => {
+          console.log(response);
+          resolve(response);
+
+        })
+        .catch(err => {
+          console.log("err", err);
+          reject (err);
+        })
+    })
   }
 
   getUserInventory = () => {
-    console.log("Getting User Inventory");
-    return axios.get('/api/inventory', {
-      params: 
-      {
-      brandStyle: this.state.formInputs.brandStyle,
-      sizeML: this.state.formInputs.bottleSize,
-      costPerBottle: this.state.formInputs.bottleCost,
-      totalBottles: this.state.formInputs.unopenedBottles,
-      measuredWeight: this.state.formInputs.bottleWeight,
-      userId: this.state.user.user.id
-    }
-  })
-      .then((response) => {
-        console.log(response)
-      })
-  }
+        console.log("Getting User Inventory");
+        return axios.get('/api/inventory', {
+          params:
+          {
+            brandStyle: this.state.formInputs.brandStyle,
+            sizeML: this.state.formInputs.bottleSize,
+            costPerBottle: this.state.formInputs.bottleCost,
+            totalBottles: this.state.formInputs.unopenedBottles,
+            measuredWeight: this.state.formInputs.bottleWeight,
+            userId: this.state.user.user.id
+          }
+        })
+          .then((response) => {
+            console.log(response)
+          })
+      }
 
-  postThenGet = async () => {
-    await (this.postToInventory()); 
-    this.getUserInventory()
-  }
+  postThenGet =  () => {
+        this.postToInventory()
+        .then((res) => {
+          console.log("TESTING")
+          this.getUserInventory()
+        })
+        .catch(err => {
+          console.log("err", err);
+        })
+      }
 
 
   check = () => {
-    console.log(this.state)
-  }
+        console.log(this.state)
+      }
 
   render() {
 
-    return (
-      <Provider store={store}>
-        <Router>
-          <div className="App">
+        return(
+      <Provider store = { store } >
+            <Router>
+              <div className="App">
 
-            <NavbarComponent />
+                <NavbarComponent />
 
-            <div className="container">
-              <Switch>
-                <Route exact path="/signup" component={Signup} />
-                <Route exact path="/login" component={Login} />
-                <Route
-                  exact path="/"
-                  render={(props) => 
-                    <LiquidAssets
-                      {...props}
-                      formInputs={this.state.formInputs}
-                      handleInputChange={this.handleInputChange}
-                      postToInventory={this.postToInventory}
-                      getUserInventory={this.getUserInventory}
-                      postThenGet={this.postThenGet}
+                <div className="container">
+                  <Switch>
+                    <Route exact path="/signup" component={Signup} />
+                    <Route exact path="/login" component={Login} />
+                    <Route
+                      exact path="/"
+                      render={(props) =>
+                        <LiquidAssets
+                          {...props}
+                          formInputs={this.state.formInputs}
+                          handleInputChange={this.handleInputChange}
+                          postToInventory={this.postToInventory}
+                          getUserInventory={this.getUserInventory}
+                          postThenGet={this.postThenGet}
+                        />
+                      }
                     />
-                  }
-                />
-              </Switch>
-            </div>
+                  </Switch>
+                </div>
 
-            {/* <FormComponent 
+                {/* <FormComponent 
             handleInputChange={this.handleInputChange}
             />
             <ImageComponent />
             <TableComponent /> */}
 
-          </div>
-        </Router>
+              </div>
+            </Router>
       </Provider>
     );
   }

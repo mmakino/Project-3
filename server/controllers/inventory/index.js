@@ -51,12 +51,12 @@ class UserInventoryController {
   create(req, res) {
 
     const userInventory = userInputs(req.body);
-    db.UserInventory.create(userInventory)
-      .then(data => {
-        console.log("POSTING TO MYSQL, USER DATA", "==================", data)
-        return res.json(data)
-      })
-      .catch(err => res.status(422).json(err));
+  //   db.UserInventory.create(userInventory)
+  //     .then(data => {
+  //       console.log("POSTING TO MYSQL, USER DATA", "==================", data)
+  //       return res.json(data)
+  //     })
+  //     .catch(err => res.status(422).json(err));
   }
 
   //
