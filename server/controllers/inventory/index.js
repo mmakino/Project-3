@@ -17,9 +17,20 @@ class UserInventoryController {
   // Return all rows of UserInventory
   //
   findAll(req, res) {
-    db.UserInventory.findAll(req.query)
-      .then(data => res.json(data))
-      .catch(err => res.status(422).json(err));
+    console.log("GETTING USER SPECIFIC DATA", "-----------------------", req.query);
+    db.UserInventory.findAll({
+      where: {
+        userId: req.query.userId
+      }
+    })
+      .then(data => {
+        // console.log(data);
+        return res.json(data)
+      })
+      .catch(err => {
+        console.log("err", err);
+        return res.status(422).json(err)
+      });
   }
 
   //
@@ -41,7 +52,10 @@ class UserInventoryController {
 
     const userInventory = userInputs(req.body);
     db.UserInventory.create(userInventory)
-      .then(data => res.json(data))
+      .then(data => {
+        console.log("POSTING TO MYSQL, USER DATA", "==================", data)
+        return res.json(data)
+      })
       .catch(err => res.status(422).json(err));
   }
 

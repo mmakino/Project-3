@@ -46,7 +46,8 @@ class App extends Component {
       unopenedBottles: ``,
       bottleCost: ``,
       bottleWeight: ``,
-    }
+    },
+    user: store.getState().auth
   };
 
 
@@ -80,6 +81,7 @@ class App extends Component {
     }));
   };
 
+
   postToInventory = () => {
     console.log("Posting Inventory");
     return axios.post('/api/inventory', {
@@ -87,12 +89,37 @@ class App extends Component {
       sizeML: this.state.formInputs.bottleSize,
       costPerBottle: this.state.formInputs.bottleCost,
       totalBottles: this.state.formInputs.unopenedBottles,
-      measuredWeight: this.state.formInputs.bottleWeight
+      measuredWeight: this.state.formInputs.bottleWeight,
+      userId: this.state.user.user.id
     })
       .then((response) => {
         console.log(response)
       })
   }
+
+  getUserInventory = () => {
+    console.log("Getting User Inventory");
+    return axios.get('/api/inventory', {
+      params: 
+      {
+      brandStyle: this.state.formInputs.brandStyle,
+      sizeML: this.state.formInputs.bottleSize,
+      costPerBottle: this.state.formInputs.bottleCost,
+      totalBottles: this.state.formInputs.unopenedBottles,
+      measuredWeight: this.state.formInputs.bottleWeight,
+      userId: this.state.user.user.id
+    }
+  })
+      .then((response) => {
+        console.log(response)
+      })
+  }
+
+  postThenGet = async () => {
+    await (this.postToInventory()); 
+    this.getUserInventory()
+  }
+
 
   check = () => {
     console.log(this.state)
@@ -119,6 +146,8 @@ class App extends Component {
                       formInputs={this.state.formInputs}
                       handleInputChange={this.handleInputChange}
                       postToInventory={this.postToInventory}
+                      getUserInventory={this.getUserInventory}
+                      postThenGet={this.postThenGet}
                     />
                   }
                 />

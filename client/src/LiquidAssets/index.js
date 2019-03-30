@@ -14,6 +14,8 @@ export default props => {
                         formInputs={props.formInputs} 
                         handleInputChange={props.handleInputChange}
                         postToInventory={props.postToInventory}
+                        getUserInventory={props.getUserInventory}
+                        postThenGet={props.postThenGet}
 
                     />
                 </Grid>
