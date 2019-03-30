@@ -3,7 +3,7 @@ import FormComponent from "./FormComponent"
 import TableComponent from "./TableComponent"
 import ImageComponent from "./ImageComponent"
 import { Grid } from '@material-ui/core'
-import IntegrationAutosuggest from "./IntegrationAutosuggest";
+// import BrandStyleIntegrationAutosuggest from "./BrandStyleIntegrationAutosuggest";
 
 export default props => {
     return (
@@ -12,6 +12,8 @@ export default props => {
 
                 <Grid item xs>
                     <FormComponent
+                        getBoozeSuggestions={props.getBoozeSuggestions}
+                        autosuggest={props.autosuggest}
                         formInputs={props.formInputs}
                         handleInputChange={props.handleInputChange}
                     />
@@ -33,10 +35,10 @@ export default props => {
 
             </Grid>
 
-            <IntegrationAutosuggest 
+            {/* <IntegrationAutosuggest
                 getBoozeSuggestions={props.getBoozeSuggestions}
                 autosuggest={props.autosuggest}
-            />
+            /> */}
         </Fragment>
 
     )

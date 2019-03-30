@@ -11,48 +11,53 @@ import Popper from '@material-ui/core/Popper';
 import { withStyles } from '@material-ui/core/styles';
 import axios from 'axios'
 
-let suggestions = [
-    { label: 'Afghanistan' },
-    { label: 'Aland Islands' },
-    { label: 'Albania' },
-    { label: 'Algeria' },
-    { label: 'American Samoa' },
-    { label: 'Andorra' },
-    { label: 'Angola' },
-    { label: 'Anguilla' },
-    { label: 'Antarctica' },
-    { label: 'Antigua and Barbuda' },
-    { label: 'Argentina' },
-    { label: 'Armenia' },
-    { label: 'Aruba' },
-    { label: 'Australia' },
-    { label: 'Austria' },
-    { label: 'Azerbaijan' },
-    { label: 'Bahamas' },
-    { label: 'Bahrain' },
-    { label: 'Bangladesh' },
-    { label: 'Barbados' },
-    { label: 'Belarus' },
-    { label: 'Belgium' },
-    { label: 'Belize' },
-    { label: 'Benin' },
-    { label: 'Bermuda' },
-    { label: 'Bhutan' },
-    { label: 'Bolivia, Plurinational State of' },
-    { label: 'Bonaire, Sint Eustatius and Saba' },
-    { label: 'Bosnia and Herzegovina' },
-    { label: 'Botswana' },
-    { label: 'Bouvet Island' },
-    { label: 'Brazil' },
-    { label: 'British Indian Ocean Territory' },
-    { label: 'Brunei Darussalam' },
-];
+// ****************************************************************************************THIS IS ONLY NECESSARY BEFORE WE CUSTOMIZED THIS FOR OUR AXIOS REQUEST TO DYNAMICALLY RENDER IT, HOWEVER THE FORMAT BELOW IS HOW YOUR DATA MUST LOOK  ****************************************************************************************
+// let suggestions = [
+//     { label: 'Afghanistan' },
+//     { label: 'Aland Islands' },
+//     { label: 'Albania' },
+//     { label: 'Algeria' },
+//     { label: 'American Samoa' },
+//     { label: 'Andorra' },
+//     { label: 'Angola' },
+//     { label: 'Anguilla' },
+//     { label: 'Antarctica' },
+//     { label: 'Antigua and Barbuda' },
+//     { label: 'Argentina' },
+//     { label: 'Armenia' },
+//     { label: 'Aruba' },
+//     { label: 'Australia' },
+//     { label: 'Austria' },
+//     { label: 'Azerbaijan' },
+//     { label: 'Bahamas' },
+//     { label: 'Bahrain' },
+//     { label: 'Bangladesh' },
+//     { label: 'Barbados' },
+//     { label: 'Belarus' },
+//     { label: 'Belgium' },
+//     { label: 'Belize' },
+//     { label: 'Benin' },
+//     { label: 'Bermuda' },
+//     { label: 'Bhutan' },
+//     { label: 'Bolivia, Plurinational State of' },
+//     { label: 'Bonaire, Sint Eustatius and Saba' },
+//     { label: 'Bosnia and Herzegovina' },
+//     { label: 'Botswana' },
+//     { label: 'Bouvet Island' },
+//     { label: 'Brazil' },
+//     { label: 'British Indian Ocean Territory' },
+//     { label: 'Brunei Darussalam' },
+// ];
 
 function renderInputComponent(inputProps) {
     const { classes, inputRef = () => { }, ref, ...other } = inputProps;
 
     return (
         <TextField
+            id='standard-name'
+            label='Please enter the Brand Of Booze'
+            variant='outlined'
+            className={classes.textField}
             fullWidth
             InputProps={{
                 inputRef: node => {
@@ -91,6 +96,7 @@ function renderSuggestion(suggestion, { query, isHighlighted }) {
     );
 }
 
+// THIS IS WHERE THIS FUNCTION WHICH IS NOW INSIDE THE CLASS BELOW ORIGINALLY WAS!*****************************************************************************
 // function getSuggestions(value) {
 //     const inputValue = deburr(value.trim()).toLowerCase();
 //     const inputLength = inputValue.length;
@@ -142,14 +148,13 @@ const styles = theme => ({
     },
 });
 
-class IntegrationAutosuggest extends React.Component {
+class BrandStyleIntegrationAutosuggest extends React.Component {
     constructor(props) {
         super(props);
-        // suggestions = props.autosuggest.suggestions;
         this.state = {
             single: '',
             popper: '',
-            // suggestions: this.autosuggest.suggestions
+            // we added this part, this suggestions array is where our data from the axios call gets pushed.  There was already a suggestions array but we modified our in order to conform to the code we had already written.
             autosuggest: {
                 suggestions: []
             }
@@ -157,12 +162,12 @@ class IntegrationAutosuggest extends React.Component {
         };
     }
 
+    // componentDidMount is where we 
     componentDidMount() {
-        // this.getAlcohol();
-        this.getBoozeSuggestions().then((gottenAlcohol) => {
+        this.getBoozeSuggestions().then( (gottenBoozeSuggestions) => {
             this.setState({
                 autosuggest: {
-                    suggestions: gottenAlcohol
+                    suggestions: gottenBoozeSuggestions
                 }
             });
         })
@@ -170,19 +175,19 @@ class IntegrationAutosuggest extends React.Component {
 
 
     getBoozeSuggestions = () => {
-
+        // This constructor function returns a promise containing a function that returns our data once the axios call has been resolved so that data can be passed into other areas such as in line 169 above.  "resolved" and then maps over the response.data.     
         return new Promise((resolve, reject) => {
             axios.get('/api/alcohol')
                 .then((response) => {
-                    let gottenAlcohol = response.data.map((alcohol) => {
-                        return { label: alcohol.brandstyle }
+                    // We set gottenBoozeSuggestions equal to a  map that maps over the data from the api call which we will return from the function.  Map takes one argument that can be named whatever you want.  We are next setting the value of brandstyle from the response to the 'label:' key because this is the format that we need our data in for the IntegrationAutosuggest component to handle it correctly.
+                    let gottenBoozeSuggestions = response.data.map( (boozeData) => {
+                        // We are returning the data in exactly the format that we need it in for the suggestions array in our state above, so that it plugs in nicely to the component.
+                        return { label: boozeData.brandstyle }
                     })
-                    console.log(gottenAlcohol)
+                    console.log(gottenBoozeSuggestions)
+                    // this resolve method is where we are passing 
+                    resolve(gottenBoozeSuggestions)
 
-                    resolve(gottenAlcohol)
-                    // this.setState({
-                    //   suggestions: response.brandStyle
-                    // })
                 })
                 .catch((error) => {
                     console.log(error);
@@ -198,6 +203,7 @@ class IntegrationAutosuggest extends React.Component {
 
         return inputLength === 0
             ? []
+            // WE HAD TO MODIFY THIS BECUASE WE MOVED THIS PROPERTY INSIDE THIS CLASS.  IT WAS OUTSIDE THIS CLASS BEFORE
             : this.state.autosuggest.suggestions.filter(suggestion => {
                 const keep =
                     count < 5 && suggestion.label.slice(0, inputLength).toLowerCase() === inputValue;
@@ -233,6 +239,7 @@ class IntegrationAutosuggest extends React.Component {
 
         const autosuggestProps = {
             renderInputComponent,
+            // ALSO HERE WE HAD TO UPDATE FROM suggestions: 'this.suggestion' to what we wrote below ...
             suggestions: this.state.autosuggest.suggestions,
             onSuggestionsFetchRequested: this.handleSuggestionsFetchRequested,
             onSuggestionsClearRequested: this.handleSuggestionsClearRequested,
@@ -299,8 +306,8 @@ class IntegrationAutosuggest extends React.Component {
     }
 }
 
-IntegrationAutosuggest.propTypes = {
+BrandStyleIntegrationAutosuggest.propTypes = {
     classes: PropTypes.object.isRequired,
 };
 
-export default withStyles(styles)(IntegrationAutosuggest);
+export default withStyles(styles)(BrandStyleIntegrationAutosuggest);

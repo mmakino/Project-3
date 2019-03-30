@@ -1,7 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { withStyles, TextField, Grid, Paper, Button } from '@material-ui/core';
-
+import BrandStyleIntegrationAutosuggest from './BrandStyleIntegrationAutosuggest'
 
 const styles = theme => ({
     container: {
@@ -43,25 +43,16 @@ const FormComponent = (props) => {
             <Grid item xs>
                 <Paper style={nateStyles.paper}>
 
-                    <form className={'form-container'} noValidate autoComplete="off">
-
-                        <TextField
-                            id="outlined-full-width"
-                            label="Input the brand of booze you be weighin' and it's vintage or style here playa!"
-                            style={{ margin: 5 }}
-                            placeholder="Pappy Van Winkle 15 yr"
-                            helperText="Make sure to use that auto-complete for high data fidelity homie"
-                            fullWidth
-                            margin="normal"
-                            variant="outlined"
-                            name="brandStyle"
-                            value={props.formInputs.brandStyle}
-                            // FIXME: need to be able to have this update on the dom on the fly I want to see this happening in a console.log
+                    <form className={'form-container'} noValidate
+                    // Not sure how this works.
+                    autoComplete="off">
+                        {/* THIS IS HOW WE ACCOMPLISHED AUTOCOMPLETE */}
+                        <BrandStyleIntegrationAutosuggest
+                            value={props.formInputs.brandstyle}
                             onChange={props.handleInputChange}
-
-                            InputLabelProps={{
-                                shrink: true,
-                            }}
+                            name="brandStyle"
+                            getBoozeSuggestions={props.getBoozeSuggestions}
+                            autosuggest={props.autosuggest}
                         />
 
                         <TextField
@@ -152,7 +143,7 @@ const FormComponent = (props) => {
         </Grid>
     )
 }
-;
+    ;
 FormComponent.propTypes = {
     classes: PropTypes.object.isRequired,
 };
