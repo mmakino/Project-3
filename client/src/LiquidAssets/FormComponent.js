@@ -23,14 +23,20 @@ const styles = theme => ({
 const nateStyles = {
     paper: {
         padding: 40,
-        marginTop: 30,
+        marginTop: 10,
         marginRight: 62
     },
     gridContainer: {
         marginTop: 20,
-        marginLeft: 40,
+        // marginLeft: 40,
         padding: 20,
+    },
+    brandStyleIntegrationAutosuggest: {
+        marginTop: 20,
+        padding: 0
+        
     }
+        
 
 }
 
@@ -48,8 +54,9 @@ const FormComponent = (props) => {
                     autoComplete="off">
                         {/* THIS IS HOW WE ACCOMPLISHED AUTOCOMPLETE */}
                         <BrandStyleIntegrationAutosuggest
-                            value={props.formInputs.brandstyle}
-                            onChange={props.handleInputChange}
+                            style={nateStyles.brandStyleIntegrationAutosuggest}
+                            value={props.autosuggest.single}
+                            onChange={props.handleChange("single")}
                             name="brandStyle"
                             getBoozeSuggestions={props.getBoozeSuggestions}
                             autosuggest={props.autosuggest}

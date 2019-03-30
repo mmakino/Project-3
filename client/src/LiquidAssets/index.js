@@ -16,6 +16,7 @@ export default props => {
                         autosuggest={props.autosuggest}
                         formInputs={props.formInputs}
                         handleInputChange={props.handleInputChange}
+                        handleChange={(name) => props.handleChange(name)}
                     />
                 </Grid>
 

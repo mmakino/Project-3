@@ -7,7 +7,6 @@ import parse from 'autosuggest-highlight/parse';
 import TextField from '@material-ui/core/TextField';
 import Paper from '@material-ui/core/Paper';
 import MenuItem from '@material-ui/core/MenuItem';
-import Popper from '@material-ui/core/Popper';
 import { withStyles } from '@material-ui/core/styles';
 import axios from 'axios'
 
@@ -48,6 +47,11 @@ import axios from 'axios'
 //     { label: 'British Indian Ocean Territory' },
 //     { label: 'Brunei Darussalam' },
 // ];
+const nateStyles = {
+    texfield: {
+
+    }
+}
 
 function renderInputComponent(inputProps) {
     const { classes, inputRef = () => { }, ref, ...other } = inputProps;
@@ -55,9 +59,15 @@ function renderInputComponent(inputProps) {
     return (
         <TextField
             id='standard-name'
+
             label='Please enter the Brand Of Booze'
             variant='outlined'
+            style={inputProps.style}
+            value={inputProps.autosuggest.single}
+            onChange={inputProps.handleChange}
+            name={inputProps.name}
             className={classes.textField}
+            margin='normal'
             fullWidth
             InputProps={{
                 inputRef: node => {
@@ -96,7 +106,7 @@ function renderSuggestion(suggestion, { query, isHighlighted }) {
     );
 }
 
-// THIS IS WHERE THIS FUNCTION WHICH IS NOW INSIDE THE CLASS BELOW ORIGINALLY WAS!*****************************************************************************
+// THIS IS WHERE THIS METHOD WHICH IS NOW INSIDE class BrandStyleIntegrationAutosuggest ORIGINALLY WAS!*****************************************************************************
 // function getSuggestions(value) {
 //     const inputValue = deburr(value.trim()).toLowerCase();
 //     const inputLength = inputValue.length;
@@ -151,50 +161,50 @@ const styles = theme => ({
 class BrandStyleIntegrationAutosuggest extends React.Component {
     constructor(props) {
         super(props);
-        this.state = {
-            single: '',
-            popper: '',
+        // this.state = {
+        //     single: '',
+            
             // we added this part, this suggestions array is where our data from the axios call gets pushed.  There was already a suggestions array but we modified our in order to conform to the code we had already written.
-            autosuggest: {
-                suggestions: []
-            }
+            // autosuggest: {
+            //     suggestions: []
+            // }
 
-        };
+        // };
     }
 
-    // componentDidMount is where we 
-    componentDidMount() {
-        this.getBoozeSuggestions().then( (gottenBoozeSuggestions) => {
-            this.setState({
-                autosuggest: {
-                    suggestions: gottenBoozeSuggestions
-                }
-            });
-        })
-    }
+    // componentDidMount is where we set this.state.autosuggest.suggestions equal to gottenBoozeSuggestions so that it matches the way class BrandStyleIntegrationAutosuggest needs it to be written in order to work 
+    // componentDidMount() {
+    //     this.getBoozeSuggestions().then( (gottenBoozeSuggestions) => {
+    //         this.setState({
+    //             autosuggest: {
+    //                 suggestions: gottenBoozeSuggestions
+    //             }
+    //         });
+    //     })
+    // }
 
 
-    getBoozeSuggestions = () => {
-        // This constructor function returns a promise containing a function that returns our data once the axios call has been resolved so that data can be passed into other areas such as in line 169 above.  "resolved" and then maps over the response.data.     
-        return new Promise((resolve, reject) => {
-            axios.get('/api/alcohol')
-                .then((response) => {
-                    // We set gottenBoozeSuggestions equal to a  map that maps over the data from the api call which we will return from the function.  Map takes one argument that can be named whatever you want.  We are next setting the value of brandstyle from the response to the 'label:' key because this is the format that we need our data in for the IntegrationAutosuggest component to handle it correctly.
-                    let gottenBoozeSuggestions = response.data.map( (boozeData) => {
-                        // We are returning the data in exactly the format that we need it in for the suggestions array in our state above, so that it plugs in nicely to the component.
-                        return { label: boozeData.brandstyle }
-                    })
-                    console.log(gottenBoozeSuggestions)
-                    // this resolve method is where we are passing 
-                    resolve(gottenBoozeSuggestions)
+    // getBoozeSuggestions = () => {
+    //     // This constructor function returns a promise containing a function that returns our data once the axios call has been resolved so that data can be passed into other areas such as in line 169 above.  "resolved" and then maps over the response.data.     
+    //     return new Promise((resolve, reject) => {
+    //         axios.get('/api/alcohol')
+    //             .then((response) => {
+    //                 // We set gottenBoozeSuggestions equal to a  map that maps over the data from the api call which we will return from the function.  Map takes one argument that can be named whatever you want.  We are next setting the value of brandstyle from the response to the 'label:' key because this is the format that we need our data in for the IntegrationAutosuggest component to handle it correctly.
+    //                 let gottenBoozeSuggestions = response.data.map( (boozeData) => {
+    //                     // We are returning the data in exactly the format that we need it in for the suggestions array in our state above, so that it plugs in nicely to the component.
+    //                     return { label: boozeData.brandstyle }
+    //                 })
+    //                 console.log(gottenBoozeSuggestions)
+    //                 // this resolve method is where we are passing 
+    //                 resolve(gottenBoozeSuggestions)
 
-                })
-                .catch((error) => {
-                    console.log(error);
-                });
-        })
+    //             })
+    //             .catch((error) => {
+    //                 console.log(error);
+    //             });
+    //     })
 
-    }
+    // }
 
     getSuggestions(value) {
         const inputValue = deburr(value.trim()).toLowerCase();
@@ -203,7 +213,7 @@ class BrandStyleIntegrationAutosuggest extends React.Component {
 
         return inputLength === 0
             ? []
-            // WE HAD TO MODIFY THIS BECUASE WE MOVED THIS PROPERTY INSIDE THIS CLASS.  IT WAS OUTSIDE THIS CLASS BEFORE
+            // WE HAD TO MODIFY THIS BECUASE WE MOVED getSuggestions() INSIDE class BrandStyleIntegrationAutosuggest.  IT WAS OUTSIDE Tclass BrandStyleIntegrationAutosuggest BEFORE.
             : this.state.autosuggest.suggestions.filter(suggestion => {
                 const keep =
                     count < 5 && suggestion.label.slice(0, inputLength).toLowerCase() === inputValue;
@@ -240,7 +250,7 @@ class BrandStyleIntegrationAutosuggest extends React.Component {
         const autosuggestProps = {
             renderInputComponent,
             // ALSO HERE WE HAD TO UPDATE FROM suggestions: 'this.suggestion' to what we wrote below ...
-            suggestions: this.state.autosuggest.suggestions,
+            suggestions: this.props.autosuggest.suggestions,
             onSuggestionsFetchRequested: this.handleSuggestionsFetchRequested,
             onSuggestionsClearRequested: this.handleSuggestionsClearRequested,
             getSuggestionValue,
@@ -253,9 +263,9 @@ class BrandStyleIntegrationAutosuggest extends React.Component {
                     {...autosuggestProps}
                     inputProps={{
                         classes,
-                        placeholder: 'Search a country (start with a)',
-                        value: this.state.single,
-                        onChange: this.handleChange('single'),
+                        placeholder: 'JAMESON/IRISH',
+                        value: this.props.single,
+                        onChange: this.props.handleChange/*('single')*/,
                     }}
                     theme={{
                         container: classes.container,
@@ -267,38 +277,6 @@ class BrandStyleIntegrationAutosuggest extends React.Component {
                         <Paper {...options.containerProps} square>
                             {options.children}
                         </Paper>
-                    )}
-                />
-                <div className={classes.divider} />
-                <Autosuggest
-                    {...autosuggestProps}
-                    inputProps={{
-                        classes,
-                        label: 'Label',
-                        placeholder: 'With Popper',
-                        value: this.state.popper,
-                        onChange: this.handleChange('popper'),
-                        inputRef: node => {
-                            this.popperNode = node;
-                        },
-                        InputLabelProps: {
-                            shrink: true,
-                        },
-                    }}
-                    theme={{
-                        suggestionsList: classes.suggestionsList,
-                        suggestion: classes.suggestion,
-                    }}
-                    renderSuggestionsContainer={options => (
-                        <Popper anchorEl={this.popperNode} open={Boolean(options.children)}>
-                            <Paper
-                                square
-                                {...options.containerProps}
-                                style={{ width: this.popperNode ? this.popperNode.clientWidth : null }}
-                            >
-                                {options.children}
-                            </Paper>
-                        </Popper>
                     )}
                 />
             </div>
