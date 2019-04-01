@@ -3,6 +3,8 @@ import PropTypes from 'prop-types';
 import {withStyles, TextField, Grid, Paper, Button} from '@material-ui/core';
 import BrandStyleIntegrationAutosuggest
   from './BrandStyleIntegrationAutosuggest';
+import BottleSizeIntegrationAutosuggest
+  from './BottleSizeIntegrationAutosuggest';
 
 const styles = theme => ({
   container: {
@@ -57,7 +59,7 @@ const FormComponent = props => {
               autosuggest={props.autosuggest}
             />
 
-            <BrandStyleIntegrationAutosuggest
+            <BottleSizeIntegrationAutosuggest
               id="bottleSize"
               label="What size bottle is this?  750mL 1000mL or some weird ass size?"
               placeholder="750 ml"
