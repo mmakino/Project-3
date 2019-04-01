@@ -47,8 +47,13 @@ class FormComponent extends Component {
   constructor(props) {
     super(props);
     this.state = {
-        brandStyle: '',
-        bottleSize: -1,
+        formInputs: {
+            brandStyle: ``,
+            bottleSize: -1,
+            unopenedBottles: -1,
+            bottleCost: -1,
+            bottleWeight: -1,
+        },
         // we added this part, this suggestions array is where our data from the axios call gets pushed.  There was already a suggestions array but we modified our in order to conform to the code we had already written.
         suggestions: [],
       };  
@@ -137,9 +142,10 @@ class FormComponent extends Component {
                 id="brandStyle"
                 label="Input the brand of booze you be weighin' and it's vintage or style here playa!"
                 placeholder="Pappy Van Winkle 15 yr"
-                value={this.state.brandStyle}
-                onChange={() => this.handleChange('brandStyle')}
+                // value={this.state.brandStyle}
                 name="brandStyle"
+                value={this.state.formInputs}
+                onChange={() => this.handleChange('brandStyle')}
                 autosuggestProps={autosuggestProps}
               />
 
@@ -149,7 +155,7 @@ class FormComponent extends Component {
                 placeholder="750 ml"
                 helperText="we'll let you know exactly how many ounces of booze you got in that there bottle."
                 name="bottleSize"
-                value={this.state.bottleSize}
+                value={this.state.formInputs}
                 onChange={() => this.handleChange('bottleSize')}
                 autosuggestProps={autosuggestProps}
               />

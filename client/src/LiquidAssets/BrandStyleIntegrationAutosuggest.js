@@ -40,12 +40,19 @@ class BrandStyleIntegrationAutosuggest extends React.Component {
   constructor (props) {
     super (props);
     this.state = {
-      inputValue: '',
+      inputValue: this.props.value,
       // we added this part, this suggestions array is where our data from the axios call gets pushed.  There was already a suggestions array but we modified our in order to conform to the code we had already written.
     //   suggestions: [],
     };
   }
 
+  onChange(e) {
+      this.setState({
+        inputValue: {
+            [e.target.name]: e.target.value
+        }
+      })
+  }
 
   render () {
     const {classes, autosuggestProps} = this.props;
@@ -59,7 +66,8 @@ class BrandStyleIntegrationAutosuggest extends React.Component {
           placeholder: this.props.placeholder,
         //   value: this.state.inputValue,
         //   onChange: this.props.handleChange ('inputValue'),
-          value: this.props.value,
+        //   value: this.props.value,
+          value: this.props.value[this.props.name],
           onChange: this.props.onChange,
         }}
         theme={{
