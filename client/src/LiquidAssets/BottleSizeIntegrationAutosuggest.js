@@ -6,13 +6,13 @@ import Paper from '@material-ui/core/Paper';
 import {withStyles} from '@material-ui/core/styles';
 import { connect } from 'react-redux';
 
-import getBoozeSuggestions from './autosuggest/queryBooze';
+import { getBoozeSizeSuggestions } from './autosuggest/queryBooze';
 import {
   renderInputComponent,
   renderSuggestion,
   getSuggestionValue,
 } from './autosuggest/renderProps';
-import { updateBrandStyle } from '../store/actions/userInputActions';
+import { updateBottleSize } from '../store/actions/userInputActions';
 
 //
 // Auto-suggest text box styles
@@ -45,7 +45,7 @@ const styles = theme => ({
   },
 });
 
-class BrandStyleIntegrationAutosuggest extends React.Component {
+class BottleSizeIntegrationAutosuggest extends React.Component {
   constructor (props) {
     super (props);
     this.state = {
@@ -55,10 +55,15 @@ class BrandStyleIntegrationAutosuggest extends React.Component {
   }
 
   initSuggestions () {
-    getBoozeSuggestions()
-    .then(gottenBoozeSuggestions => {
+    let query = null;
+    if (this.props.brandStyle) {
+      query = `brandStyle=${this.props.brandStyle}`
+    }
+    getBoozeSizeSuggestions(query)
+    .then(gottenBoozeSizeSuggestions => {
+      console.log({gottenBoozeSizeSuggestions: gottenBoozeSizeSuggestions});
       this.setState ({
-        suggestions: gottenBoozeSuggestions,
+        suggestions: gottenBoozeSizeSuggestions,
       });
     })
     .catch(err => console.log(err));
@@ -110,7 +115,7 @@ class BrandStyleIntegrationAutosuggest extends React.Component {
     this.setState ({
       [name]: newValue,
     });
-    this.props.updateBrandStyle(newValue);
+    this.props.updateBottleSize(newValue);
   };
 
   render () {
@@ -152,9 +157,9 @@ class BrandStyleIntegrationAutosuggest extends React.Component {
   }
 }
 
-BrandStyleIntegrationAutosuggest.propTypes = {
+BottleSizeIntegrationAutosuggest.propTypes = {
   classes: PropTypes.object.isRequired,
-  updateBrandStyle: PropTypes.func.isRequired,
+  updateBottleSize: PropTypes.func.isRequired,
   brandStyle: PropTypes.object.isRequired,
   bottleSize: PropTypes.object.isRequired,
 };
@@ -164,4 +169,4 @@ const mapStateToProps = (state) => ({
   bottleSize: state.bottleSize,
 });
 
-export default (connect(mapStateToProps, { updateBrandStyle }))(withStyles(styles)(BrandStyleIntegrationAutosuggest));
+export default (connect(mapStateToProps, { updateBottleSize }))(withStyles(styles)(BottleSizeIntegrationAutosuggest));
