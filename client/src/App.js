@@ -1,10 +1,10 @@
 import React, {Component, Fragment} from 'react';
 import {BrowserRouter as Router, Route, Switch} from 'react-router-dom';
 import jwtDecode from 'jwt-decode';
-import setAuthToken from './utils/setAuthToken';
-import {setCurrentUser, logoutUser} from './actions/authActions';
 import {Provider} from 'react-redux';
 import store from './store';
+import setAuthToken from './store/utils/setAuthToken';
+import {setCurrentUser, logoutUser} from './store/actions/authActions';
 import './App.css';
 import LiquidAssets from './LiquidAssets';
 import NavbarComponent from './NavbarComponent';
@@ -44,22 +44,22 @@ class App extends Component {
       bottleCost: ``,
       bottleWeight: ``,
     },
-    auth: {}  // user authentication { isAuthenticated, user }
+    auth: {}, // user authentication { isAuthenticated, user }
   };
 
   // TODO: this needs to go inside of a onClick handler function that can be passed into the button.  This will post the state of the form to the route that I choose the post route to be.  Might have to make a variable and put the states into a variable
 
-  componentDidMount() {
-    this.setState({
-      auth: store.getState().auth
+  componentDidMount () {
+    this.setState ({
+      auth: store.getState ().auth,
     });
-    this.getAlcohol();
+    this.getAlcohol ();
   }
 
-  componentDidUpdate(prevProps, prevState) {
-    if (this.state.auth !== store.getState().auth) {
-      this.setState({
-        auth: store.getState().auth
+  componentDidUpdate (prevProps, prevState) {
+    if (this.state.auth !== store.getState ().auth) {
+      this.setState ({
+        auth: store.getState ().auth,
       });
     }
   }
@@ -79,7 +79,6 @@ class App extends Component {
       });
   };
 
-
   handleInputChange = event => {
     const {name, value} = event.target;
     this.setState (state => ({
@@ -90,68 +89,66 @@ class App extends Component {
     }));
   };
 
-
   postToInventory = () => {
-    
-    console.log("Posting Inventory " + this.state.auth.user.id);
-    return new Promise((resolve, reject) => {
-      axios.post('/api/inventory', {
-        brandStyle: this.state.formInputs.brandStyle,
-        sizeML: this.state.formInputs.bottleSize,
-        costPerBottle: this.state.formInputs.bottleCost,
-        totalBottles: this.state.formInputs.unopenedBottles,
-        measuredWeight: this.state.formInputs.bottleWeight,
-        userId: this.state.auth.user.id
-      })
-        .then((response) => {
-          resolve(response);
+    console.log ('Posting Inventory ' + this.state.auth.user.id);
+    return new Promise ((resolve, reject) => {
+      axios
+        .post ('/api/inventory', {
+          brandStyle: this.state.formInputs.brandStyle,
+          sizeML: this.state.formInputs.bottleSize,
+          costPerBottle: this.state.formInputs.bottleCost,
+          totalBottles: this.state.formInputs.unopenedBottles,
+          measuredWeight: this.state.formInputs.bottleWeight,
+          userId: this.state.auth.user.id,
         })
-        .catch(err => {
-          console.log("err", err);
+        .then (response => {
+          resolve (response);
+        })
+        .catch (err => {
+          console.log ('err', err);
           reject (err);
-        })
-    })
-  }
+        });
+    });
+  };
 
   getUserInventory = () => {
-    console.log("Getting User Inventory");
-    return axios.get('/api/inventory', {
-      params:
-      {
-        brandStyle: this.state.formInputs.brandStyle,
-        sizeML: this.state.formInputs.bottleSize,
-        costPerBottle: this.state.formInputs.bottleCost,
-        totalBottles: this.state.formInputs.unopenedBottles,
-        measuredWeight: this.state.formInputs.bottleWeight,
-        userId: this.state.auth.user.id
-      }
-    })
-      .then((response) => {
-        console.log(response)
+    console.log ('Getting User Inventory');
+    return axios
+      .get ('/api/inventory', {
+        params: {
+          brandStyle: this.state.formInputs.brandStyle,
+          sizeML: this.state.formInputs.bottleSize,
+          costPerBottle: this.state.formInputs.bottleCost,
+          totalBottles: this.state.formInputs.unopenedBottles,
+          measuredWeight: this.state.formInputs.bottleWeight,
+          userId: this.state.auth.user.id,
+        },
+      })
+      .then (response => {
+        console.log (response);
       })
       .then (response => {
         console.log (response);
       });
   };
 
-  postThenGet =  () => {
-    this.postToInventory()
-    .then((res) => {
-      console.log("TESTING")
-      this.getUserInventory()
-    })
-    .catch(err => {
-      console.log("err", err);
-    })
-  }
-
+  postThenGet = () => {
+    this.postToInventory ()
+      .then (res => {
+        console.log ('TESTING');
+        this.getUserInventory ();
+      })
+      .catch (err => {
+        console.log ('err', err);
+      });
+  };
 
   check = () => {
     console.log (this.state);
   };
 
-  render() {
-    return(
+  render () {
+    return (
       <Provider store={store}>
         <Router>
           <div className="App">
@@ -163,8 +160,9 @@ class App extends Component {
                 <Route exact path="/signup" component={Signup} />
                 <Route exact path="/login" component={Login} />
                 <Route
-                  exact path="/"
-                  render={(props) =>
+                  exact
+                  path="/"
+                  render={props => (
                     <LiquidAssets
                       {...props}
                       formInputs={this.state.formInputs}
@@ -173,7 +171,7 @@ class App extends Component {
                       getUserInventory={this.getUserInventory}
                       postThenGet={this.postThenGet}
                     />
-                  }
+                  )}
                 />
               </Switch>
             </div>
@@ -190,6 +188,5 @@ class App extends Component {
     );
   }
 }
-
 
 export default App;
