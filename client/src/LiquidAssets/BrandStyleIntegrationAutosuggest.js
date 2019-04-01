@@ -1,9 +1,16 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import deburr from 'lodash/deburr';
 import Autosuggest from 'react-autosuggest';
 import Paper from '@material-ui/core/Paper';
 import {withStyles} from '@material-ui/core/styles';
 
+import getBoozeSuggestions from './autosuggest/queryBooze';
+import {
+  renderInputComponent,
+  renderSuggestion,
+  getSuggestionValue,
+} from './autosuggest/renderProps';
 
 //
 // Auto-suggest text box styles
@@ -40,22 +47,82 @@ class BrandStyleIntegrationAutosuggest extends React.Component {
   constructor (props) {
     super (props);
     this.state = {
-      inputValue: "", //this.props.value,
+      inputValue: '',
       // we added this part, this suggestions array is where our data from the axios call gets pushed.  There was already a suggestions array but we modified our in order to conform to the code we had already written.
-    //   suggestions: [],
+      suggestions: [],
     };
   }
 
-  onChange(e) {
-      this.setState({
-        inputValue: {
-            [e.target.name]: e.target.value
-        }
-      })
+  initSuggestions () {
+    getBoozeSuggestions()
+    .then(gottenBoozeSuggestions => {
+      this.setState ({
+        suggestions: gottenBoozeSuggestions,
+      });
+    })
+    .catch(err => console.log(err));
   }
 
+  // componentDidMount is where we
+  componentDidMount () {
+    this.initSuggestions();
+  }
+
+  getSuggestions(value) {
+    const inputValue = deburr (value.trim ()).toLowerCase ();
+    const inputLength = inputValue.length;
+    let count = 0;
+
+    return inputLength === 0
+      ? []
+      : // WE HAD TO MODIFY THIS BECUASE WE MOVED THIS PROPERTY INSIDE THIS CLASS.  IT WAS OUTSIDE THIS CLASS BEFORE
+        this.state.suggestions.filter (suggestion => {
+          const keep =
+            count < 5 &&
+            suggestion.label.slice (0, inputLength).toLowerCase () ===
+              inputValue;
+
+          if (keep) {
+            count += 1;
+          }
+
+          return keep;
+        });
+  }
+
+  handleSuggestionsFetchRequested = ({value}) => {
+    this.setState ({
+      suggestions: this.getSuggestions (value),
+    });
+  };
+
+  handleSuggestionsClearRequested = () => {
+    this.setState ({
+      suggestions: [],
+    });
+  };
+
+  handleChange = name => (event, {newValue}) => {
+    if (this.state.suggestions.length === 0) {
+      this.initSuggestions ();
+    }
+    this.setState ({
+      [name]: newValue,
+    });
+  };
+
   render () {
-    const {classes, autosuggestProps} = this.props;
+    const {classes} = this.props;
+
+    const autosuggestProps = {
+      renderInputComponent,
+      // ALSO HERE WE HAD TO UPDATE FROM suggestions: 'this.suggestion' to what we wrote below ...
+      suggestions: this.state.suggestions,
+      onSuggestionsFetchRequested: this.handleSuggestionsFetchRequested,
+      onSuggestionsClearRequested: this.handleSuggestionsClearRequested,
+      getSuggestionValue,
+      renderSuggestion,
+    };
 
     return (
       <Autosuggest
@@ -64,12 +131,8 @@ class BrandStyleIntegrationAutosuggest extends React.Component {
           classes,
           label: this.props.label,
           placeholder: this.props.placeholder,
-        //   value: this.state.inputValue,
-        //   onChange: this.props.handleChange ('inputValue'),
-        //   value: this.props.value,
-        //   value: this.props.value[this.props.name],
           value: this.state.inputValue,
-          onChange: this.props.onChange,
+          onChange: this.handleChange('inputValue'),
         }}
         theme={{
           container: classes.container,
