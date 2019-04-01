@@ -16,6 +16,10 @@ export default props => {
                         // autosuggest={props.autosuggest}
                         formInputs={props.formInputs}
                         handleInputChange={props.handleInputChange}
+                        postToInventory={props.postToInventory}
+                        getUserInventory={props.getUserInventory}
+                        postThenGet={props.postThenGet}
+
                     />
                 </Grid>
 

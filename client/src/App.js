@@ -44,12 +44,24 @@ class App extends Component {
       bottleCost: ``,
       bottleWeight: ``,
     },
+    auth: {}  // user authentication { isAuthenticated, user }
   };
 
   // TODO: this needs to go inside of a onClick handler function that can be passed into the button.  This will post the state of the form to the route that I choose the post route to be.  Might have to make a variable and put the states into a variable
 
-  componentDidMount () {
-    this.getAlcohol ();
+  componentDidMount() {
+    this.setState({
+      auth: store.getState().auth
+    });
+    this.getAlcohol();
+  }
+
+  componentDidUpdate(prevProps, prevState) {
+    if (this.state.auth !== store.getState().auth) {
+      this.setState({
+        auth: store.getState().auth
+      });
+    }
   }
 
   getAlcohol = () => {
@@ -67,6 +79,7 @@ class App extends Component {
       });
   };
 
+
   handleInputChange = event => {
     const {name, value} = event.target;
     this.setState (state => ({
@@ -77,27 +90,68 @@ class App extends Component {
     }));
   };
 
+
   postToInventory = () => {
-    console.log ('Posting Inventory');
-    return axios
-      .post ('/api/inventory', {
+    
+    console.log("Posting Inventory " + this.state.auth.user.id);
+    return new Promise((resolve, reject) => {
+      axios.post('/api/inventory', {
         brandStyle: this.state.formInputs.brandStyle,
         sizeML: this.state.formInputs.bottleSize,
         costPerBottle: this.state.formInputs.bottleCost,
         totalBottles: this.state.formInputs.unopenedBottles,
         measuredWeight: this.state.formInputs.bottleWeight,
+        userId: this.state.auth.user.id
+      })
+        .then((response) => {
+          resolve(response);
+        })
+        .catch(err => {
+          console.log("err", err);
+          reject (err);
+        })
+    })
+  }
+
+  getUserInventory = () => {
+    console.log("Getting User Inventory");
+    return axios.get('/api/inventory', {
+      params:
+      {
+        brandStyle: this.state.formInputs.brandStyle,
+        sizeML: this.state.formInputs.bottleSize,
+        costPerBottle: this.state.formInputs.bottleCost,
+        totalBottles: this.state.formInputs.unopenedBottles,
+        measuredWeight: this.state.formInputs.bottleWeight,
+        userId: this.state.auth.user.id
+      }
+    })
+      .then((response) => {
+        console.log(response)
       })
       .then (response => {
         console.log (response);
       });
   };
 
+  postThenGet =  () => {
+    this.postToInventory()
+    .then((res) => {
+      console.log("TESTING")
+      this.getUserInventory()
+    })
+    .catch(err => {
+      console.log("err", err);
+    })
+  }
+
+
   check = () => {
     console.log (this.state);
   };
 
-  render () {
-    return (
+  render() {
+    return(
       <Provider store={store}>
         <Router>
           <div className="App">
@@ -109,25 +163,26 @@ class App extends Component {
                 <Route exact path="/signup" component={Signup} />
                 <Route exact path="/login" component={Login} />
                 <Route
-                  exact
-                  path="/"
-                  render={props => (
+                  exact path="/"
+                  render={(props) =>
                     <LiquidAssets
                       {...props}
                       formInputs={this.state.formInputs}
                       handleInputChange={this.handleInputChange}
                       postToInventory={this.postToInventory}
+                      getUserInventory={this.getUserInventory}
+                      postThenGet={this.postThenGet}
                     />
-                  )}
+                  }
                 />
               </Switch>
             </div>
 
             {/* <FormComponent 
-            handleInputChange={this.handleInputChange}
-            />
-            <ImageComponent />
-            <TableComponent /> */}
+        handleInputChange={this.handleInputChange}
+        />
+        <ImageComponent />
+        <TableComponent /> */}
 
           </div>
         </Router>
@@ -135,5 +190,6 @@ class App extends Component {
     );
   }
 }
+
 
 export default App;
