@@ -164,7 +164,7 @@ class BrandStyleIntegrationAutosuggest extends React.Component {
 
     // componentDidMount is where we 
     componentDidMount() {
-        this.getBoozeSuggestions().then( (gottenBoozeSuggestions) => {
+        this.getBoozeSuggestions().then((gottenBoozeSuggestions) => {
             this.setState({
                 autosuggest: {
                     suggestions: gottenBoozeSuggestions
@@ -180,7 +180,7 @@ class BrandStyleIntegrationAutosuggest extends React.Component {
             axios.get('/api/alcohol')
                 .then((response) => {
                     // We set gottenBoozeSuggestions equal to a  map that maps over the data from the api call which we will return from the function.  Map takes one argument that can be named whatever you want.  We are next setting the value of brandstyle from the response to the 'label:' key because this is the format that we need our data in for the IntegrationAutosuggest component to handle it correctly.
-                    let gottenBoozeSuggestions = response.data.map( (boozeData) => {
+                    let gottenBoozeSuggestions = response.data.map((boozeData) => {
                         // We are returning the data in exactly the format that we need it in for the suggestions array in our state above, so that it plugs in nicely to the component.
                         return { label: boozeData.brandstyle }
                     })

@@ -29,6 +29,14 @@ module.exports = {
       },
       gramsPerOunce: {
         type: Sequelize.DECIMAL(10,2),
+      },
+      image: {
+        type: Sequelize.STRING,
+        allowNull: true
+      },
+      tastingNotes: {
+        type: Sequelize.STRING(1234),
+        allowNull: true
       }
     });
   },
