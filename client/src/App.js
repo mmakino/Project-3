@@ -47,25 +47,15 @@ class App extends Component {
       bottleCost: ``,
       bottleWeight: ``,
     },
-    auth: {}  // user authentication { isAuthenticated, user }
+    user: store.getState().auth,
+    userInventoryData: []
   };
 
 
   // TODO: this needs to go inside of a onClick handler function that can be passed into the button.  This will post the state of the form to the route that I choose the post route to be.  Might have to make a variable and put the states into a variable
 
   componentDidMount() {
-    this.setState({
-      auth: store.getState().auth
-    });
     this.getAlcohol();
-  }
-
-  componentDidUpdate(prevProps, prevState) {
-    if (this.state.auth !== store.getState().auth) {
-      this.setState({
-        auth: store.getState().auth
-      });
-    }
   }
 
   getAlcohol = () => {
@@ -82,7 +72,6 @@ class App extends Component {
       });
   }
 
-
   handleInputChange = event => {
     const { name, value } = event.target;
     this.setState((state) => ({
@@ -95,8 +84,7 @@ class App extends Component {
 
 
   postToInventory = () => {
-    
-    console.log("Posting Inventory " + this.state.auth.user.id);
+    console.log("Posting Inventory");
     return new Promise((resolve, reject) => {
       axios.post('/api/inventory', {
         brandStyle: this.state.formInputs.brandStyle,
@@ -104,45 +92,59 @@ class App extends Component {
         costPerBottle: this.state.formInputs.bottleCost,
         totalBottles: this.state.formInputs.unopenedBottles,
         measuredWeight: this.state.formInputs.bottleWeight,
-        userId: this.state.auth.user.id
+        userId: this.state.user.user.id
       })
         .then((response) => {
           resolve(response);
+
         })
         .catch(err => {
           console.log("err", err);
-          reject (err);
+          reject(err);
         })
     })
   }
 
   getUserInventory = () => {
     console.log("Getting User Inventory");
-    return axios.get('/api/inventory', {
-      params:
-      {
-        brandStyle: this.state.formInputs.brandStyle,
-        sizeML: this.state.formInputs.bottleSize,
-        costPerBottle: this.state.formInputs.bottleCost,
-        totalBottles: this.state.formInputs.unopenedBottles,
-        measuredWeight: this.state.formInputs.bottleWeight,
-        userId: this.state.auth.user.id
-      }
-    })
-      .then((response) => {
-        console.log(response)
+    return new Promise((resolve, reject) => {
+      axios.get('/api/inventory', {
+        params:
+        {
+          brandStyle: this.state.formInputs.brandStyle,
+          sizeML: this.state.formInputs.bottleSize,
+          costPerBottle: this.state.formInputs.bottleCost,
+          totalBottles: this.state.formInputs.unopenedBottles,
+          measuredWeight: this.state.formInputs.bottleWeight,
+          userId: this.state.user.user.id
+        }
       })
+        .then((response) => {
+          console.log("I am the getUserInventory Function", response);
+          resolve(response);
+
+          let tableData = response.data;
+          this.setState({
+            userInventoryData: tableData,
+          })
+          
+        })
+        .catch(err => {
+          console.log("err", err);
+          reject(err);
+        })
+    })
   }
 
-  postThenGet =  () => {
+  postThenGet = () => {
     this.postToInventory()
-    .then((res) => {
-      console.log("TESTING")
-      this.getUserInventory()
-    })
-    .catch(err => {
-      console.log("err", err);
-    })
+      .then((res) => {
+        console.log("TESTING")
+        this.getUserInventory()
+      })
+      .catch(err => {
+        console.log("err", err);
+      })
   }
 
 
@@ -152,8 +154,8 @@ class App extends Component {
 
   render() {
 
-    return(
-      <Provider store = { store } >
+    return (
+      <Provider store={store} >
         <Router>
           <div className="App">
 
@@ -173,6 +175,7 @@ class App extends Component {
                       postToInventory={this.postToInventory}
                       getUserInventory={this.getUserInventory}
                       postThenGet={this.postThenGet}
+                      userInventoryData={this.userInventoryData}
                     />
                   }
                 />
@@ -180,10 +183,10 @@ class App extends Component {
             </div>
 
             {/* <FormComponent 
-        handleInputChange={this.handleInputChange}
-        />
-        <ImageComponent />
-        <TableComponent /> */}
+            handleInputChange={this.handleInputChange}
+            />
+            <ImageComponent />
+            <TableComponent /> */}
 
           </div>
         </Router>
@@ -191,6 +194,5 @@ class App extends Component {
     );
   }
 }
-
 
 export default App;

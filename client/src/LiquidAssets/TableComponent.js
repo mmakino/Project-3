@@ -3,6 +3,7 @@ import PropTypes from 'prop-types';
 import classNames from 'classnames';
 import { withStyles, TableCell, TableSortLabel, Paper, Grid } from '@material-ui/core';
 import { AutoSizer, Column, SortDirection, Table } from 'react-virtualized';
+// import { CSVLink, CSVDownload } from "react-csv";
 import axios from 'axios';
 
 const styles = theme => ({
@@ -180,7 +181,8 @@ MuiVirtualizedTable.defaultProps = {
 
 const WrappedVirtualizedTable = withStyles(styles)(MuiVirtualizedTable);
 
-const data = [
+const data = 
+[
     ['Scotch', 'Glenlivet 18yr', 750, 25.36, 77.84, 15.36, 0.605, 3.07, 47.15, 2.605, 202.77],
     // ['Scotch', 'Glenlivet 18yr', 750, 25.36, 77.84, 15.36, 0.605, 3.07, 47.15, 2.605, 202.77],
     // ['Scotch', 'Glenlivet 18yr', 750, 25.36, 77.84, 15.36, 0.605, 3.07, 47.15, 2.605, 202.77],
