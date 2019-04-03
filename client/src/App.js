@@ -46,6 +46,7 @@ class App extends Component {
       bottleWeight: ``,
     },
     userInventoryData: [],
+    runningTotal: 0,
     auth: {}, // user authentication { isAuthenticated, user }
   };
 
@@ -133,6 +134,15 @@ class App extends Component {
         })
         .then(response => {
           resolve(response);
+          this.setState({
+            formInputs: {
+              brandStyle: ``,
+              bottleSize: ``,
+              unopenedBottles: ``,
+              bottleCost: ``,
+              bottleWeight: ``,
+            }
+          })
         })
         .catch(err => {
           console.log('err', err);
@@ -160,6 +170,7 @@ class App extends Component {
         console.log("I am USERINVENTORYDATA", userInventoryData)
         this.setState({
           userInventoryData: userInventoryData,
+          runningTotal: userInventoryData.reduce((total, value) => {return value.totalInventoryValue + total}, 0)
         })
       })
       .catch(err => {
@@ -169,6 +180,7 @@ class App extends Component {
 
 
   postThenGet = () => {
+
     this.postToInventory()
       .then(res => {
         this.getUserInventory();
