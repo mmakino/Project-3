@@ -34,7 +34,9 @@ export default props => {
             <Grid container>
 
                 <Grid item xs>
-                    <TableComponent header />
+                    <TableComponent
+                        userInventoryData={props.userInventoryData}
+                    />
                 </Grid>
 
             </Grid>
