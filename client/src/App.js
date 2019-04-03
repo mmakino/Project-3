@@ -120,14 +120,13 @@ class App extends Component {
         }
       })
         .then((response) => {
-          console.log("I am the getUserInventory Function", response);
-          resolve(response);
 
-          let tableData = response.data;
+          let userInventoryData = response.data;
+          console.log(userInventoryData)
           this.setState({
-            userInventoryData: tableData,
+            userInventoryData: userInventoryData,
           })
-          
+          resolve(userInventoryData);
         })
         .catch(err => {
           console.log("err", err);
@@ -175,7 +174,7 @@ class App extends Component {
                       postToInventory={this.postToInventory}
                       getUserInventory={this.getUserInventory}
                       postThenGet={this.postThenGet}
-                      userInventoryData={this.userInventoryData}
+                      userInventoryData={this.state.userInventoryData}
                     />
                   }
                 />
