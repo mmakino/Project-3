@@ -156,19 +156,14 @@ class App extends Component {
       })
       .then(response => {
         console.log(response);
-      })
-      .then(response => {
-        console.log(response);
         let userInventoryData = response.data;
-        console.log(userInventoryData)
+        console.log("I am USERINVENTORYDATA", userInventoryData)
         this.setState({
           userInventoryData: userInventoryData,
         })
-        resolve(userInventoryData);
       })
       .catch(err => {
         console.log("err", err);
-        reject(err);
       })
   }
 
@@ -176,7 +171,6 @@ class App extends Component {
   postThenGet = () => {
     this.postToInventory()
       .then(res => {
-        console.log('TESTING');
         this.getUserInventory();
       })
       .catch(err => {
@@ -188,35 +182,35 @@ class App extends Component {
     console.log(this.state);
   };
 
-  render () {
+  render() {
     return (
       <Provider store={store}>
-      <Router>
-        <div className="App">
+        <Router>
+          <div className="App">
 
-          <NavbarComponent />
-          <div className="container">
-            <Switch>
-              <Route exact path="/signup" component={Signup} />
-              <Route exact path="/login" component={Login} />
-              <Route
-                exact
-                path="/"
-                render={props => (
-                  <LiquidAssets
-                    {...props}
-                    formInputs={this.state.formInputs}
-                    handleInputChange={this.handleInputChange}
-                    postToInventory={this.postToInventory}
-                    getUserInventory={this.getUserInventory}
-                    postThenGet={this.postThenGet}
-                    userInventoryData={this.state.userInventoryData}
-                  />
-                )}
-              />
-            </Switch>
-          </div>
-        {/* <FormComponent 
+            <NavbarComponent />
+            <div className="container">
+              <Switch>
+                <Route exact path="/signup" component={Signup} />
+                <Route exact path="/login" component={Login} />
+                <Route
+                  exact
+                  path="/"
+                  render={props => (
+                    <LiquidAssets
+                      {...props}
+                      formInputs={this.state.formInputs}
+                      handleInputChange={this.handleInputChange}
+                      postToInventory={this.postToInventory}
+                      getUserInventory={this.getUserInventory}
+                      postThenGet={this.postThenGet}
+                      userInventoryData={this.state.userInventoryData}
+                    />
+                  )}
+                />
+              </Switch>
+            </div>
+            {/* <FormComponent 
         handleInputChange={this.handleInputChange}
         />
         <ImageComponent />
