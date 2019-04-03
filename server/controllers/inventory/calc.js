@@ -36,6 +36,7 @@ function alcohol(brandStyle, bottleSizeML) {
                 sizeML: parseFloat(bottleSizeML)
             }
         }).then(res => {
+            console.log("********* res ********", res);
             resolve(res.dataValues);
             console.log(res.dataValues);
         }).catch(err => {
@@ -48,7 +49,7 @@ function alcohol(brandStyle, bottleSizeML) {
 async function userInputs(data) {
 
     const alcoholInfo = await alcohol(data.brandStyle, data.sizeML);
-    // console.log("alcoholInfo: ", alcoholInfo);
+    console.log("alcoholInfo: ", alcoholInfo);
     // alcoholInfo.type = data.type;
     // alcoholInfo.brandStyle = data.brandStyle;
 

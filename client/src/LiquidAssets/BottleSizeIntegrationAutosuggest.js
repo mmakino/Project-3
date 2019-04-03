@@ -74,6 +74,16 @@ class BottleSizeIntegrationAutosuggest extends React.Component {
     this.initSuggestions();
   }
 
+  componentDidUpdate() {
+    // this is added primarily for clearing
+    // Note the two variables have circular dependancy
+    if (this.state.inputValue !== this.props.bottleSize) {
+      this.setState({
+        inputValue: this.props.bottleSize
+      })
+    }
+  }
+
   getSuggestions(value) {
     const inputValue = deburr (value.trim ()).toLowerCase ();
     const inputLength = inputValue.length;
@@ -115,6 +125,8 @@ class BottleSizeIntegrationAutosuggest extends React.Component {
     this.setState ({
       [name]: newValue,
     });
+    event.target.name = "bottleSize";
+    this.props.onChange(event);
     this.props.updateBottleSize(newValue);
   };
 
@@ -160,13 +172,13 @@ class BottleSizeIntegrationAutosuggest extends React.Component {
 BottleSizeIntegrationAutosuggest.propTypes = {
   classes: PropTypes.object.isRequired,
   updateBottleSize: PropTypes.func.isRequired,
-  brandStyle: PropTypes.object.isRequired,
-  bottleSize: PropTypes.object.isRequired,
+  brandStyle: PropTypes.string.isRequired,
+  bottleSize: PropTypes.string.isRequired,
 };
 
 const mapStateToProps = (state) => ({
-  brandStyle: state.brandStyle,
-  bottleSize: state.bottleSize,
+  brandStyle: state.brandStyle.brandStyle,
+  bottleSize: state.bottleSize.bottleSize,
 });
 
 export default (connect(mapStateToProps, { updateBottleSize }))(withStyles(styles)(BottleSizeIntegrationAutosuggest));

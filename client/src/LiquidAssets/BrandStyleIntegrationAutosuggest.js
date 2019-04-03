@@ -47,26 +47,44 @@ const styles = theme => ({
 
 class BrandStyleIntegrationAutosuggest extends React.Component {
   constructor (props) {
-    super (props);
+    super(props);
     this.state = {
       inputValue: '',
       suggestions: [],
     };
+    this.suggestions = [];
   }
 
   initSuggestions () {
-    getBoozeSuggestions()
-    .then(gottenBoozeSuggestions => {
+    if (this.suggestions.length === 0) {
+      getBoozeSuggestions()
+      .then(gottenBoozeSuggestions => {
+        this.suggestions = gottenBoozeSuggestions;
+        this.setState ({
+          suggestions: this.suggestions,
+        });
+      })
+      .catch(err => console.log(err));  
+    } else {
       this.setState ({
-        suggestions: gottenBoozeSuggestions,
+        suggestions: this.suggestions,
       });
-    })
-    .catch(err => console.log(err));
+    }
   }
 
   // componentDidMount is where we
   componentDidMount () {
     this.initSuggestions();
+  }
+
+  componentDidUpdate() {
+    // this is added primarily for clearing
+    // Note the two variables have circular dependancy
+    if (this.state.inputValue !== this.props.brandStyle) {
+      this.setState({
+        inputValue: this.props.brandStyle
+      });
+    }
   }
 
   getSuggestions(value) {
@@ -93,7 +111,7 @@ class BrandStyleIntegrationAutosuggest extends React.Component {
 
   handleSuggestionsFetchRequested = ({value}) => {
     this.setState ({
-      suggestions: this.getSuggestions (value),
+      suggestions: this.getSuggestions(value),
     });
   };
 
@@ -105,17 +123,18 @@ class BrandStyleIntegrationAutosuggest extends React.Component {
 
   handleChange = name => (event, {newValue}) => {
     if (this.state.suggestions.length === 0) {
-      this.initSuggestions ();
+      this.initSuggestions();
     }
     this.setState ({
       [name]: newValue,
     });
+    event.target.name = "brandStyle";
+    this.props.onChange(event);
     this.props.updateBrandStyle(newValue);
   };
 
   render () {
-    const {classes} = this.props;
-
+    const {classes, value} = this.props;
     const autosuggestProps = {
       renderInputComponent,
       // ALSO HERE WE HAD TO UPDATE FROM suggestions: 'this.suggestion' to what we wrote below ...
@@ -135,6 +154,8 @@ class BrandStyleIntegrationAutosuggest extends React.Component {
           placeholder: this.props.placeholder,
           value: this.state.inputValue,
           onChange: this.handleChange('inputValue'),
+          // error: true,
+          // label: 'Brand/Style not found'
         }}
         theme={{
           container: classes.container,
@@ -155,13 +176,13 @@ class BrandStyleIntegrationAutosuggest extends React.Component {
 BrandStyleIntegrationAutosuggest.propTypes = {
   classes: PropTypes.object.isRequired,
   updateBrandStyle: PropTypes.func.isRequired,
-  brandStyle: PropTypes.object.isRequired,
-  bottleSize: PropTypes.object.isRequired,
+  brandStyle: PropTypes.string.isRequired,
+  bottleSize: PropTypes.string.isRequired,
 };
 
 const mapStateToProps = (state) => ({
-  brandStyle: state.brandStyle,
-  bottleSize: state.bottleSize,
+  brandStyle: state.brandStyle.brandStyle,
+  bottleSize: state.bottleSize.bottleSize,
 });
 
 export default (connect(mapStateToProps, { updateBrandStyle }))(withStyles(styles)(BrandStyleIntegrationAutosuggest));

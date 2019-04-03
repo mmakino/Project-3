@@ -24,7 +24,7 @@ class UserInventoryController {
         }
       })
       .then(data => {
-        console.log(data);
+        // console.log(data);
         return res.json(data)
       })
       .catch(err => {

@@ -8,7 +8,7 @@ module.exports = (sequelize, DataTypes) => {
     emptyBottleWeight: DataTypes.INTEGER,
     gramsPerOunce: DataTypes.INTEGER,
     image: DataTypes.STRING,
-    tastingNotes: DataTypes.STRING(1234)
+    tastingNotes: DataTypes.STRING
   }, {});
   Alcohol.associate = function (models) {
     // associations can be defined here
