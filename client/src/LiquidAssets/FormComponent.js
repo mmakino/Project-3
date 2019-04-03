@@ -1,7 +1,10 @@
-import React from 'react';
+import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { withStyles, TextField, Grid, Paper, Button } from '@material-ui/core';
-import BrandStyleIntegrationAutosuggest from './BrandStyleIntegrationAutosuggest'
+import BrandStyleIntegrationAutosuggest
+    from './BrandStyleIntegrationAutosuggest';
+import BottleSizeIntegrationAutosuggest
+    from './BottleSizeIntegrationAutosuggest';
 
 const styles = theme => ({
     container: {
@@ -17,59 +20,54 @@ const styles = theme => ({
     },
     menu: {
         width: 200,
-    }
+    },
 });
 
 const nateStyles = {
     paper: {
         padding: 40,
         marginTop: 30,
-        marginRight: 62
+        marginRight: 62,
     },
     gridContainer: {
         marginTop: 20,
         marginLeft: 40,
         padding: 20,
-    }
+    },
+};
 
-}
-
-
-
-const FormComponent = (props) => {
-
+const FormComponent = props => {
     return (
         <Grid container style={nateStyles.gridContainer}>
             <Grid item xs>
                 <Paper style={nateStyles.paper}>
 
-                    <form className={'form-container'} noValidate
-                    // Not sure how this works.
-                    autoComplete="off">
+                    <form
+                        className={'form-container'}
+                        noValidate
+                        // Not sure how this works.
+                        autoComplete="off"
+                    >
                         {/* THIS IS HOW WE ACCOMPLISHED AUTOCOMPLETE */}
                         <BrandStyleIntegrationAutosuggest
+                            id="brandStyle"
+                            label="Input the brand of booze you be weighin' and it's vintage or style here playa!"
+                            placeholder="Pappy Van Winkle 15 yr"
                             value={props.formInputs.brandstyle}
                             onChange={props.handleInputChange}
                             name="brandStyle"
-                            getBoozeSuggestions={props.getBoozeSuggestions}
                             autosuggest={props.autosuggest}
                         />
 
-                        <TextField
-                            id="outlined-full-width"
+                        <BottleSizeIntegrationAutosuggest
+                            id="bottleSize"
                             label="What size bottle is this?  750mL 1000mL or some weird ass size?"
-                            style={{ margin: 5 }}
                             placeholder="750 ml"
                             helperText="we'll let you know exactly how many ounces of booze you got in that there bottle."
-                            fullWidth
-                            margin="normal"
-                            variant="outlined"
+                            name="brandStyle"
                             value={props.formInputs.bottleSize}
-                            name="bottleSize"
                             onChange={props.handleInputChange}
-                            InputLabelProps={{
-                                shrink: true,
-                            }}
+                            autosuggest={props.autosuggest}
                         />
 
                         <TextField
@@ -106,8 +104,6 @@ const FormComponent = (props) => {
                             }}
                         />
 
-
-
                         <TextField
                             id="outlined-full-width"
                             label="Throw it up on the scale and type in what it weighs, in gramz pleeze."
@@ -125,25 +121,23 @@ const FormComponent = (props) => {
                             }}
                         />
 
-                        <Grid item
-                            align='right'
-                            style={{ marginTop: 20 }}>
+                        <Grid item align="right" style={{ marginTop: 20 }}>
                             <Button
                                 variant="contained"
-                                className='button'
-                                onClick={props.getUserInventory}>
+                                className="button"
+                                onClick={props.postThenGet}>
+                            >
 
                                 Send To Inventory
-                                </Button>
+              </Button>
                         </Grid>
 
                     </form>
                 </Paper>
             </Grid>
         </Grid>
-    )
-}
-    ;
+    );
+};
 FormComponent.propTypes = {
     classes: PropTypes.object.isRequired,
 };

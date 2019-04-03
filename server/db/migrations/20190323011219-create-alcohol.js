@@ -31,12 +31,20 @@ module.exports = {
         type: Sequelize.DECIMAL(10,2),
       },
       image: {
-        type: Sequelize.STRING,
-        allowNull: true
+        type: Sequelize.DECIMAL(10,2),
       },
       tastingNotes: {
         type: Sequelize.STRING(1234),
-        allowNull: true
+      },
+      createdAt: {
+        allowNull: false,
+        type: Sequelize.DATE,
+        defaultValue: new Date()
+      },
+      updatedAt: {
+        allowNull: false,
+        type: Sequelize.DATE,
+        defaultValue: new Date()
       }
     });
   },

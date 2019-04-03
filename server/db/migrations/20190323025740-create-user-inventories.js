@@ -19,17 +19,20 @@ module.exports = {
       },
       costPerBottle: {
         type: Sequelize.DECIMAL(10,2),
-        allowNull: false,
       },
       sizeML: {
         type: Sequelize.DECIMAL(10,2),
-        allowNull: false,
       },
       sizeOZ: {
         type: Sequelize.DECIMAL(10,2),
-        allowNull: false,
+      },
+      ozRemaining: {
+        type: Sequelize.DECIMAL(10,2),
       },
       percentBottleRemaining: {
+        type: Sequelize.DECIMAL(10,2),
+      },
+      costPerOZ: {
         type: Sequelize.DECIMAL(10,2),
       },
       currentValueOfBottle: {
@@ -51,6 +54,7 @@ module.exports = {
         type: Sequelize.DATE,
         defaultValue: new Date()
       }
+
     });
   },
   down: (queryInterface, Sequelize) => {
