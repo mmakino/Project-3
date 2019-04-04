@@ -40,6 +40,8 @@ class App extends Component {
     userInventoryData: [],
     runningTotal: 0,
     formInputErrors: {},
+    image: ``,
+    tastingNotes: ``
   };
 
 

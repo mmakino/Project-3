@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import deburr from 'lodash/deburr';
 import Autosuggest from 'react-autosuggest';
 import Paper from '@material-ui/core/Paper';
-import {withStyles} from '@material-ui/core/styles';
+import { withStyles } from '@material-ui/core/styles';
 import { connect } from 'react-redux';
 
 import { getBoozeSizeSuggestions } from './autosuggest/queryBooze';
@@ -46,8 +46,8 @@ const styles = theme => ({
 });
 
 class BottleSizeIntegrationAutosuggest extends React.Component {
-  constructor (props) {
-    super (props);
+  constructor(props) {
+    super(props);
     this.state = {
       inputValue: '',
       suggestions: [],
@@ -55,23 +55,23 @@ class BottleSizeIntegrationAutosuggest extends React.Component {
     };
   }
 
-  initSuggestions () {
+  initSuggestions() {
     let query = null;
     if (this.props.brandStyle) {
       query = `brandStyle=${this.props.brandStyle}`
     }
     getBoozeSizeSuggestions(query)
-    .then(gottenBoozeSizeSuggestions => {
-      console.log({gottenBoozeSizeSuggestions: gottenBoozeSizeSuggestions});
-      this.setState ({
-        suggestions: gottenBoozeSizeSuggestions,
-      });
-    })
-    .catch(err => console.log(err));
+      .then(gottenBoozeSizeSuggestions => {
+        console.log({ gottenBoozeSizeSuggestions: gottenBoozeSizeSuggestions });
+        this.setState({
+          suggestions: gottenBoozeSizeSuggestions,
+        });
+      })
+      .catch(err => console.log(err));
   }
 
   // componentDidMount is where we
-  componentDidMount () {
+  componentDidMount() {
     this.initSuggestions();
   }
 
@@ -84,50 +84,50 @@ class BottleSizeIntegrationAutosuggest extends React.Component {
       })
     }
     if (this.state.errors !== this.props.error) {
-      this.setState({errors: this.props.error});
+      this.setState({ errors: this.props.error });
     }
     if (this.state.suggestions.length === 0) {
-      this.initSuggestions ();
+      this.initSuggestions();
     }
   }
 
 
   getSuggestions(value) {
-    const inputValue = deburr (value.trim ()).toLowerCase ();
+    const inputValue = deburr(value.trim()).toLowerCase();
     const inputLength = inputValue.length;
     let count = 0;
 
     return inputLength === 0
       ? []
-      : // WE HAD TO MODIFY THIS BECUASE WE MOVED THIS PROPERTY INSIDE THIS CLASS.  IT WAS OUTSIDE THIS CLASS BEFORE
-        this.state.suggestions.filter (suggestion => {
-          const keep =
-            count < 5 &&
-            suggestion.label.slice (0, inputLength).toLowerCase () ===
-              inputValue;
+      : // WE HAD TO MODIFY THIS BECUASE WE MOVED THIS PROPERTY INSIDE THIS CLASS. IT WAS OUTSIDE THIS CLASS BEFORE
+      this.state.suggestions.filter(suggestion => {
+        const keep =
+          count < 5 &&
+          suggestion.label.slice(0, inputLength).toLowerCase() ===
+          inputValue;
 
-          if (keep) {
-            count += 1;
-          }
+        if (keep) {
+          count += 1;
+        }
 
-          return keep;
-        });
+        return keep;
+      });
   }
 
-  handleSuggestionsFetchRequested = ({value}) => {
-    this.setState ({
-      suggestions: this.getSuggestions (value),
+  handleSuggestionsFetchRequested = ({ value }) => {
+    this.setState({
+      suggestions: this.getSuggestions(value),
     });
   };
 
   handleSuggestionsClearRequested = () => {
-    this.setState ({
+    this.setState({
       suggestions: [],
     });
   };
 
-  handleChange = name => (event, {newValue}) => {
-    this.setState ({
+  handleChange = name => (event, { newValue }) => {
+    this.setState({
       [name]: newValue,
     });
     event.target.name = "bottleSize";
@@ -135,8 +135,8 @@ class BottleSizeIntegrationAutosuggest extends React.Component {
     this.props.updateBottleSize(newValue);
   };
 
-  render () {
-    const {classes} = this.props;
+  render() {
+    const { classes } = this.props;
 
     const autosuggestProps = {
       renderInputComponent,
