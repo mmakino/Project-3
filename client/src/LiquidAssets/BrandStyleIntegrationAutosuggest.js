@@ -46,11 +46,12 @@ const styles = theme => ({
 });
 
 class BrandStyleIntegrationAutosuggest extends React.Component {
-  constructor (props) {
+  constructor(props) {
     super(props);
     this.state = {
       inputValue: '',
       suggestions: [],
+      errors: "",
     };
     this.suggestions = [];
   }
@@ -84,6 +85,12 @@ class BrandStyleIntegrationAutosuggest extends React.Component {
       this.setState({
         inputValue: this.props.brandStyle
       });
+    }
+    if (this.props.error) {
+      this.setState({errors: this.props.error});
+    }
+    if (this.state.suggestions.length === 0) {
+      this.initSuggestions();
     }
   }
 
@@ -122,9 +129,6 @@ class BrandStyleIntegrationAutosuggest extends React.Component {
   };
 
   handleChange = name => (event, {newValue}) => {
-    if (this.state.suggestions.length === 0) {
-      this.initSuggestions();
-    }
     this.setState ({
       [name]: newValue,
     });
@@ -134,7 +138,8 @@ class BrandStyleIntegrationAutosuggest extends React.Component {
   };
 
   render () {
-    const {classes, value} = this.props;
+    const {classes} = this.props;
+    const inputValidation = { error: false };
     const autosuggestProps = {
       renderInputComponent,
       // ALSO HERE WE HAD TO UPDATE FROM suggestions: 'this.suggestion' to what we wrote below ...
@@ -145,6 +150,14 @@ class BrandStyleIntegrationAutosuggest extends React.Component {
       renderSuggestion,
     };
 
+    // error: true,
+    // label: '<error message>'
+    if (this.props.error) {
+      // errMsg.label = this.props.formInputErrors;
+      inputValidation.error = true;
+      inputValidation.label = this.props.error;
+    }
+
     return (
       <Autosuggest
         {...autosuggestProps}
@@ -154,8 +167,7 @@ class BrandStyleIntegrationAutosuggest extends React.Component {
           placeholder: this.props.placeholder,
           value: this.state.inputValue,
           onChange: this.handleChange('inputValue'),
-          // error: true,
-          // label: 'Brand/Style not found'
+          ...inputValidation
         }}
         theme={{
           container: classes.container,
@@ -178,11 +190,13 @@ BrandStyleIntegrationAutosuggest.propTypes = {
   updateBrandStyle: PropTypes.func.isRequired,
   brandStyle: PropTypes.string.isRequired,
   bottleSize: PropTypes.string.isRequired,
+  error: PropTypes.string.isRequired,
 };
 
 const mapStateToProps = (state) => ({
   brandStyle: state.brandStyle.brandStyle,
   bottleSize: state.bottleSize.bottleSize,
+  error: state.brandStyle.error,
 });
 
 export default (connect(mapStateToProps, { updateBrandStyle }))(withStyles(styles)(BrandStyleIntegrationAutosuggest));

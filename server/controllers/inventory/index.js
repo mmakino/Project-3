@@ -49,7 +49,8 @@ class UserInventoryController {
 
 
   create(req, res) {
-    res.json(userInputs(req.body));
+    // res.json(userInputs(req.body));
+    userInputs(req, res);
     //   db.UserInventory.create(userInventory)
     //     .then(data => {
     //       console.log("POSTING TO MYSQL, USER DATA", "==================", data)

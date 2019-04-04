@@ -9,6 +9,10 @@ import LiquidAssets from './LiquidAssets';
 import NavbarComponent from './NavbarComponent';
 import Signup from './components/user/register';
 import Login from './components/user/login';
+import { 
+  validateBrandStyle,
+  validateBottleSize
+} from './store/actions/userInputActions';
 import PrivateRoute from './components/user/privateRoute';
 
 import axios from 'axios';
@@ -29,6 +33,7 @@ class App extends Component {
     },
     userInventoryData: [],
     runningTotal: 0,
+    formInputErrors: {},
   };
 
 
@@ -89,7 +94,23 @@ class App extends Component {
           userId: this.props.auth.user.id,
         })
         .then(response => {
-          resolve(response);
+          if (response) {
+            console.log("POST RESPONSE", response);
+            const {errors} = response;
+            if (errors) {
+              this.setState({
+                formInputErrors: errors
+              })
+              this.props.validateBrandStyle(errors.brandStyle);
+              this.props.validateBottleSize(errors.bottleSize);
+              reject(errors);
+            } else {
+              resolve(response);
+            }
+          } else {
+            reject("Unknown error");
+          }
+
           this.props.updateBrandStyle("");
           this.props.updateBottleSize("");
           this.setState({
@@ -100,9 +121,18 @@ class App extends Component {
               bottleCost: ``,
               bottleWeight: ``,
             }
-          })
+          });
         })
         .catch(err => {
+          if (err) {
+            const errors = err.response.data;
+            this.setState({
+              formInputErrors: errors
+            })
+            // this.props.validateBrandStyle(errors.brandStyle);
+            // this.props.validateBottleSize(errors.bottleSize);
+            reject(errors);
+          }
           console.log('err', err);
           reject(err);
         });
@@ -174,6 +204,7 @@ class App extends Component {
                     getUserInventory={this.getUserInventory}
                     postThenGet={this.postThenGet}
                     userInventoryData={this.state.userInventoryData}
+                    formInputErrors={this.state.formInputErrors}
                   />
                 )}
               />
@@ -197,12 +228,27 @@ App.propTypes = {
   bottleSize: PropTypes.string.isRequired,
   updateBrandStyle: PropTypes.func.isRequired,
   updateBottleSize: PropTypes.func.isRequired,
+  // validateBrandStyle: PropTypes.func.isRequired,
+  // validateBottleSize: PropTypes.func.isRequired,
 };
 
 const mapStateToProps = (state) => ({
   auth: state.auth,
   brandStyle: state.brandStyle.brandStyle,
   bottleSize: state.bottleSize.bottleSize,
+  brandError: state.brandStyle.error,
+  bottleError: state.bottleSize.error,
 });
+const mapDispatchToProps = dispatch => {
+  return {
+    updateBrandStyle,
+    updateBottleSize,
+    validateBrandStyle,
+    validateBottleSize
+  };
+}
 
-export default (connect(mapStateToProps, { updateBrandStyle, updateBottleSize }))(App);
+// export default (connect(mapStateToProps, mapDispatchToProps))(App);
+export default (connect(mapStateToProps, {
+  updateBrandStyle, updateBottleSize, validateBrandStyle, validateBottleSize
+}))(App);
