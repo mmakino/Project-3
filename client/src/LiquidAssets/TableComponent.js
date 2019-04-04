@@ -209,9 +209,9 @@ const data =
     ];
 
 let id = 0;
-function createData(type, brandStyle, bottleSizeML, bottleSizeOZ, bottleCost, ozLeft, percentLeft, costPerOZ, openBottleValue, totalBottlesPerBrandStyle, totalValuePerBrandStyle) {
+function createData(type, brandStyle, bottleSizeML, bottleSizeOZ, bottleCost, ozRemaining, percentLeft, costPerOZ, openBottleValue, totalBottlesPerBrandStyle, totalValuePerBrandStyle) {
     id += 1;
-    return { id, type, brandStyle, bottleSizeML, bottleSizeOZ, bottleCost, ozLeft, percentLeft, costPerOZ, openBottleValue, totalBottlesPerBrandStyle, totalValuePerBrandStyle };
+    return { id, type, brandStyle, bottleSizeML, bottleSizeOZ, bottleCost, ozRemaining, percentLeft, costPerOZ, openBottleValue, totalBottlesPerBrandStyle, totalValuePerBrandStyle };
 }
 
 const rows = [];
@@ -261,7 +261,7 @@ function ReactVirtualizedTable({userInventoryData}) {
                             }, {
                                 width: 120,
                                 label: 'Oz Left In Open Bottle',
-                                dataKey: 'ozLeft',
+                                dataKey: 'ozRemaining',
                                 numeric: true,
                             }, {
                                 width: 120,
