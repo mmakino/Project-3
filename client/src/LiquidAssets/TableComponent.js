@@ -3,6 +3,8 @@ import PropTypes from 'prop-types';
 import classNames from 'classnames';
 import { withStyles, TableCell, TableSortLabel, Paper, Grid } from '@material-ui/core';
 import { AutoSizer, Column, SortDirection, Table } from 'react-virtualized';
+
+
 // import { CSVLink, CSVDownload } from "react-csv";
 import axios from 'axios';
 
@@ -29,6 +31,12 @@ const styles = theme => ({
     noClick: {
         cursor: 'initial',
     },
+    rowHeight: {
+        height: 'fit-content'
+    },
+    columnheader: {
+        width: 'fit-content'
+    }
 
 });
 
@@ -154,6 +162,7 @@ class MuiVirtualizedTable extends React.PureComponent {
                     </Table>
                 )}
             </AutoSizer>
+
         );
     }
 }
