@@ -171,6 +171,7 @@ class App extends Component {
         this.setState({
           userInventoryData: userInventoryData,
           runningTotal: userInventoryData.reduce((total, value) => {return parseFloat(value.totalInventoryValue) + total}, 0)
+          // console.log("this is the running total:", runningTotal)
         })
       })
       .catch(err => {
