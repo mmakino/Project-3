@@ -17,7 +17,7 @@ module.exports = {
         allowNull: false,
       },
       sizeML: {
-        type: Sequelize.DECIMAL(10,2),
+        type: Sequelize.INTEGER,
         allowNull: false,
       },
       sizeOZ: {
@@ -31,7 +31,7 @@ module.exports = {
         type: Sequelize.DECIMAL(10,2),
       },
       image: {
-        type: Sequelize.DECIMAL(10,2),
+        type: Sequelize.STRING(1234),
       },
       tastingNotes: {
         type: Sequelize.STRING(1234),

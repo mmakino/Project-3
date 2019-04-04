@@ -139,7 +139,7 @@ module.exports = {
       { type: "Amaro", brandStyle: "Amaro Nonino", sizeML: 750, sizeOZ: 25.36, emptyBottleWeight: 703, gramsPerOunce: 14, image: "http://www.lcbo.com/content/dam/lcbo/products/933796.jpg/jcr:content/renditions/cq5dam.web.1280.1280.jpeg", tastingNotes: "The opening pass is like an open market for mountain herbs, flowers, and spices. The midpalate explodes with herbal/rooty/floral tastes including dried fruit, fruit peel, quinine, cassia bark, and fruit stone."},
 
       { type: "Amaro", brandStyle: "Cynar", sizeML: 750, sizeOZ: 25.36, emptyBottleWeight: 688, gramsPerOunce: 16, image: "http://www.camparigroup.com/sites/default/files/brand/cynar_std_proof.jpg", tastingNotes: "The artichoke liqueur known for its versatility and taste Cynar is an artichoke based bitter. Its distinctive flavour is enriched from an infusion of 13 herbs and plants, making it a completely natural drink, rich in scents and a unique taste . It perfectly conserves all the health properties of the ingredients used in its preparation. Only moderately alcoholic (16.5%) Cynar is a modern and versatile drink that is always welcome"},        
-    ], { });
+    ], {});
   },
 
 down: (queryInterface) => {
