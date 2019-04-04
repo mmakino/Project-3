@@ -4,6 +4,11 @@ import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { logoutUser } from './store/actions/authActions';
 
+
+const nateStyles = {
+
+}
+
 const NavbarComponent = (props) => {
     function onLogoutClick(e) {
         e.preventDefault();

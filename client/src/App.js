@@ -1,39 +1,31 @@
 import React, { Component, Fragment } from 'react';
 import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
-import jwtDecode from 'jwt-decode';
-import { Provider } from 'react-redux';
-import store from './store';
-import setAuthToken from './store/utils/setAuthToken';
-import { setCurrentUser, logoutUser } from './store/actions/authActions';
+import PropTypes from 'prop-types';
+import { connect } from 'react-redux';
+import { updateBrandStyle, updateBottleSize, validateBrandStyle, validateBottleSize } from './store/actions/userInputActions';
 import './App.css';
 import LiquidAssets from './LiquidAssets';
 import NavbarComponent from './NavbarComponent';
 import Signup from './components/user/register';
 import Login from './components/user/login';
 import PrivateRoute from './components/user/privateRoute';
-
 import axios from 'axios';
-// import FormComponent from "./LiquidAssets/FormComponent";
-// import ImageComponent from "./LiquidAssets/ImageComponent";
-// import TableComponent from "./LiquidAssets/TableComponent";
+import { MuiThemeProvider, createMuiTheme } from '@material-ui/core/styles'
+// import Hue from '@material-ui/core/colors/HUE'
+import blueGrey from '@material-ui/core/colors/blueGrey'
+import cyan from '@material-ui/core/colors/cyan'
 
-// check for token
-if (localStorage.jwtToken) {
-  setAuthToken(localStorage.jwtToken);
-  // decode the token and get user info
-  const decoded = jwtDecode(localStorage.jwtToken);
+const primaryGrey = blueGrey[500];
+const secondaryCyan = cyan[400]
 
-  // set current user w/ decoded token and isAuthenticated
-  store.dispatch(setCurrentUser(decoded));
-
-  // check for an expired token
-  const currentTime = Date.now() / 1000;
-  if (decoded.exp < currentTime) {
-    // force the user log out
-    store.dispatch(logoutUser());
-    window.location.href = '/login';
+const theme = createMuiTheme ({
+  palette: {
+      primary: 
+        {main: blueGrey[500]},
+      secondary: 
+        {main: cyan[400]}
   }
-}
+})
 
 
 class App extends Component {
@@ -47,48 +39,25 @@ class App extends Component {
     },
     userInventoryData: [],
     runningTotal: 0,
-    auth: {}, // user authentication { isAuthenticated, user }
+    formInputErrors: {},
   };
 
-  unsubscribe = store.subscribe(() => {
-    // debug only can't modify, i.e. setState here
-    // console.log(store.getState().brandStyle.brandStyle);
-  });
 
   // TODO: this needs to go inside of a onClick handler function that can be passed into the button.  This will post the state of the form to the route that I choose the post route to be.  Might have to make a variable and put the states into a variable
 
   componentDidMount() {
-    this.setState({
-      auth: store.getState().auth,
-    });
     this.getAlcohol();
   }
 
-  componentDidUpdate(prevProps, prevState) {
-    if (this.state.auth !== store.getState().auth) {
-      this.setState({
-        auth: store.getState().auth,
-        formInputs: {
-          brandStyle: store.getState().brandStyle.brandStyle,
-          bottleSize: store.getState().bottleSize.bottleSize
-        }
-
-      });
-    }
-    if (this.state.formInputs.brandStyle !== store.getState().brandStyle.brandStyle) {
+  componentDidUpdate() {
+    if (this.state.formInputs.brandStyle !== this.props.brandStyle
+        || this.state.formInputs.bottleSize !== this.props.bottleSize) {
       this.setState(state => ({
         formInputs: {
           ...state.formInputs,
-          brandStyle: store.getState().brandStyle.brandStyle
-        },
-      }));
-    }
-    if (this.state.formInputs.bottleSize !== store.getState().bottleSize.bottleSize) {
-      this.setState(state => ({
-        formInputs: {
-          ...state.formInputs,
-          bottleSize: store.getState().bottleSize.bottleSize
-        },
+          brandStyle: this.props.brandStyle,
+          bottleSize: this.props.bottleSize
+        } 
       }));
     }
   }
@@ -98,10 +67,10 @@ class App extends Component {
       .get('/api/alcohol')
       .then(response => {
         console.log(response);
-        this.setState({
-          brandStyle: response.brandStyle,
-          bottleSize: response.bottleSize,
-        });
+        // this.setState({
+        //   brandStyle: response.brandStyle,
+        //   bottleSize: response.bottleSize,  
+        // })
       })
       .catch(error => {
         console.log(error);
@@ -119,21 +88,46 @@ class App extends Component {
   };
 
   postToInventory = () => {
-    console.log('Posting Inventory ' + this.state.auth.user.id);
+    console.log('Posting Inventory ' + this.props.auth.user.id);
+
+    // clear any previous error messages
+    this.setState({
+      formInputErrors: {
+        dataError: '',
+          userId: ''
+      },
+    });
+
     return new Promise((resolve, reject) => {
       axios
         .post('/api/inventory', {
-          // brandStyle: this.state.formInputs.brandStyle,
-          // sizeML: this.state.formInputs.bottleSize,
-          brandStyle: store.getState().brandStyle.brandStyle,
-          sizeML: store.getState().bottleSize.bottleSize,
+          brandStyle: this.props.brandStyle,
+          sizeML: this.props.bottleSize,
           costPerBottle: this.state.formInputs.bottleCost,
           totalBottles: this.state.formInputs.unopenedBottles,
           measuredWeight: this.state.formInputs.bottleWeight,
-          userId: this.state.auth.user.id,
+          userId: this.props.auth.user.id,
         })
         .then(response => {
-          resolve(response);
+          if (response) {
+            console.log("POST RESPONSE", response);
+            const { errors } = response;
+            if (errors) {
+              this.setState({
+                formInputErrors: errors
+              })
+              this.props.validateBrandStyle(errors.brandStyle);
+              this.props.validateBottleSize(errors.bottleSize);
+              reject(errors);
+            } else {
+              resolve(response);
+            }
+          } else {
+            reject("Unknown error");
+          }
+
+          this.props.updateBrandStyle("");
+          this.props.updateBottleSize("");
           this.setState({
             formInputs: {
               brandStyle: ``,
@@ -141,10 +135,19 @@ class App extends Component {
               unopenedBottles: ``,
               bottleCost: ``,
               bottleWeight: ``,
-            }
-          })
+            },
+          });
         })
         .catch(err => {
+          if (err) {
+            const { errors } = err.response.data;
+            this.setState({
+              formInputErrors: errors
+            })
+            this.props.validateBrandStyle(errors.brandStyle);
+            this.props.validateBottleSize(errors.bottleSize);
+            reject(errors);
+          }
           console.log('err', err);
           reject(err);
         });
@@ -156,12 +159,12 @@ class App extends Component {
     return axios
       .get('/api/inventory', {
         params: {
-          brandStyle: this.state.formInputs.brandStyle,
-          sizeML: this.state.formInputs.bottleSize,
+          brandStyle: this.props.brandStyle,
+          sizeML: this.props.bottleSize,
           costPerBottle: this.state.formInputs.bottleCost,
           totalBottles: this.state.formInputs.unopenedBottles,
           measuredWeight: this.state.formInputs.bottleWeight,
-          userId: this.state.auth.user.id,
+          userId: this.props.auth.user.id,
         },
       })
       .then(response => {
@@ -197,43 +200,67 @@ class App extends Component {
 
   render() {
     return (
-      <Provider store={store}>
-        <Router>
-          <div className="App">
+      <Router>
+        <div className="App">
 
-            <NavbarComponent />
-            <div className="container">
-              <Switch>
-                <Route exact path="/signup" component={Signup} />
-                <Route exact path="/login" component={Login} />
-                <Route
-                  exact
-                  path="/"
-                  render={props => (
-                    <LiquidAssets
-                      {...props}
-                      formInputs={this.state.formInputs}
-                      handleInputChange={this.handleInputChange}
-                      postToInventory={this.postToInventory}
-                      getUserInventory={this.getUserInventory}
-                      postThenGet={this.postThenGet}
-                      userInventoryData={this.state.userInventoryData}
-                    />
-                  )}
-                />
-              </Switch>
-            </div>
-            {/* <FormComponent 
-        handleInputChange={this.handleInputChange}
-        />
-        <ImageComponent />
-        <TableComponent /> */}
-
+          <NavbarComponent />
+          <div className="container">
+            <Switch>
+              <Route exact path="/signup" component={Signup} />
+              <Route exact path="/login" component={Login} />
+              <Route
+                exact
+                path="/"
+                render={props => (
+                  <LiquidAssets
+                    {...props}
+                    formInputs={this.state.formInputs}
+                    handleInputChange={this.handleInputChange}
+                    postToInventory={this.postToInventory}
+                    getUserInventory={this.getUserInventory}
+                    postThenGet={this.postThenGet}
+                    userInventoryData={this.state.userInventoryData}
+                    formInputErrors={this.state.formInputErrors}
+                  />
+                )}
+              />
+            </Switch>
           </div>
-        </Router>
-      </Provider >
+          {/* <FormComponent 
+            handleInputChange={this.handleInputChange}
+            />
+            <ImageComponent />
+            <TableComponent /> */}
+
+        </div>
+      </Router>
     );
   }
 }
 
-export default App;
+App.propTypes = {
+  auth: PropTypes.object.isRequired,
+  brandStyle: PropTypes.string.isRequired,
+  bottleSize: PropTypes.string.isRequired,
+  updateBrandStyle: PropTypes.func.isRequired,
+  updateBottleSize: PropTypes.func.isRequired,
+  validateBrandStyle: PropTypes.func.isRequired,
+  validateBottleSize: PropTypes.func.isRequired,
+};
+
+const mapStateToProps = (state) => ({
+  auth: state.auth,
+  brandStyle: state.brandStyle.brandStyle,
+  bottleSize: state.bottleSize.bottleSize,
+});
+const mapDispatchToProps = {
+    updateBrandStyle,
+    updateBottleSize,
+    validateBrandStyle,
+    validateBottleSize
+};
+
+export default (connect(mapStateToProps, mapDispatchToProps))(App);
+// export default (connect(mapStateToProps, {
+//   updateBrandStyle, updateBottleSize, validateBrandStyle, validateBottleSize
+// }))(App);

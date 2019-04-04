@@ -2,10 +2,8 @@ import React, { Fragment } from "react"
 import FormComponent from "./FormComponent"
 import TableComponent from "./TableComponent"
 import ImageComponent from "./ImageComponent"
-import { Grid } from '@material-ui/core'
-import { CSVLink } from "react-csv";
-// import BrandStyleIntegrationAutosuggest from "./BrandStyleIntegrationAutosuggest";
-
+import { CSVLink } from "react-csv"
+import { Grid  } from "@material-ui/core"
 
 export default props => {
     return (
@@ -21,7 +19,7 @@ export default props => {
                         postToInventory={props.postToInventory}
                         getUserInventory={props.getUserInventory}
                         postThenGet={props.postThenGet}
-
+                        formInputErrors={props.formInputErrors}
                     />
                 </Grid>
 
@@ -46,10 +44,9 @@ export default props => {
                         target="_blank"
                         onClick={() => { 
                         console.log("You click the link"); // 👍🏻 Your click handling logic
-
                     }}
                     >
-                        Download me
+                        Download Inventory
                     </CSVLink>
                 </Grid>
 

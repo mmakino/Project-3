@@ -6,8 +6,8 @@ module.exports = (sequelize, DataTypes) => {
     sizeML: DataTypes.INTEGER,
     sizeOZ: DataTypes.DECIMAL(10, 2),
     emptyBottleWeight: DataTypes.INTEGER,
-    gramsPerOunce: DataTypes.DECIMAL(10, 2)
-    image: DataTypes.STRING(1234),
+    gramsPerOunce: DataTypes.DECIMAL(10, 2),
+    image: DataTypes.STRING,
     tastingNotes: DataTypes.STRING(1234)
   }, {});
   Alcohol.associate = function (models) {

@@ -50,32 +50,34 @@ const FormComponent = props => {
                     >
                         {/* THIS IS HOW WE ACCOMPLISHED AUTOCOMPLETE */}
                         <BrandStyleIntegrationAutosuggest
-                            id="brandStyle"
-                            label="Input the brand of booze you be weighin' and it's vintage or style here playa!"
+                            id="outlined-full-width"
+                            label={"Booze Name"}
                             placeholder="Pappy Van Winkle 15 yr"
                             value={props.formInputs.brandstyle}
                             onChange={props.handleInputChange}
                             name="brandStyle"
                             autosuggest={props.autosuggest}
+                            formInputErrors={props.formInputErrors.brandstyle}
                         />
 
                         <BottleSizeIntegrationAutosuggest
-                            id="bottleSize"
-                            label="What size bottle is this?  750mL 1000mL or some weird ass size?"
+                            id="outlined-full-width"
+                            label="Bottle Size in mL"
                             placeholder="750 ml"
                             helperText="we'll let you know exactly how many ounces of booze you got in that there bottle."
                             name="brandStyle"
                             value={props.formInputs.bottleSize}
                             onChange={props.handleInputChange}
                             autosuggest={props.autosuggest}
+                            formInputErrors={props.formInputErrors.bottleSize}
                         />
 
                         <TextField
                             id="outlined-full-width"
-                            label="How many extra bottles of this you got stashed away? Not including this opened bottle"
+                            label="Backstock"
                             style={{ margin: 5 }}
                             placeholder="12"
-                            helperText="this helps us calculate the total dollar value in your possesion for this product"
+                            helperText=""
                             fullWidth
                             margin="normal"
                             variant="outlined"
@@ -89,10 +91,10 @@ const FormComponent = props => {
 
                         <TextField
                             id="outlined-full-width"
-                            label="How much does this sauce cost you per bottle?"
+                            label="Cost Per Bottle"
                             style={{ margin: 5 }}
                             placeholder="17.00"
-                            helperText="We will tell you your cost per ounce!"
+                            helperText=""
                             fullWidth
                             margin="normal"
                             variant="outlined"
@@ -106,10 +108,10 @@ const FormComponent = props => {
 
                         <TextField
                             id="outlined-full-width"
-                            label="Throw it up on the scale and type in what it weighs, in gramz pleeze."
+                            label="Product Weight In Grams"
                             style={{ margin: 5 }}
                             placeholder="1432g"
-                            helperText="So much better than eyeball estimation.  When you go to the bank, and ask for your balance do you want the banker to be like: 'You got somewhere between like 10 and 15 thousand dollars you know give or take'.  Yeah, didn't think so... that's hella inaccurate."
+                            helperText=""
                             fullWidth
                             margin="normal"
                             variant="outlined"
@@ -125,12 +127,15 @@ const FormComponent = props => {
                             <Button
                                 variant="contained"
                                 className="button"
-                                onClick={props.postThenGet}>
+                                onClick={props.postThenGet}
                             >
-
                                 Send To Inventory
-              </Button>
+                            </Button>
                         </Grid>
+                        <div className="container ml-auto text-danger">
+                            {props.formInputErrors.userId}
+                            {props.formInputErrors.dataError}
+                        </div>
 
                     </form>
                 </Paper>
