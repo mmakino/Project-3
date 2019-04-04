@@ -50,17 +50,18 @@ const FormComponent = props => {
                     >
                         {/* THIS IS HOW WE ACCOMPLISHED AUTOCOMPLETE */}
                         <BrandStyleIntegrationAutosuggest
-                            id="brandStyle"
-                            label="Input the brand of booze you be weighin' and it's vintage or style here playa!"
+                            id="outlined-full-width"
+                            label={"Input the brand of booze you be weighin' and it's vintage or style here playa!"}
                             placeholder="Pappy Van Winkle 15 yr"
                             value={props.formInputs.brandstyle}
                             onChange={props.handleInputChange}
                             name="brandStyle"
                             autosuggest={props.autosuggest}
+                            formInputErrors={props.formInputErrors.brandstyle}
                         />
 
                         <BottleSizeIntegrationAutosuggest
-                            id="bottleSize"
+                            id="outlined-full-width"
                             label="What size bottle is this?  750mL 1000mL or some weird ass size?"
                             placeholder="750 ml"
                             helperText="we'll let you know exactly how many ounces of booze you got in that there bottle."
@@ -68,6 +69,7 @@ const FormComponent = props => {
                             value={props.formInputs.bottleSize}
                             onChange={props.handleInputChange}
                             autosuggest={props.autosuggest}
+                            formInputErrors={props.formInputErrors.bottleSize}
                         />
 
                         <TextField
@@ -127,10 +129,13 @@ const FormComponent = props => {
                                 className="button"
                                 onClick={props.postThenGet}>
                             >
-
                                 Send To Inventory
-              </Button>
+                            </Button>
                         </Grid>
+                        <div className="container ml-auto text-danger">
+                            {props.formInputErrors.userId}
+                            {props.formInputErrors.dataError}
+                        </div>
 
                     </form>
                 </Paper>

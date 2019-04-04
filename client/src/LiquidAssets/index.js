@@ -21,7 +21,7 @@ export default props => {
                         postToInventory={props.postToInventory}
                         getUserInventory={props.getUserInventory}
                         postThenGet={props.postThenGet}
-
+                        formInputErrors={props.formInputErrors}
                     />
                 </Grid>
 
