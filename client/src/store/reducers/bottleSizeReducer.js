@@ -24,12 +24,14 @@ export default function userInputReducer(state = initialState, action = {}) {
         ...state,
         bottleSize: action.value,
       };
+
     case GET_BOTTLE_SIZE_ERROR:
       return {
         ...state,
         error: action.value,
       };
-    case CLEAR_SUGGESTIONS:
+
+      case CLEAR_SUGGESTIONS:
       return {
         ...state,
         suggestions: [],

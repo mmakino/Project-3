@@ -86,7 +86,7 @@ class BrandStyleIntegrationAutosuggest extends React.Component {
         inputValue: this.props.brandStyle
       });
     }
-    if (this.props.error) {
+    if (this.state.errors !== this.props.error) {
       this.setState({errors: this.props.error});
     }
     if (this.state.suggestions.length === 0) {
@@ -150,12 +150,14 @@ class BrandStyleIntegrationAutosuggest extends React.Component {
       renderSuggestion,
     };
 
+    let invalidInput = false;
+    let label = this.props.label;
+
     // error: true,
     // label: '<error message>'
-    if (this.props.error) {
-      // errMsg.label = this.props.formInputErrors;
-      inputValidation.error = true;
-      inputValidation.label = this.props.error;
+    if (this.state.errors) {
+      invalidInput = true;
+      label = this.state.errors;
     }
 
     return (
@@ -163,11 +165,13 @@ class BrandStyleIntegrationAutosuggest extends React.Component {
         {...autosuggestProps}
         inputProps={{
           classes,
+          // label: label,
           label: this.props.label,
           placeholder: this.props.placeholder,
           value: this.state.inputValue,
           onChange: this.handleChange('inputValue'),
-          ...inputValidation
+          // ...inputValidation
+          error: invalidInput,
         }}
         theme={{
           container: classes.container,
@@ -190,7 +194,7 @@ BrandStyleIntegrationAutosuggest.propTypes = {
   updateBrandStyle: PropTypes.func.isRequired,
   brandStyle: PropTypes.string.isRequired,
   bottleSize: PropTypes.string.isRequired,
-  error: PropTypes.string.isRequired,
+  // error: PropTypes.string.isRequired,
 };
 
 const mapStateToProps = (state) => ({

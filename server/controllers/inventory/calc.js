@@ -41,7 +41,7 @@ function alcohol(brandStyle, bottleSizeML) {
                 resolve(res.dataValues);
                 console.log(res.dataValues);
             } else {
-                reject(`No match found for ${brandStyle}, ${bottleSizeML}`);
+                reject({errors: { dataError: `No match found for ${brandStyle}, ${bottleSizeML}mL`} });
             }
         }).catch(err => {
             console.log(err);

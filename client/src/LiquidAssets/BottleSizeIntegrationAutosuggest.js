@@ -83,7 +83,7 @@ class BottleSizeIntegrationAutosuggest extends React.Component {
         inputValue: this.props.bottleSize
       })
     }
-    if (this.props.error) {
+    if (this.state.errors !== this.props.error) {
       this.setState({errors: this.props.error});
     }
     if (this.state.suggestions.length === 0) {
@@ -137,7 +137,6 @@ class BottleSizeIntegrationAutosuggest extends React.Component {
 
   render () {
     const {classes} = this.props;
-    const inputValidation = { error: false };
 
     const autosuggestProps = {
       renderInputComponent,
@@ -149,12 +148,14 @@ class BottleSizeIntegrationAutosuggest extends React.Component {
       renderSuggestion,
     };
 
+    let invalidInput = false;
+    let label = this.props.label;
+
     // error: true,
     // label: '<error message>'
-    if (this.props.error) {
-      // errMsg.label = this.props.formInputErrors;
-      inputValidation.error = true;
-      inputValidation.label = this.props.error;
+    if (this.state.errors) {
+      invalidInput = true;
+      label = this.state.errors;
     }
 
     return (
@@ -163,10 +164,12 @@ class BottleSizeIntegrationAutosuggest extends React.Component {
         inputProps={{
           classes,
           label: this.props.label,
+          // label: label,
           placeholder: this.props.placeholder,
           value: this.state.inputValue,
           onChange: this.handleChange('inputValue'),
-          ...inputValidation
+          // ...inputValidation,
+          error: invalidInput,
         }}
         theme={{
           container: classes.container,
@@ -189,7 +192,7 @@ BottleSizeIntegrationAutosuggest.propTypes = {
   updateBottleSize: PropTypes.func.isRequired,
   brandStyle: PropTypes.string.isRequired,
   bottleSize: PropTypes.string.isRequired,
-  error: PropTypes.string.isRequired,
+  // error: PropTypes.string.isRequired,
 };
 
 const mapStateToProps = (state) => ({

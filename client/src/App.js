@@ -125,12 +125,12 @@ class App extends Component {
         })
         .catch(err => {
           if (err) {
-            const errors = err.response.data;
+            const { errors } = err.response.data;
             this.setState({
               formInputErrors: errors
             })
-            // this.props.validateBrandStyle(errors.brandStyle);
-            // this.props.validateBottleSize(errors.bottleSize);
+            this.props.validateBrandStyle(errors.brandStyle);
+            this.props.validateBottleSize(errors.bottleSize);
             reject(errors);
           }
           console.log('err', err);
@@ -228,27 +228,23 @@ App.propTypes = {
   bottleSize: PropTypes.string.isRequired,
   updateBrandStyle: PropTypes.func.isRequired,
   updateBottleSize: PropTypes.func.isRequired,
-  // validateBrandStyle: PropTypes.func.isRequired,
-  // validateBottleSize: PropTypes.func.isRequired,
+  validateBrandStyle: PropTypes.func.isRequired,
+  validateBottleSize: PropTypes.func.isRequired,
 };
 
 const mapStateToProps = (state) => ({
   auth: state.auth,
   brandStyle: state.brandStyle.brandStyle,
   bottleSize: state.bottleSize.bottleSize,
-  brandError: state.brandStyle.error,
-  bottleError: state.bottleSize.error,
 });
-const mapDispatchToProps = dispatch => {
-  return {
+const mapDispatchToProps = {
     updateBrandStyle,
     updateBottleSize,
     validateBrandStyle,
     validateBottleSize
-  };
-}
+};
 
-// export default (connect(mapStateToProps, mapDispatchToProps))(App);
-export default (connect(mapStateToProps, {
-  updateBrandStyle, updateBottleSize, validateBrandStyle, validateBottleSize
-}))(App);
+export default (connect(mapStateToProps, mapDispatchToProps))(App);
+// export default (connect(mapStateToProps, {
+//   updateBrandStyle, updateBottleSize, validateBrandStyle, validateBottleSize
+// }))(App);

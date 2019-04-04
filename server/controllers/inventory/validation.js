@@ -39,12 +39,12 @@ module.exports = function validateLoginInput(input, checkUserId = "userId") {
   if (checkUserId) {
     if (typeof input[checkUserId] === "string") {
       if (Validator.isEmpty(input[checkUserId])) {
-        errors.brandStyle = "Please login first";
+        errors[checkUserId] = "Please login first";
       } else if (!Validator.isNumeric(input[checkUserId])) {
-        errors.brandStyle = "Invalid user ID - Please login";
+        errors[checkUserId] = "Invalid user ID - Please login";
       }
     } else if (typeof input[checkUserId] !== "number") {
-      errors.brandStyle = "Invalid user ID - Please login";
+      errors[checkUserId] = "Invalid user ID - Please login";
     }  
   }
 

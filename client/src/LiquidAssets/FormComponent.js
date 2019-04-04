@@ -132,6 +132,10 @@ const FormComponent = props => {
                                 Send To Inventory
                             </Button>
                         </Grid>
+                        <div className="container ml-auto text-danger">
+                            {props.formInputErrors.userId}
+                            {props.formInputErrors.dataError}
+                        </div>
 
                     </form>
                 </Paper>
