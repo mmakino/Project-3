@@ -3,7 +3,9 @@ import FormComponent from "./FormComponent"
 import TableComponent from "./TableComponent"
 import ImageComponent from "./ImageComponent"
 import { Grid } from '@material-ui/core'
+import { CSVLink } from "react-csv";
 // import BrandStyleIntegrationAutosuggest from "./BrandStyleIntegrationAutosuggest";
+
 
 export default props => {
     return (
@@ -37,6 +39,18 @@ export default props => {
                     <TableComponent
                         userInventoryData={props.userInventoryData}
                     />
+                    <CSVLink
+                        data={props.userInventoryData}
+                        filename={"my-inventory.csv"}
+                        className="btn btn-primary"
+                        target="_blank"
+                        onClick={() => { 
+                        console.log("You click the link"); // 👍🏻 Your click handling logic
+
+                    }}
+                    >
+                        Download me
+                    </CSVLink>
                 </Grid>
 
             </Grid>
