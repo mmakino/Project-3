@@ -8,7 +8,7 @@ function toNumber(inputs) {
 const calc = {
     remainingInBottle: function (measuredWeight, emptyBottleWeight, gramsPerOunce) {
         [measuredWeight, emptyBottleWeight, gramsPerOunce] = toNumber([measuredWeight, emptyBottleWeight, gramsPerOunce])
-        return ((measuredWeight - emptyBottleWeight) / gramsPerOunce);
+        return ((measuredWeight - emptyBottleWeight) / gramsPerOunce)
     },
     percentageLeft: function (remainingInBottle, bottleSizeOz) {
         [remainingInBottle, bottleSizeOz] = toNumber([remainingInBottle, bottleSizeOz])
@@ -86,7 +86,9 @@ function userInputs(req, res) {
         userInventory.costPerBottle = parseFloat(data.costPerBottle);
         userInventory.sizeML = parseFloat(alcoholInfo.sizeML);
         userInventory.sizeOZ = parseFloat(sizeOunces);
+        userInventory.ozRemaining = remainingInBottle;
         userInventory.percentBottleRemaining = parseFloat(percentBottleLeft);
+        userInventory.costPerOZ = parseFloat(pricePerOunce);
         userInventory.currentValueOfBottle = parseFloat(valueOfBottle);
         userInventory.totalBottles = parseFloat(data.totalBottles);
         userInventory.totalInventoryValue = parseFloat(totalInventory);
