@@ -83,6 +83,15 @@ class App extends Component {
 
   postToInventory = () => {
     console.log('Posting Inventory ' + this.props.auth.user.id);
+
+    // clear any previous error messages
+    this.setState({
+      formInputErrors: {
+        dataError: '',
+          userId: ''
+      },
+    });
+
     return new Promise((resolve, reject) => {
       axios
         .post('/api/inventory', {
@@ -96,7 +105,7 @@ class App extends Component {
         .then(response => {
           if (response) {
             console.log("POST RESPONSE", response);
-            const {errors} = response;
+            const { errors } = response;
             if (errors) {
               this.setState({
                 formInputErrors: errors
@@ -120,7 +129,7 @@ class App extends Component {
               unopenedBottles: ``,
               bottleCost: ``,
               bottleWeight: ``,
-            }
+            },
           });
         })
         .catch(err => {
