@@ -3,14 +3,14 @@ import PropTypes from 'prop-types';
 import deburr from 'lodash/deburr';
 import Autosuggest from 'react-autosuggest';
 import Paper from '@material-ui/core/Paper';
-import {withStyles} from '@material-ui/core/styles';
+import { withStyles } from '@material-ui/core/styles';
 import { connect } from 'react-redux';
 
 import getBoozeSuggestions from './autosuggest/queryBooze';
 import {
-  renderInputComponent,
-  renderSuggestion,
-  getSuggestionValue,
+    renderInputComponent,
+    renderSuggestion,
+    getSuggestionValue,
 } from './autosuggest/renderProps';
 import { updateBrandStyle } from '../store/actions/userInputActions';
 
@@ -18,31 +18,31 @@ import { updateBrandStyle } from '../store/actions/userInputActions';
 // Auto-suggest text box styles
 //
 const styles = theme => ({
-  root: {
-    height: 250,
-    flexGrow: 1,
-  },
-  container: {
-    padding: theme.spacing.unit * 1.5,
-  },
-  suggestionsContainerOpen: {
-    position: 'absolute',
-    zIndex: 1,
-    marginTop: theme.spacing.unit,
-    left: 0,
-    right: 0,
-  },
-  suggestion: {
-    display: 'block',
-  },
-  suggestionsList: {
-    margin: 0,
-    padding: 0,
-    listStyleType: 'none',
-  },
-  divider: {
-    height: theme.spacing.unit * 2,
-  },
+    root: {
+        height: 250,
+        flexGrow: 1,
+    },
+    container: {
+        padding: theme.spacing.unit * 1.5,
+    },
+    suggestionsContainerOpen: {
+        position: 'absolute',
+        zIndex: 1,
+        marginTop: theme.spacing.unit,
+        left: 0,
+        right: 0,
+    },
+    suggestion: {
+        display: 'block',
+    },
+    suggestionsList: {
+        margin: 0,
+        padding: 0,
+        listStyleType: 'none',
+    },
+    divider: {
+        height: theme.spacing.unit * 2,
+    },
 });
 
 class BrandStyleIntegrationAutosuggest extends React.Component {

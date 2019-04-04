@@ -31,7 +31,7 @@ module.exports = {
         type: Sequelize.DECIMAL(10,2),
       },
       image: {
-        type: Sequelize.DECIMAL(10,2),
+        type: Sequelize.STRING,
       },
       tastingNotes: {
         type: Sequelize.STRING(1234),
