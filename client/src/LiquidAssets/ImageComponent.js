@@ -48,7 +48,7 @@ const MediaCard = (props) => {
 
             <CardActions>
                 <Grid item xs 
-                    align='left'
+                    align='center'
                     style={{marginLeft: 40}}
                 >
                     <Button size="small" color="primary">
@@ -56,14 +56,14 @@ const MediaCard = (props) => {
                     </Button>
                 </Grid>
 
-                <Grid item xs 
+                {/* <Grid item xs 
                     align='right'
                     style={{marginRight: 50}}
                 >
                     <Button size="small" color="primary" align="right">
                             Track
-                    </Button>
-                </Grid>
+                    </Button> */}
+                {/* </Grid> */}
 
 
             </CardActions>
