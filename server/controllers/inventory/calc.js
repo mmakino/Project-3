@@ -50,7 +50,6 @@ function alcohol(brandStyle, bottleSizeML) {
     })
 }
 
-// async function userInputs(data) {
 function userInputs(req, res) {
     const data = req.body;
 
@@ -62,8 +61,6 @@ function userInputs(req, res) {
     alcohol(data.brandStyle, data.sizeML)
     .then(alcoholInfo => {
         console.log("alcoholInfo: ", alcoholInfo);
-        // alcoholInfo.type = data.type;
-        // alcoholInfo.brandStyle = data.brandStyle;
 
         check = validate(alcoholInfo, checkUserId = null)
         if (!check.isValid) {
@@ -78,6 +75,7 @@ function userInputs(req, res) {
         const pricePerOunce = calc.pricePerOunce(data.costPerBottle, sizeOunces);
         const valueOfBottle = calc.valueOfBottle(pricePerOunce, remainingInBottle);
         const totalInventory = calc.totalInventory(valueOfBottle, data.costPerBottle, data.totalBottles);
+
                         
         const userInventory = {};
         userInventory.userId = data.userId
@@ -92,10 +90,11 @@ function userInputs(req, res) {
         userInventory.currentValueOfBottle = parseFloat(valueOfBottle);
         userInventory.totalBottles = parseFloat(data.totalBottles);
         userInventory.totalInventoryValue = parseFloat(totalInventory);
+
     
         console.log("INVENTORY CONTROLLER PRINTOUT", userInventory);
     
-        // db.UserInventory.create(userInventory);
+   
         db.UserInventory
             .create(userInventory)
             .then(result => {
