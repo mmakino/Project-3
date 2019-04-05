@@ -18,11 +18,21 @@ const secondaryCyan = cyan[400]
 
 const theme = createMuiTheme ({
   palette: {
-      primary: 
-        {main: blueGrey[500]},
-      secondary: 
-        {main: cyan[400]}
-  }
+    primary: {
+      main: blueGrey[600]
+    },
+    secondary: {
+      main: cyan[400],
+      light: cyan[200],
+      dark: cyan[700]
+    }
+  },
+  typography: {
+    fontFamily: [
+      'Iceland'
+    ].join(',')
+  },
+  type: 'dark'
 })
 
 // check for token

@@ -133,7 +133,7 @@ const FormComponent = props => {
                         <Grid item align="right" style={{ marginTop: 40, marginBottom: 'auto' }}>
                             <Fab
                                 variant="contained"
-                                color='primary'
+                                color='secondary'
                                 className="button"
                                 onClick={props.postThenGet}
                                 disabled={!props.formInputs.unopenedBottles || !props.formInputs.bottleCost || !props.formInputs.bottleWeight}
