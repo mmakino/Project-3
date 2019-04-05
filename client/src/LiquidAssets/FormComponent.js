@@ -26,8 +26,8 @@ const styles = theme => ({
 const nateStyles = {
     paper: {
         padding: 40,
-        marginTop: 30,
-        marginRight: 62,
+        marginTop: 30
+        // marginRight: 62,
     },
     gridContainer: {
         marginTop: 20,
@@ -53,6 +53,7 @@ const FormComponent = props => {
                             id="outlined-full-width"
                             label={"Booze Name"}
                             placeholder="Pappy Van Winkle 15 yr"
+                            // style={{ margin: 5 }}
                             value={props.formInputs.brandstyle}
                             onChange={props.handleInputChange}
                             name="brandStyle"
@@ -64,6 +65,7 @@ const FormComponent = props => {
                             id="outlined-full-width"
                             label="Bottle Size in mL"
                             placeholder="750 ml"
+                            // style={{ margin: 5 }}
                             helperText="we'll let you know exactly how many ounces of booze you got in that there bottle."
                             name="brandStyle"
                             value={props.formInputs.bottleSize}
@@ -110,7 +112,7 @@ const FormComponent = props => {
                             id="outlined-full-width"
                             label="Product Weight In Grams"
                             style={{ margin: 5 }}
-                            placeholder="1432g"
+                            placeholder="1432"
                             helperText=""
                             fullWidth
                             margin="normal"

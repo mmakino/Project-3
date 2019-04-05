@@ -39,6 +39,7 @@ class App extends Component {
       bottleWeight: ``,
     },
     userInventoryData: [],
+    userCSVData: [],
     runningTotal: 0,
     formInputErrors: {},
     image: ``,
@@ -83,10 +84,6 @@ class App extends Component {
       .get('/api/alcohol')
       .then(response => {
         console.log(response);
-        // this.setState({
-        //   brandStyle: response.brandStyle,
-        //   bottleSize: response.bottleSize,  
-        // })
       })
       .catch(error => {
         console.log(error);
@@ -273,6 +270,4 @@ const mapDispatchToProps = {
 };
 
 export default (connect(mapStateToProps, mapDispatchToProps))(App);
-// export default (connect(mapStateToProps, {
-//   updateBrandStyle, updateBottleSize, validateBrandStyle, validateBottleSize
-// }))(App);
+

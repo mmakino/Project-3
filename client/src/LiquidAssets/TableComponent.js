@@ -27,16 +27,23 @@ const styles = theme => ({
     },
     tableCell: {
         flex: 1,
+        'text-align': 'center',
+        padding: '4px 24px 4px 24px',
+        //margin: '4px 15px 4px 15px'
+        
     },
     noClick: {
         cursor: 'initial',
     },
     rowHeight: {
-        height: 'fit-content'
+        height: 'fit-content',
     },
     columnheader: {
-        width: 'fit-content'
+        width: 'max-content',
+        height: 'fit-content'
     }
+
+
 
 });
 
@@ -184,7 +191,7 @@ MuiVirtualizedTable.propTypes = {
 };
 
 MuiVirtualizedTable.defaultProps = {
-    headerHeight: 56,
+    headerHeight: 70,
     rowHeight: 56,
 };
 
@@ -193,19 +200,7 @@ const WrappedVirtualizedTable = withStyles(styles)(MuiVirtualizedTable);
 const data =
     [
         ['Scotch', 'Glenlivet 18yr', 750, 25.36, 77.84, 15.36, 0.605, 3.07, 47.15, 2.605, 202.77],
-        // [
-        //     props.tableData.type,
-        //     props.tableData.brandStyle,
-        //     props.tableData.sizeML,
-        //     props.tableData.sizeOZ,
-        //     props.tableData.costPerBottle,
-        //     // props.tableData.ozLeft, NEED TO ADD
-        //     props.tableData.percentBottleRemaining,
-        //     // props.tableData.costPerOz, NEED TO ADD
-        //     props.tableData.currentValueOfBottle,
-        //     props.tableData.totalBottles,
-        //     props.tableData.totalInventoryValue,
-        // ]
+
     ];
 
 let id = 0;
@@ -244,47 +239,47 @@ function ReactVirtualizedTable({userInventoryData}) {
                                 label: 'Brand/Style',
                                 dataKey: 'brandStyle',
                             }, {
-                                width: 120,
+                                width: 140,
                                 label: 'Size mL',
                                 dataKey: 'sizeML',
                                 numeric: true,
                             }, {
-                                width: 120,
+                                width: 140,
                                 label: 'Oz Per Bottle',
                                 dataKey: 'sizeOZ',
                                 numeric: true,
                             }, {
-                                width: 120,
+                                width: 140,
                                 label: 'Cost Per Bottle',
                                 dataKey: 'costPerBottle',
                                 numeric: true,
                             }, {
-                                width: 120,
+                                width: 140,
                                 label: 'Oz Left In Open Bottle',
                                 dataKey: 'ozRemaining',
                                 numeric: true,
                             }, {
-                                width: 120,
+                                width: 140,
                                 label: 'Percent Left In Open Bottle',
                                 dataKey: 'percentBottleRemaining',
                                 numeric: true,
                             }, {
-                                width: 120,
+                                width: 140,
                                 label: 'Cost Per Oz',
                                 dataKey: 'costPerOZ',
                                 numeric: true,
                             }, {
-                                width: 120,
+                                width: 140,
                                 label: 'Open Bottle Value',
                                 dataKey: 'currentValueOfBottle',
                                 numeric: true,
                             }, {
-                                width: 120,
+                                width: 140,
                                 label: 'Total Bottles In Inventory',
                                 dataKey: 'totalBottles',
                                 numeric: true,
                             }, {
-                                width: 120,
+                                width: 140,
                                 label: 'Total Value In Stock',
                                 dataKey: 'totalInventoryValue',
                                 numeric: true,

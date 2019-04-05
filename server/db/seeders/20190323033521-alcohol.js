@@ -67,7 +67,7 @@ module.exports = {
           sizeOZ: 33.81,
           emptyBottleWeight: 673,
           gramsPerOunce: 10,
-          image: 'https://www.celticwhiskeyshop.com/image/Scotch%20Whisky/laphroaig_10_YR.jpg',
+          image: 'http://www.celticwhiskeyshop.com/image/data/Whiskey/Jameson_700ml.jpg',
           tastingNotes: 'Thick and of good body with notes of orchard fruits, both fresh and cooked with a little vanilla cream.',
         },
 

@@ -23,11 +23,13 @@ const styles = theme => ({
         flexGrow: 1,
     },
     container: {
-        padding: theme.spacing.unit * 1.5,
+        padding: "0px 0px 20px 0px",
+        'margin-top': '16px',
+        'margin-bottom': '8px'
     },
     suggestionsContainerOpen: {
-        position: 'absolute',
-        zIndex: 1,
+        // position: 'absolute',
+        zIndex: 4,
         marginTop: theme.spacing.unit,
         left: 0,
         right: 0,
