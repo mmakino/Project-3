@@ -236,6 +236,7 @@ class App extends Component {
                     formInputErrors={this.state.formInputErrors}
                     image={this.state.image}
                     tastingNotes={this.state.tastingNotes}
+                    runningTotal={this.state.runningTotal}
                   />
                 )}
               />
