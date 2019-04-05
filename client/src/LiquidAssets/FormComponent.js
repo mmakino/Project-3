@@ -35,6 +35,10 @@ const nateStyles = {
         marginLeft: 20,
         padding: 20,
     },
+    formInputs: {
+        fontFamily: 'Iceberg',
+        marginTop: 20
+    }
 };
 
 const FormComponent = props => {
@@ -57,8 +61,9 @@ const FormComponent = props => {
                         <BrandStyleIntegrationAutosuggest
                             id="outlined-full-width"
                             label={"Booze Name"}
+                            style={nateStyles.formInputs}
                             placeholder="Pappy Van Winkle 15 yr"
-                            // style={{ margin: 5 }}
+                            color='secondary'
                             value={props.formInputs.brandstyle}
                             onChange={props.handleInputChange}
                             name="brandStyle"
@@ -71,7 +76,7 @@ const FormComponent = props => {
                             label="Bottle Size in mL"
                             placeholder="750 ml"
                             // style={{ margin: 5 }}
-                            helperText="we'll let you know exactly how many ounces of booze you got in that there bottle."
+                            helperText=""
                             name="brandStyle"
                             value={props.formInputs.bottleSize}
                             onChange={props.handleInputChange}
@@ -82,7 +87,7 @@ const FormComponent = props => {
                         <TextField
                             id="outlined-full-width"
                             label="Backstock"
-                            style={{ marginTop: 20 }}
+                            style={nateStyles.formInputs}
                             placeholder="12"
                             helperText=""
                             fullWidth

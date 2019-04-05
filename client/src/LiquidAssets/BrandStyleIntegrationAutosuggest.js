@@ -5,7 +5,6 @@ import Autosuggest from 'react-autosuggest';
 import Paper from '@material-ui/core/Paper';
 import { withStyles } from '@material-ui/core/styles';
 import { connect } from 'react-redux';
-
 import getBoozeSuggestions from './autosuggest/queryBooze';
 import {
     renderInputComponent,
@@ -183,8 +182,8 @@ class BrandStyleIntegrationAutosuggest extends React.Component {
         }}
         renderSuggestionsContainer={options => (
           <Paper 
-          {...options.containerProps} 
-          square>
+            {...options.containerProps} 
+          >
             {options.children}
           </Paper>
         )}
