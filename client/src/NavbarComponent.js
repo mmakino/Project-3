@@ -45,7 +45,7 @@ const NavbarComponent = (props) => {
             <Toolbar>
                 <Grid container>
                     <Grid item xs align='right'>
-                        <Typography variant="title" color="inherit" className='Typography'>
+                        <Typography variant="title" color="inherit" className='Typography' id="mainTitle">
                             LIQUID ASSETS
                         </Typography>
                     </Grid>
