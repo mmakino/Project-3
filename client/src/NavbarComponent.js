@@ -3,9 +3,18 @@ import { AppBar, Toolbar, Typography, Button, Grid } from '@material-ui/core';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { logoutUser } from './store/actions/authActions';
+import Grey from '@material-ui/core/colors/grey'
+// import Background from './images/canon.jpeg'
 
+// shadowGrey = grey[900]
 
 const nateStyles = {
+    title: {
+        fontFamily: 'Iceberg',
+        fontSize: 40,
+        textShadow: `4px 6px 2px ${Grey[900]}`
+        // backgroundImage: `url(${Background})`
+    }
 
 }
 
@@ -34,7 +43,7 @@ const NavbarComponent = (props) => {
     const guestLinks = (
         <Grid item xs align='right'>
             <Button color="inherit" href="/login">
-                
+                Sign In
             </Button>
         </Grid>
 
@@ -42,16 +51,30 @@ const NavbarComponent = (props) => {
 
     return (
         <AppBar position="static">
+
             <Toolbar>
+
                 <Grid container>
-                    <Grid item xs align='right'>
-                        <Typography variant="title" color="inherit" className='Typography' id="mainTitle">
+
+                    <Grid item xs align='center'>
+
+                        <Typography
+                            variant="title"
+                            color="inherit"
+                            className='Typography'
+                            style={nateStyles.title}
+                        >
                             LIQUID ASSETS
                         </Typography>
+
                     </Grid>
-                    {isAuthenticated ? authLinks : guestLinks}
                 </Grid>
+
             </Toolbar>
+
+            <Grid item xs align='right'>
+                {isAuthenticated ? authLinks : guestLinks}
+            </Grid>
         </AppBar>
     )
 };
