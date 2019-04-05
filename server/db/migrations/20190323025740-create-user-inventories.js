@@ -21,7 +21,7 @@ module.exports = {
         type: Sequelize.DECIMAL(10,2),
       },
       sizeML: {
-        type: Sequelize.DECIMAL(10,2),
+        type: Sequelize.DECIMAL(10,0),
       },
       sizeOZ: {
         type: Sequelize.DECIMAL(10,2),
