@@ -42,8 +42,8 @@ class App extends Component {
     userCSVData: [],
     runningTotal: 0,
     formInputErrors: {},
-    image: ``,
-    tastingNotes: ``
+    image: require(`./images/letsgetshaking.gif`),
+    tastingNotes: `LET'S GET SHAKING!`
   };
 
 
@@ -228,7 +228,7 @@ class App extends Component {
       <Router>
         <div className="App">
 
-          <NavbarComponent />
+          <NavbarComponent theme={ this.theme } />
           <div className="container">
             <Switch>
               <Route exact path="/signup" component={Signup} />

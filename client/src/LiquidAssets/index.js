@@ -73,18 +73,19 @@ export default props => {
 
                     <RunningTotal 
                     runningTotal={props.runningTotal} />
-                    
+
                 </Grid>
 
                 <Grid item xs align='right'>
 
                     <CSVLink
                         data={props.userInventoryData}
+                        elevation={5}
                         headers={headers}
                         filename={"my-inventory.csv"}
                         className="btn btn-primary"
                         target="_blank"
-                        style={{ marginRight: 65, marginBottom: 30 }}
+                        style={{ marginRight: 75, boxShadow: '20px 10px 20px'  }}
                         onClick={() => {
                             console.log("You click the link"); // 👍🏻 Your click handling logic
                         }}

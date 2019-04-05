@@ -6,7 +6,7 @@ const styles = {
     card: {
         maxWidth: 345,
         marginTop: 50,
-        marginLeft: 170,
+        marginLeft: 140,
     },
     media: {
         height: 525,
@@ -16,7 +16,10 @@ const styles = {
 const MediaCard = (props) => {
     const { classes } = props;
     return (
-        <Card className={classes.card}>
+        <Card 
+            className={classes.card}
+            elevation={15}
+        >
 
             <CardActionArea>
 
@@ -49,10 +52,10 @@ const MediaCard = (props) => {
             <CardActions>
                 <Grid item xs 
                     align='center'
-                    style={{marginLeft: 40}}
+                    style={{}}
                 >
-                    <Button size="small" color="primary">
-                        Add To Orders
+                    <Button size="small" color="secondary">
+                        Add To Orders Coming Soon!
                     </Button>
                 </Grid>
 
