@@ -6,7 +6,7 @@ const styles = {
     card: {
         maxWidth: 345,
         marginTop: 50,
-        marginLeft: 170,
+        marginLeft: 140,
     },
     media: {
         height: 525,
@@ -16,13 +16,16 @@ const styles = {
 const MediaCard = (props) => {
     const { classes } = props;
     return (
-        <Card className={classes.card}>
+        <Card 
+            className={classes.card}
+            elevation={15}
+        >
 
             <CardActionArea>
 
                 <CardMedia
                     className={classes.media}
-                    image={require("../images/pappy15.jpg")}
+                    image={props.image}
                 />
 
                 <CardContent>
@@ -39,7 +42,7 @@ const MediaCard = (props) => {
                         component="p" 
                         align="center"
                     >
-                        damn that shit is smooth!
+                        {props.tastingNotes}
                     </Typography>
 
                 </CardContent>
@@ -48,22 +51,22 @@ const MediaCard = (props) => {
 
             <CardActions>
                 <Grid item xs 
-                    align='left'
-                    style={{marginLeft: 40}}
+                    align='center'
+                    style={{}}
                 >
-                    <Button size="small" color="primary">
-                        Add To Orders
+                    <Button size="small" color="secondary">
+                        Add To Orders Coming Soon!
                     </Button>
                 </Grid>
 
-                <Grid item xs 
+                {/* <Grid item xs 
                     align='right'
                     style={{marginRight: 50}}
                 >
                     <Button size="small" color="primary" align="right">
                             Track
-                    </Button>
-                </Grid>
+                    </Button> */}
+                {/* </Grid> */}
 
 
             </CardActions>

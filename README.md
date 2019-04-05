@@ -10,10 +10,11 @@
 * Improve accuracy of remaining liquor measurement
 * Produce meaningful reports to help bar business profitability
 
-## Prerequisites for local development installation
-* Node.js https://nodejs.org/
-  * npm -- should come with Node.js installation
-* MySQL server needs to be up and running with all CRUD priviledges.
+## Prerequisites
+  * Local development installation
+    * Node.js https://nodejs.org/
+      * npm -- should come with Node.js installation
+    * MySQL server needs to be up and running with all CRUD priviledges.
 
 ## Quick Start
 
@@ -59,7 +60,7 @@
     ```
 
 ## Deployment
-* Live app runnint on heroku
+* Live app on heroku
   * Current version: https://tranquil-meadow-47203.herokuapp.com/
 
 ## Built With

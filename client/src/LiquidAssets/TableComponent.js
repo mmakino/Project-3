@@ -3,6 +3,9 @@ import PropTypes from 'prop-types';
 import classNames from 'classnames';
 import { withStyles, TableCell, TableSortLabel, Paper, Grid } from '@material-ui/core';
 import { AutoSizer, Column, SortDirection, Table } from 'react-virtualized';
+
+
+// import { CSVLink, CSVDownload } from "react-csv";
 import axios from 'axios';
 
 const styles = theme => ({
@@ -24,10 +27,23 @@ const styles = theme => ({
     },
     tableCell: {
         flex: 1,
+        'text-align': 'center',
+        padding: '4px 24px 4px 24px',
+        //margin: '4px 15px 4px 15px'
+        
     },
     noClick: {
         cursor: 'initial',
     },
+    rowHeight: {
+        height: 'fit-content',
+    },
+    columnheader: {
+        width: 'max-content',
+        height: 'max-content'
+    }
+
+
 
 });
 
@@ -35,8 +51,8 @@ const nateStyles = {
 
     gridContainer: {
         marginTop: 30,
-        marginRight:20,
-        padding:40,
+        marginRight: 20,
+        padding: 40,
     },
     paper: {
         height: 800,
@@ -153,6 +169,7 @@ class MuiVirtualizedTable extends React.PureComponent {
                     </Table>
                 )}
             </AutoSizer>
+
         );
     }
 }
@@ -174,24 +191,22 @@ MuiVirtualizedTable.propTypes = {
 };
 
 MuiVirtualizedTable.defaultProps = {
-    headerHeight: 56,
+    headerHeight: 70,
     rowHeight: 56,
 };
 
 const WrappedVirtualizedTable = withStyles(styles)(MuiVirtualizedTable);
 
-const data = [
-    ['Scotch', 'Glenlivet 18yr', 750, 25.36, 77.84, 15.36, 0.605, 3.07, 47.15, 2.605, 202.77],
-    // ['Scotch', 'Glenlivet 18yr', 750, 25.36, 77.84, 15.36, 0.605, 3.07, 47.15, 2.605, 202.77],
-    // ['Scotch', 'Glenlivet 18yr', 750, 25.36, 77.84, 15.36, 0.605, 3.07, 47.15, 2.605, 202.77],
-    // ['Scotch', 'Glenlivet 18yr', 750, 25.36, 77.84, 15.36, 0.605, 3.07, 47.15, 2.605, 202.77],
-    // ['Scotch', 'Glenlivet 18yr', 750, 25.36, 77.84, 15.36, 0.605, 3.07, 47.15, 2.605, 202.77],
-];
+const data =
+    [
+        ['Scotch', 'Glenlivet 18yr', 750, 25.36, 77.84, 15.36, 0.605, 3.07, 47.15, 2.605, 202.77],
+
+    ];
 
 let id = 0;
-function createData(type, brandStyle, bottleSizeML, bottleSizeOZ, bottleCost, ozLeft, percentLeft, costPerOZ, openBottleValue, totalBottlesPerBrandStyle, totalValuePerBrandStyle) {
+function createData(type, brandStyle, bottleSizeML, bottleSizeOZ, bottleCost, ozRemaining, percentLeft, costPerOZ, openBottleValue, totalBottlesPerBrandStyle, totalValuePerBrandStyle) {
     id += 1;
-    return { id, type, brandStyle, bottleSizeML, bottleSizeOZ, bottleCost, ozLeft, percentLeft, costPerOZ, openBottleValue, totalBottlesPerBrandStyle, totalValuePerBrandStyle };
+    return { id, type, brandStyle, bottleSizeML, bottleSizeOZ, bottleCost, ozRemaining, percentLeft, costPerOZ, openBottleValue, totalBottlesPerBrandStyle, totalValuePerBrandStyle };
 }
 
 const rows = [];
@@ -201,11 +216,17 @@ for (let i = 0; i < 200; i += 1) {
     rows.push(createData(...randomSelection));
 }
 
-function ReactVirtualizedTable (data, header) {
+function ReactVirtualizedTable({userInventoryData}) {
+    const rows = userInventoryData;
+
+    
     return (
         <Grid container style={nateStyles.gridContainer}>
             <Grid item xs>
-                <Paper style={nateStyles.paper}>
+                <Paper 
+                    style={nateStyles.paper}
+                    elevation={15}
+                >
                     <WrappedVirtualizedTable
                         rowCount={rows.length}
                         rowGetter={({ index }) => rows[index]}
@@ -216,54 +237,54 @@ function ReactVirtualizedTable (data, header) {
                                 flexGrow: 1.0,
                                 label: 'Alcohol Type',
                                 dataKey: 'type',
-                            },{
+                            }, {
                                 width: 200,
                                 label: 'Brand/Style',
                                 dataKey: 'brandStyle',
-                            },{
-                                width: 120,
+                            }, {
+                                width: 140,
                                 label: 'Size mL',
-                                dataKey: 'bottleSizeML',
+                                dataKey: 'sizeML',
                                 numeric: true,
-                            },{
-                                width: 120,
+                            }, {
+                                width: 140,
                                 label: 'Oz Per Bottle',
-                                dataKey: 'bottleSizeOZ',
+                                dataKey: 'sizeOZ',
                                 numeric: true,
-                            },{
-                                width: 120,
+                            }, {
+                                width: 140,
                                 label: 'Cost Per Bottle',
-                                dataKey: 'bottleCost',
+                                dataKey: 'costPerBottle',
                                 numeric: true,
-                            },{
-                                width: 120,
+                            }, {
+                                width: 140,
                                 label: 'Oz Left In Open Bottle',
-                                dataKey: 'ozLeft',
+                                dataKey: 'ozRemaining',
                                 numeric: true,
-                            },{
-                                width: 120,
+                            }, {
+                                width: 140,
                                 label: 'Percent Left In Open Bottle',
-                                dataKey: 'percentLeft',
+                                dataKey: 'percentBottleRemaining',
                                 numeric: true,
-                            },{
-                                width: 120,
+                            }, {
+                                width: 140,
                                 label: 'Cost Per Oz',
                                 dataKey: 'costPerOZ',
                                 numeric: true,
-                            },{
-                                width: 120,
+                            }, {
+                                width: 140,
                                 label: 'Open Bottle Value',
-                                dataKey: 'openBottleValue',
+                                dataKey: 'currentValueOfBottle',
                                 numeric: true,
-                            },{
-                                width: 120,
+                            }, {
+                                width: 140,
                                 label: 'Total Bottles In Inventory',
-                                dataKey: 'totalBottlesPerBrandStyle',
+                                dataKey: 'totalBottles',
                                 numeric: true,
-                            },{
-                                width: 120,
+                            }, {
+                                width: 140,
                                 label: 'Total Value In Stock',
-                                dataKey: 'totalValuePerBrandStyle',
+                                dataKey: 'totalInventoryValue',
                                 numeric: true,
                             }
                         ]}

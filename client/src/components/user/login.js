@@ -191,7 +191,7 @@ class SignIn extends Component {
                   className={this.classes.submit2}
                   href="/signup"
                 >
-                  Sign Up
+                  Create Account
               </Button>
             </Grid>
           </Grid>
