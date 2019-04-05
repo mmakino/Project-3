@@ -6,7 +6,7 @@ module.exports = (sequelize, DataTypes) => {
     sizeML: DataTypes.DECIMAL(10,0),
     sizeOZ: DataTypes.DECIMAL(10,2),
     emptyBottleWeight: DataTypes.INTEGER,
-    gramsPerOunce: DataTypes.INTEGER,
+    gramsPerOunce: DataTypes.DECIMAL(10, 2),
     image: DataTypes.STRING,
     tastingNotes: DataTypes.STRING(1234)
   }, {});

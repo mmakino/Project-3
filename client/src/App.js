@@ -2,20 +2,31 @@ import React, { Component, Fragment } from 'react';
 import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
-import { updateBrandStyle } from './store/actions/userInputActions';
-import { updateBottleSize } from './store/actions/userInputActions';
+import { updateBrandStyle, updateBottleSize, validateBrandStyle, validateBottleSize } from './store/actions/userInputActions';
 import './App.css';
 import LiquidAssets from './LiquidAssets';
 import NavbarComponent from './NavbarComponent';
 import Signup from './components/user/register';
 import Login from './components/user/login';
-import { 
-  validateBrandStyle,
-  validateBottleSize
-} from './store/actions/userInputActions';
 import PrivateRoute from './components/user/privateRoute';
-
 import axios from 'axios';
+import { MuiThemeProvider, createMuiTheme } from '@material-ui/core/styles';
+// import Hue from '@material-ui/core/colors/HUE'
+import blueGrey from '@material-ui/core/colors/blueGrey';
+import cyan from '@material-ui/core/colors/cyan';
+import  { getImageAndNotes } from './LiquidAssets/autosuggest/queryBooze';
+
+const primaryGrey = blueGrey[500];
+const secondaryCyan = cyan[400]
+
+const theme = createMuiTheme ({
+  palette: {
+      primary: 
+        {main: blueGrey[500]},
+      secondary: 
+        {main: cyan[400]}
+  }
+})
 
 
 class App extends Component {
@@ -31,6 +42,8 @@ class App extends Component {
     userCSVData: [],
     runningTotal: 0,
     formInputErrors: {},
+    image: ``,
+    tastingNotes: ``
   };
 
 
@@ -50,6 +63,19 @@ class App extends Component {
           bottleSize: this.props.bottleSize
         } 
       }));
+    }
+    if (this.props.brandStyle.length > 4) {
+      const query = `brandStyle=${this.props.brandStyle}`
+      getImageAndNotes(query).then(imagesAndNotes =>{
+        console.log(imagesAndNotes)
+        if (imagesAndNotes.length > 0) {
+          const {image, tastingNotes}=imagesAndNotes[0]
+          this.setState({
+            image: image,
+            tastingNotes: tastingNotes
+          })
+        }
+      }) 
     }
   }
 
@@ -208,12 +234,13 @@ class App extends Component {
                     postThenGet={this.postThenGet}
                     userInventoryData={this.state.userInventoryData}
                     formInputErrors={this.state.formInputErrors}
+                    image={this.state.image}
+                    tastingNotes={this.state.tastingNotes}
                   />
                 )}
               />
             </Switch>
           </div>
-
         </div>
       </Router>
     );

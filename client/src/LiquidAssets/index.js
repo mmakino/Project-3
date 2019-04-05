@@ -40,9 +40,13 @@ export default props => {
                 </Grid>
 
                 <Grid item xs>
+
                     <ImageComponent
                         formInputs={props.formInputs}
-                        handleInputChange={props.handleInputChange} />
+                        handleInputChange={props.handleInputChange} 
+                        image={props.image}
+                        tastingNotes={props.tastingNotes}
+                    />
                 </Grid>
 
             </Grid>
@@ -50,21 +54,31 @@ export default props => {
             <Grid container>
 
                 <Grid item xs>
+
                     <TableComponent
                         userInventoryData={props.userInventoryData}
                     />
+
+                </Grid>
+
+            </Grid>
+
+            <Grid container>
+
+                <Grid item xs align='right'>
+
                     <CSVLink
                         data={props.userInventoryData}
                         headers={headers}
                         filename={"my-inventory.csv"}
                         className="btn btn-primary"
                         target="_blank"
-                        onClick={() => { 
-                        console.log("You click the link"); // 👍🏻 Your click handling logic
-
-                    }}
+                        style={{ marginRight: 65}}
+                        onClick={() => {
+                            console.log("You click the link"); // 👍🏻 Your click handling logic
+                        }}
                     >
-                        Download me
+                        Download Inventory
                     </CSVLink>
                 </Grid>
 

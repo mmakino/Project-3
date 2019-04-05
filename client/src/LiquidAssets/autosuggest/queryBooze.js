@@ -23,6 +23,31 @@ const getBoozeSuggestions = (query) => {
   })
 }
 
+export const getImageAndNotes = (query) => {
+  // This constructor function returns a promise containing a function that returns our data once the axios call has been resolved so that data can be passed into other areas such as in line 169 above.  "resolved" and then maps over the response.data.     
+  return new Promise((resolve, reject) => {
+      axios.get(`/api/alcohol/brandStyle?${query}`)
+          .then((response) => {
+              // We set gottenBoozeSuggestions equal to a  map that maps over the data from the api call which we will return from the function.  Map takes one argument that can be named whatever you want.  We are next setting the value of brandstyle from the response to the 'label:' key because this is the format that we need our data in for the IntegrationAutosuggest component to handle it correctly.
+              let imagesAndNotes = response.data.map( (boozeData) => {
+                  // We are returning the data in exactly the format that we need it in for the suggestions array in our state above, so that it plugs in nicely to the component.
+                  return { 
+                    image: boozeData.image,
+                    tastingNotes: boozeData.tastingNotes
+                          }
+              })
+            //   console.log(gottenBoozeSuggestions)
+              // this resolve method is where we are passing 
+              resolve(imagesAndNotes)
+
+          })
+          .catch((error) => {
+              console.log(error);
+              reject([]);
+          });
+  })
+}
+
 export const getBoozeSizeSuggestions = (query) => {
   // This constructor function returns a promise containing a function that returns our data once the axios call has been resolved so that data can be passed into other areas such as in line 169 above.  "resolved" and then maps over the response.data.     
   return new Promise((resolve, reject) => {
