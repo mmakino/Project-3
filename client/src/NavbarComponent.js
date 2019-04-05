@@ -21,7 +21,7 @@ const NavbarComponent = (props) => {
                 color="inherit"
                 href="/login"
                 onClick={onLogoutClick}>
-                Logout
+                Sign Out
                 <img
                     className="rounded-circle ml-1"
                     src={user.avatar} alt={user.name}
@@ -34,7 +34,7 @@ const NavbarComponent = (props) => {
     const guestLinks = (
         <Grid item xs align='right'>
             <Button color="inherit" href="/login">
-                Log In
+                
             </Button>
         </Grid>
 

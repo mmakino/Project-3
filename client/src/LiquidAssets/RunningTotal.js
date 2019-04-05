@@ -4,12 +4,26 @@ import Typography from '@material-ui/core/Typography';
 
 const RunningTotal = props => {
     return (
-        <Paper className='running-total' elevation={1}>
-            <Typography variant="h5" component="h3">
-                Current Inventory Value: ${props.runningTotal}
+        <Paper 
+            className='running-total' 
+            elevation={0}
+            style={{padding: 10, width: 400, marginLeft: 40, marginBottom: 40}}
+        >
+            <Typography 
+                variant="h5" 
+                component="h3"
+                align='center'>
+                    Current Inventory Value: 
+                    <Typography 
+                        variant='h5' 
+                        component='h3' 
+                        color='secondary'
+                        align='center'>
+                            ${props.runningTotal} 
+                    </Typography>
             </Typography>
             <Typography component="p">
-                multiply this number by your markup for retail value.
+                
             </Typography>
         </Paper>
     )

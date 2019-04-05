@@ -40,7 +40,7 @@ const styles = theme => ({
     },
     columnheader: {
         width: 'max-content',
-        height: 'fit-content'
+        height: 'max-content'
     }
 
 
@@ -223,7 +223,10 @@ function ReactVirtualizedTable({userInventoryData}) {
     return (
         <Grid container style={nateStyles.gridContainer}>
             <Grid item xs>
-                <Paper style={nateStyles.paper}>
+                <Paper 
+                    style={nateStyles.paper}
+                    elevation={15}
+                >
                     <WrappedVirtualizedTable
                         rowCount={rows.length}
                         rowGetter={({ index }) => rows[index]}

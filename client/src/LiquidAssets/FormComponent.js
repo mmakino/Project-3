@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
-import { withStyles, TextField, Grid, Paper, Button } from '@material-ui/core';
+import { withStyles, TextField, Grid, Paper, Button, Icon, Fab } from '@material-ui/core';
+import AddIcon from '@material-ui/icons/Add';
 import BrandStyleIntegrationAutosuggest
     from './BrandStyleIntegrationAutosuggest';
 import BottleSizeIntegrationAutosuggest
@@ -31,7 +32,7 @@ const nateStyles = {
     },
     gridContainer: {
         marginTop: 20,
-        marginLeft: 40,
+        marginLeft: 20,
         padding: 20,
     },
 };
@@ -40,13 +41,17 @@ const FormComponent = props => {
     return (
         <Grid container style={nateStyles.gridContainer}>
             <Grid item xs>
-                <Paper style={nateStyles.paper}>
+                <Paper 
+                    style={nateStyles.paper}
+                    elevation={0}
+                >
 
                     <form
                         className={'form-container'}
                         noValidate
                         // Not sure how this works.
                         autoComplete="off"
+                        style={{}}
                     >
                         {/* THIS IS HOW WE ACCOMPLISHED AUTOCOMPLETE */}
                         <BrandStyleIntegrationAutosuggest
@@ -77,7 +82,7 @@ const FormComponent = props => {
                         <TextField
                             id="outlined-full-width"
                             label="Backstock"
-                            style={{ margin: 5 }}
+                            style={{ marginTop: 20 }}
                             placeholder="12"
                             helperText=""
                             fullWidth
@@ -94,7 +99,7 @@ const FormComponent = props => {
                         <TextField
                             id="outlined-full-width"
                             label="Cost Per Bottle"
-                            style={{ margin: 5 }}
+                            style={{ marginTop: 20 }}
                             placeholder="17.00"
                             helperText=""
                             fullWidth
@@ -111,7 +116,7 @@ const FormComponent = props => {
                         <TextField
                             id="outlined-full-width"
                             label="Product Weight In Grams"
-                            style={{ margin: 5 }}
+                            style={{ marginTop: 20 }}
                             placeholder="1432"
                             helperText=""
                             fullWidth
@@ -125,14 +130,16 @@ const FormComponent = props => {
                             }}
                         />
 
-                        <Grid item align="right" style={{ marginTop: 20 }}>
-                            <Button
+                        <Grid item align="right" style={{ marginTop: 40, marginBottom: 'auto' }}>
+                            <Fab
                                 variant="contained"
+                                color='primary'
                                 className="button"
                                 onClick={props.postThenGet}
+                                disabled={!props.formInputs.unopenedBottles || !props.formInputs.bottleCost || !props.formInputs.bottleWeight}
                             >
-                                Send To Inventory
-                            </Button>
+                                <AddIcon />
+                            </Fab>
                         </Grid>
                         <div className="container ml-auto text-danger">
                             {props.formInputErrors.userId}
