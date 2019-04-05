@@ -16,10 +16,6 @@ import {
 import PrivateRoute from './components/user/privateRoute';
 
 import axios from 'axios';
-// import FormComponent from "./LiquidAssets/FormComponent";
-// import ImageComponent from "./LiquidAssets/ImageComponent";
-// import TableComponent from "./LiquidAssets/TableComponent";
-
 
 
 class App extends Component {
@@ -32,6 +28,7 @@ class App extends Component {
       bottleWeight: ``,
     },
     userInventoryData: [],
+    userCSVData: [],
     runningTotal: 0,
     formInputErrors: {},
   };
@@ -61,10 +58,6 @@ class App extends Component {
       .get('/api/alcohol')
       .then(response => {
         console.log(response);
-        // this.setState({
-        //   brandStyle: response.brandStyle,
-        //   bottleSize: response.bottleSize,  
-        // })
       })
       .catch(error => {
         console.log(error);
@@ -220,11 +213,6 @@ class App extends Component {
               />
             </Switch>
           </div>
-          {/* <FormComponent 
-            handleInputChange={this.handleInputChange}
-            />
-            <ImageComponent />
-            <TableComponent /> */}
 
         </div>
       </Router>
@@ -255,6 +243,4 @@ const mapDispatchToProps = {
 };
 
 export default (connect(mapStateToProps, mapDispatchToProps))(App);
-// export default (connect(mapStateToProps, {
-//   updateBrandStyle, updateBottleSize, validateBrandStyle, validateBottleSize
-// }))(App);
+
