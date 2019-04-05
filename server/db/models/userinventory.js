@@ -5,7 +5,7 @@ module.exports = (sequelize, DataTypes) => {
     type: DataTypes.STRING,
     brandStyle: DataTypes.STRING,
     costPerBottle: DataTypes.DECIMAL(10,2),
-    sizeML: DataTypes.DECIMAL(10,2),
+    sizeML: DataTypes.DECIMAL(10,0),
     sizeOZ: DataTypes.DECIMAL(10,2),
     ozRemaining: DataTypes.DECIMAL(10,2),
     percentBottleRemaining: DataTypes.DECIMAL(10,2),
