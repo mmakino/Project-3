@@ -22,7 +22,7 @@ const MediaCard = (props) => {
 
                 <CardMedia
                     className={classes.media}
-                    image={require("../images/pappy15.jpg")}
+                    image={props.image}
                 />
 
                 <CardContent>
@@ -39,7 +39,7 @@ const MediaCard = (props) => {
                         component="p" 
                         align="center"
                     >
-                        damn that shit is smooth!
+                        {props.tastingNotes}
                     </Typography>
 
                 </CardContent>

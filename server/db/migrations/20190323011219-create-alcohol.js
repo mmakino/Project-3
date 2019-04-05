@@ -17,7 +17,7 @@ module.exports = {
         allowNull: false,
       },
       sizeML: {
-        type: Sequelize.INTEGER,
+        type: Sequelize.DECIMAL(10,2),
         allowNull: false,
       },
       sizeOZ: {

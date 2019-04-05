@@ -3,7 +3,7 @@ import FormComponent from "./FormComponent"
 import TableComponent from "./TableComponent"
 import ImageComponent from "./ImageComponent"
 import { CSVLink } from "react-csv"
-import { Grid  } from "@material-ui/core"
+import { Grid } from "@material-ui/core"
 
 export default props => {
     return (
@@ -24,9 +24,13 @@ export default props => {
                 </Grid>
 
                 <Grid item xs>
+
                     <ImageComponent
                         formInputs={props.formInputs}
-                        handleInputChange={props.handleInputChange} />
+                        handleInputChange={props.handleInputChange} 
+                        image={props.image}
+                        tastingNotes={props.tastingNotes}
+                    />
                 </Grid>
 
             </Grid>
@@ -34,17 +38,28 @@ export default props => {
             <Grid container>
 
                 <Grid item xs>
+
                     <TableComponent
                         userInventoryData={props.userInventoryData}
                     />
+
+                </Grid>
+
+            </Grid>
+
+            <Grid container>
+
+                <Grid item xs align='right'>
+
                     <CSVLink
                         data={props.userInventoryData}
                         filename={"my-inventory.csv"}
                         className="btn btn-primary"
                         target="_blank"
-                        onClick={() => { 
-                        console.log("You click the link"); // 👍🏻 Your click handling logic
-                    }}
+                        style={{ marginRight: 65}}
+                        onClick={() => {
+                            console.log("You click the link"); // 👍🏻 Your click handling logic
+                        }}
                     >
                         Download Inventory
                     </CSVLink>

@@ -14,9 +14,11 @@ const alcohol = require("../../../controllers/alcohol");
 router.route("/")
     // GET: /api/inventory
     // Return all rows from UserInventory 
-    .get(alcohol.findAll)
+    .get(alcohol.findAll);
 
-    ;
+router.route("/brandStyle")
+    .get(alcohol.findBrandStyle);
+
 
 //
 // Export the router

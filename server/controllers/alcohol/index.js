@@ -21,6 +21,16 @@ class AlcoholListController {
             .then(data => res.json(data))
             .catch(err => res.status(422).json(err));
     }
+    findBrandStyle(req, res) {
+        db.Alcohol
+            .findAll({
+                where:{
+                    brandStyle: req.query.brandStyle
+                }
+            })
+            .then(data => res.json(data))
+            .catch(err => res.status(422).json(err));
+    }
 }
 
 module.exports = new AlcoholListController();

@@ -51,8 +51,9 @@ class BottleSizeIntegrationAutosuggest extends React.Component {
     this.state = {
       inputValue: '',
       suggestions: [],
-      errors: {},
+      errors: "",
     };
+    this.suggestions = [];
   }
 
   initSuggestions() {
@@ -90,7 +91,6 @@ class BottleSizeIntegrationAutosuggest extends React.Component {
       this.initSuggestions();
     }
   }
-
 
   getSuggestions(value) {
     const inputValue = deburr(value.trim()).toLowerCase();
