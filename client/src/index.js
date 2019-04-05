@@ -10,8 +10,8 @@ import setAuthToken from './store/utils/setAuthToken';
 import { setCurrentUser, logoutUser } from './store/actions/authActions';
 import { MuiThemeProvider, createMuiTheme } from '@material-ui/core/styles';
 // import Hue from '@material-ui/core/colors/HUE'
-import blueGrey from '@material-ui/core/colors/blueGrey';
-import cyan from '@material-ui/core/colors/cyan';
+import { blueGrey, cyan } from '@material-ui/core/colors';
+
 
 const primaryGrey = blueGrey[500];
 const secondaryCyan = cyan[400]

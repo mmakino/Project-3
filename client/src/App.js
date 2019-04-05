@@ -10,23 +10,9 @@ import Signup from './components/user/register';
 import Login from './components/user/login';
 import PrivateRoute from './components/user/privateRoute';
 import axios from 'axios';
-import { MuiThemeProvider, createMuiTheme } from '@material-ui/core/styles';
-// import Hue from '@material-ui/core/colors/HUE'
-import blueGrey from '@material-ui/core/colors/blueGrey';
-import cyan from '@material-ui/core/colors/cyan';
 import  { getImageAndNotes } from './LiquidAssets/autosuggest/queryBooze';
 
-const primaryGrey = blueGrey[500];
-const secondaryCyan = cyan[400]
 
-const theme = createMuiTheme ({
-  palette: {
-      primary: 
-        {main: blueGrey[500]},
-      secondary: 
-        {main: cyan[400]}
-  }
-})
 
 
 class App extends Component {
