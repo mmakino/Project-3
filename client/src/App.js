@@ -57,6 +57,7 @@ class App extends Component {
   }
 
   componentDidUpdate() {
+    // this is still a bit overkill at very first for a new user w/o any inventory entry 
     if (this.props.auth.isAuthenticated && this.state.userInventoryData.length === 0) {
       this.getUserInventory();
     }
