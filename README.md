@@ -83,3 +83,6 @@
 * [__Grant__](https://github.com/jgrantlyons)
 * [__Jenay__](https://github.com/jenaym)
 * [__Moto__](https://github.com/mmakino)
+
+## Source Repository                                                                   
+* This repository has been forked from where we originally developed this app together in Jenay's account [Jenay's GitHub](https://github.com/jenaym/Project-3) [04/05/2019]
