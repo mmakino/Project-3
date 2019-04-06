@@ -1,18 +1,16 @@
 @import url('https://fonts.googleapis.com/css?family=Iceberg');
-
-
+@import url('https://fonts.googleapis.com/css?family=Roboto');
 .body {
   background-color: black;
 }
 
 #mainTitle {
   font-family: 'Iceberg', cursive;
-	color: #fff;
-	text-shadow: 0 0 5px #fff, 0 0 10px #fff, 0 0 15px #fff, 0 0 20px #78C2CC, 0 0 30px #78C2CC, 0 0 40px #78C2CC, 0 0 50px #78C2CC, 0 0 75px #78C2CC;
-  font-size: 2.75rem;
-  padding-top: 15px;
-  letter-spacing: .10em;
-
+  color: #fff;
+  text-shadow: 0 0 5px #84FFFF, 0 0 10px #84FFFF, 0 0 15px #84FFFF, 0 0 20px #03A9F4, 0 0 30px #03A9F4, 0 0 40px #03A9F4, 0 0 50px #03A9F4, 0 0 75px #03A9F4;
+  font-size: 3.00rem;
+  padding-top: 20px;
+  letter-spacing: .06em;
 }
 
 /* #mainTitle {

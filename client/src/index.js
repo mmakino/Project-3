@@ -2,37 +2,40 @@ import React from "react";
 import ReactDOM from "react-dom";
 import "./index.css";
 import App from "./App";
+import './App.css';
 import registerServiceWorker from "./registerServiceWorker";
 import jwtDecode from 'jwt-decode';
 import { Provider } from 'react-redux';
 import store from './store';
 import setAuthToken from './store/utils/setAuthToken';
 import { setCurrentUser, logoutUser } from './store/actions/authActions';
-import { MuiThemeProvider, createMuiTheme } from '@material-ui/core/styles';
+import { MuiThemeProvider, createMuiTheme, withTheme } from '@material-ui/core/styles';
 // import Hue from '@material-ui/core/colors/HUE'
-import { blueGrey, cyan } from '@material-ui/core/colors';
+import { blueGrey, cyan, grey } from '@material-ui/core/colors';
+import LiquidAssets from "./LiquidAssets";
 
 
 const primaryGrey = blueGrey[500];
-const secondaryCyan = cyan[400]
+const secondaryCyan = cyan[400];
+const font1 = "'Iceberg', cursive";
+const font2 = "'Roboto', sans-serif";
 
 const theme = createMuiTheme ({
   palette: {
     primary: {
-      main: blueGrey[600]
+      main: grey[900],
     },
     secondary: {
       main: cyan[400],
-      light: cyan[200],
-      dark: cyan[700]
-    }
+      light: cyan.A200,
+      dark: cyan[700],
+    },
+    type: 'dark'
   },
   typography: {
-    fontFamily: [
-      'Iceland'
-    ].join(',')
+    fontFamily: font2,
   },
-  type: 'dark'
+
 })
 
 // check for token
