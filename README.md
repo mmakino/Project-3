@@ -30,7 +30,7 @@
     npm install -g nodemon sequelize-cli
     ```
 
-3. Run `server/db/sql/schema.sql`
+3. Create the database. Run `server/db/sql/schema.sql` with mysql command or in the workbench.
 
 4. Edit `config/config.js` and adjust database configurations.
 
@@ -64,19 +64,22 @@
   * Current version: https://tranquil-meadow-47203.herokuapp.com/
 
 ## Built With
-
-* [Node.JS](https://nodejs.org/)
-* [Express](http://expressjs.com/)
-* [React](https://reactjs.org/)
-* [MySQL](https://www.mysql.com/)
-* [MATERIAL-UI](https://material-ui.com/)
-* [React Autosuggest](https://react-autosuggest.js.org/)
-* [Redux](https://redux.js.org/)
+* [Node.JS](https://nodejs.org/) - an asynchronous event driven JavaScript runtime
+* [Express](http://expressjs.com/) - Fast, unopinionated, minimalist web framework for Node.js
+* [React](https://reactjs.org/) - A JavaScript library for building user interfaces
+* [MySQL](https://www.mysql.com/) - The world's most popular open source database
+* [Sequelize](http://docs.sequelizejs.com/) - a promise-based ORM for Node.js and io.js
+* [MATERIAL-UI](https://material-ui.com/) - React components that implement Google's Material Design
+* [React Autosuggest](https://react-autosuggest.js.org/) - WAI-ARIA compliant autosuggest component built in React
+* [Redux](https://redux.js.org/) - A predictable state container for JavaScript apps
+* [react-csv](https://www.npmjs.com/package/react-csv) - Generate a CSV file from given data
+* [Passport](http://www.passportjs.org/) - Simple, unobtrusive authentication for Node.js
+* [gravatar](https://github.com/emerleite/node-gravatar) - Node.JS library to generate gravatar URLs
+* ... and more
 
 ## Authors
-* [__Nate__](https://github.com/nholdsworth) 
-* [__Grant__](https://github.com/jgrantlyons)
+* [__Nate__](https://github.com/nholdsworth)
 * [__Neri__](https://github.com/xoamara)
+* [__Grant__](https://github.com/jgrantlyons)
 * [__Jenay__](https://github.com/jenaym)
 * [__Moto__](https://github.com/mmakino)
-
